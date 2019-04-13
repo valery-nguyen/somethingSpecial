@@ -1,0 +1,74 @@
+@import "variables";
+
+.feature-nav {
+  section{
+    div {
+      a {
+        text-decoration: none;
+        color: $black;
+        padding: 10px 5px;
+        position: relative;
+        top: 5px;
+      }
+    font-size: 12px;
+    }
+    display: flex;
+    justify-content: space-between;
+    height: 26px;
+    font-size: 20px;
+    font-family: $open-sans;
+    width: 900px;
+    margin: auto;
+  }
+  background-color: $beige;
+}
+
+.feature-nav section div a:not(:first-of-type) {
+  border-left: 2px solid white;
+}
+
+[class*="icon-"] {
+  display: inline-block;
+  background-repeat: no-repeat;
+  vertical-align: top;
+  overflow: hidden;
+  height: 20px;
+  width: 18px;
+  padding: 0px;
+}
+
+.icon-gift {
+  background-image: image-url('icons/gift_icon.png');
+  background-size: 90%;
+  background-position: 1px 0px;
+}
+
+.icon-user {
+  background-image: image-url('icons/user_icon.png');
+  background-size: 70%;
+  background-position: 4px 0px;
+}
+
+.icon-heart {
+  background-image: image-url('icons/heart_icon.png');
+  background-size: 75%;
+  background-position: 3px 1px;
+}
+
+.icon-flag {
+  background-image: image-url('icons/flag_icon.png');
+  background-size: 90%;
+  background-position: 2 2px;
+}
+
+@media all and (max-width: 500px) {
+  .feature-nav {
+    display: none;
+  }
+}
+
+@media all and (max-width: 900px) {
+  .feature-nav section {
+    width: 100%;
+  }
+}

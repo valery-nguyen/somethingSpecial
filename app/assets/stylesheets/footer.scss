@@ -1,0 +1,422 @@
+@import "variables";
+.footer-nav {
+  a, div a{
+    padding: 0 10px;
+    text-decoration: none;
+    color: $black;
+  }
+
+  a:hover, div a:hover {
+    text-decoration: underline;
+    text-decoration-color: $dark-green;
+  }
+
+  background-color: $green;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+}
+
+.footer-links-email {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin: 0 auto;
+  width: 1500px;
+}
+
+.footer-links {
+  div {
+    ul {
+      li {
+        a{
+          text-decoration: none;
+          color: $black;
+        }
+
+        a:hover{
+          text-decoration: underline;
+          text-decoration-color: $dark-green;
+        }
+        padding: 10px 0;
+      }
+      font-family: $open-sans;
+      font-size: 14px;
+      padding-top: 10px;
+    }
+
+    label {
+      font-family: $playfair-serif;
+      font-size: 16px;
+    }
+    
+    padding: 15px;
+  }
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+  width: 55%;
+}
+
+.footer-email-signup {
+  div {
+    form {
+      div {
+        input {
+          width: calc(100% - 70px);
+          height: 38px;
+          box-sizing: border-box;
+          padding: 10px;
+          margin: 10px 0;
+          font-size: 12px;
+
+        }
+
+        button {
+          width: 70px;
+          height: 40px;
+          font-size: 12px;
+          color: white;
+          background-color: $darkest-green;
+          border-top-right-radius: 1px;
+          border-bottom-right-radius: 1px;
+        }
+
+        button:hover {
+          cursor: pointer;
+          color: $black;
+          background-color: $sea-green;
+        }
+        display: flex;
+        align-items: center;
+      }
+    }
+    width: 100%;
+    font-family: $open-sans;
+    font-size: 12px;
+  }
+
+  section {
+    i {
+      display: inline-block;
+      background-repeat: no-repeat;
+      overflow: hidden;
+      height: 100px;
+      width: 100px;
+      background-image: image-url('icons/deliverytruck.gif');
+      background-size: 100%;
+    }
+
+    div {
+      h2 {
+        font-size: 18px;
+        font-family: $playfair-serif;
+      }
+
+      p {
+        a {
+          color: black;
+          text-decoration-color: $dark-green;
+        }
+
+        a:hover {
+          background-color: $green;
+        }
+        font-size: 14px;
+        font-family: $open-sans;
+        padding: 10px 0;
+        line-height: 1.5; 
+      }
+      padding-left: 10px;
+    }
+    padding-top: 10px;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+  }
+
+
+
+
+  width: 45%;
+  padding: 15px 0;
+  font-family: $playfair-serif;
+}
+
+.footer-description-link {
+  border-top: 1px solid $beige;
+  display: flex;
+  justify-content: center;
+  margin-top: 5px;
+  padding-top: 20px;
+  height: 130px;
+  padding-bottom: 20px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.footer-description {
+  ul {
+    li {
+      a{
+        text-decoration: none;
+        color: $black;
+      }
+
+      a:hover{
+        text-decoration: underline;
+        text-decoration-color: $dark-green;
+      }
+      padding-right: 5px;
+    }
+
+    li:not(:first-of-type) {
+      padding-left: 5px;
+    }
+
+    li:not(:last-of-type) {
+      border-right: 0.5px solid $black;
+    }
+
+    display: flex;
+    padding-top: 20px;
+    padding-bottom: 20px;
+  }
+  font-family: $open-sans;
+  font-size: 10px;
+  width: calc(1500px * 0.6);
+  box-sizing: border-box;
+}
+
+.sponsors-links {
+  a {
+    padding: 10px;
+  }
+  height: 60px;
+  width: calc(1500px * 0.4);
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+[class*="logo-"] {
+  display: inline-block;
+  background-repeat: no-repeat;
+  overflow: hidden;
+}
+
+.logo-bcorp {
+  background-image: image-url('icons/bcorp.png');
+  width: 30px;
+  height: 45px;
+  background-size: 100%;
+}
+
+.logo-paypal {
+  background-image: image-url('icons/paypal.png');
+  width: 140px;
+  height: 45px;
+  background-size: 100%;
+}
+
+.logo-bbb {
+  background-image: image-url('icons/bbb.png');
+  width: 115px;
+  height: 45px;
+  background-size: 100%;
+}
+
+.icon-help {
+  background-image: image-url('icons/help_icon.png');
+  background-size: 90%;
+}
+
+.icon-chat {
+  background-image: image-url('icons/chat_icon.png');
+  background-size: 90%;
+}
+
+.icon-email {
+  background-image: image-url('icons/email_icon.png');
+  background-size: 90%;
+}
+
+.icon-phone {
+  background-image: image-url('icons/phone_icon.png');
+  background-size: 90%;
+}
+
+.icon-facebook {
+  background-image: image-url('icons/facebook_icon.png');
+  background-size: 90%;
+}
+
+.icon-twitter {
+  background-image: image-url('icons/twitter_icon.png');
+  background-size: 90%;
+}
+
+.icon-pinterest {
+  background-image: image-url('icons/pinterest_icon.png');
+  background-size: 90%;
+}
+
+.icon-instagram {
+  background-image: image-url('icons/instagram_icon.png');
+  background-size: 90%;
+}
+
+@media all and (max-width: 1500px) {
+  .footer-links-email, .footer-description-link {
+    width: 100%;
+  }
+
+  .footer-description {
+    width: 60%;
+  }
+
+  .sponsors-links {
+    width: 40%;
+  }
+}
+
+@media all and (max-width: 900px) {
+  .footer-links-email {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .footer-links {
+    div {
+      width: calc(100% / 3);
+    }
+    width:100%;
+  }
+
+  .footer-email-signup {
+    div {
+      form {
+        width:80%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+      display: flex;
+      justify-content: center;
+    }
+
+    section {
+      div {
+        display: flex;
+        flex-direction: column;
+      }
+      width: 80%;
+      margin: 0 auto;
+    }
+    width: 100%;
+  }
+
+  .footer-description-link {
+    display: block;
+    border: none;
+  }
+
+  .sponsors-links {
+    width: 100%;
+  }
+
+  .footer-description {
+    .footer-description-details {
+      width: calc(100% - 20px);
+      padding: 10px;
+      text-align: center;
+    }
+
+    p {
+      display: flex;
+      justify-content: center;
+      padding: 10px;
+    }
+
+    ul {
+      a {
+        padding: 0 10px;
+      }
+      display: flex;
+      justify-content: center;
+    }
+    margin-top: 20px;
+    border-top: 1px solid $beige;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .footer-nav {
+    div {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    display: block;
+  }
+}
+
+@media all and (max-width: 600px) {
+  .footer-nav {
+    div {
+      a {
+        padding: 10px;
+      }
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+    }
+    display: block;
+  }
+
+  .footer-links-email {
+    .footer-links {
+      div {
+        ul li {
+          display: flex;
+          justify-content: center;
+
+        }
+
+        label {
+          display: flex;
+          justify-content: center;
+        }
+        margin: 0 auto;
+        width: 200px;
+      }
+      display: flex;
+      flex-direction: column;
+    }
+
+    .footer-email-signup{
+      div {
+        form {
+          width: 90%;
+        }
+      }
+      padding:0;
+      margin:0;
+    }
+
+  }
+
+  .footer-description-link {
+    padding: 0px;
+  }
+}
