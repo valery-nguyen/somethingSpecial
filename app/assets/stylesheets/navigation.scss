@@ -1,6 +1,7 @@
 @import "variables";
 
 .app-header {
+  flex-wrap: nowrap;
 }
 
 .title-nav {
@@ -38,8 +39,9 @@
   }
 
   button{
+    box-sizing: border-box;
     border: none;
-    height: 28px;
+    height: 29px;
     width: 28px;
     padding: 5px 5px;
     border-left: 0.5px solid $dark-beige;
@@ -49,15 +51,16 @@
     cursor: pointer;
   }
 
+
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border: 1px solid $dark-beige;
+  border: 0.5px solid $dark-beige;
   border-top-right-radius: 3px;
   border-bottom-right-radius: 3px;
   width: 330px;
   height: 30px;
-  box-sizing: border-box;
+  box-sizing: content-box;
   padding: 0px 4px;
 }
 
@@ -160,5 +163,15 @@
     display: flex;
     justify-content: space-between;
     padding: 10px;
+    flex-wrap: nowrap;
+  }
+}
+
+@media all and (max-width: 350px) {
+  .app-header {
+    .title-nav {
+      flex-wrap: wrap;
+    }
+    flex-wrap: wrap-reverse;
   }
 }

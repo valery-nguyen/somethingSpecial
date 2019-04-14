@@ -10,7 +10,7 @@ class Header extends React.Component {
     // if (loading) return null;
 
     return <header className="app-header" >
-      <FeatureNav />
+      <FeatureNav currentUser={this.props.currentUser}/>
       <TitleNav />
       <CategoryNav />
     </header >

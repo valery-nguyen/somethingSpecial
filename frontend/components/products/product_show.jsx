@@ -41,7 +41,7 @@ class ProductShow extends React.Component {
     })
 
     return (
-      <section className="product-show-page">
+      <section className="product-show-page main-body">
         <section className="product-show">
           <div className="show-images">
             <img src={this.props.images[0].image_url} />

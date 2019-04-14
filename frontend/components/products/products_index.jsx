@@ -21,7 +21,7 @@ class ProductsIndex extends React.Component {
     if (loading) return null;
 
     return (
-      <div className="background-products">
+      <div className="background-products main-body">
         <BackgroundBanner />
         <WellnessLink />
         <LinksNav />

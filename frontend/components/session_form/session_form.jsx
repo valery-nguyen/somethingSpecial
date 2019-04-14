@@ -21,7 +21,16 @@ class SessionForm extends React.Component {
   handleSubmit(e) {
     e.preventDefault();
     const user = Object.assign({}, this.state);
-    this.props.processForm(user);
+    this.props.processForm(user).then(this.closePanel);
+  }
+
+  closePanel() {
+    const modalEl = document.getElementsByClassName("modal-screen")[0];
+    const modalForm = document.getElementsByClassName("modal-form")[0];
+    const body = document.getElementById("root");
+    modalEl.classList.add("is-open");
+    modalForm.classList.add("is-open");
+    body.classList.remove("noscroll");
   }
 
   renderErrors() {
@@ -37,40 +46,48 @@ class SessionForm extends React.Component {
   }
 
   render() {
+    const fnameEl = (
+      <p>
+        <label> First Name (Optional)</label >
+        <input type="text"
+          value={this.state.fname}
+          onChange={this.update('fname')}
+          className="login-input"
+        />
+      </p>
+    )
     return (
-      <div className="login-form-container">
-        <form onSubmit={this.handleSubmit} className="login-form-box">
-          Please {this.props.formType} or {this.props.navLink}
-          {this.renderErrors()}
-          <div className="login-form">
-            <br />
-            <label>First Name (Optional)
-              <input type="text"
-                value={this.state.fname}
-                onChange={this.update('fname')}
-                className="login-input"
-              />
-            </label>
-            <br />
-            <label>Email Address
-              <input type="text"
-                value={this.state.username}
-                onChange={this.update('email')}
-                className="login-input"
-              />
-            </label>
-            <br />
-            <label>Password
-              <input type="password"
-                value={this.state.password}
-                onChange={this.update('password')}
-                className="login-input"
-              />
-            </label>
-            <br />
-            <input className="session-submit" type="submit" value={this.props.formType} />
-          </div>
-        </form>
+      <div className="login-form-container-outer">
+        <div className="login-form-container">
+          <form onSubmit={this.handleSubmit} className="login-form-box">
+            <div className="login-form">
+              {(this.props.formType === 'create account') ? <div>{fnameEl}</div>: ''}
+              <p>
+                <label>Email Address</label>
+                <input type="email"
+                  value={this.state.username}
+                  onChange={this.update('email')}
+                  className="login-input"
+                />
+                {this.renderErrors() ? <p className="login-errors">{this.renderErrors()}</p> : ''}
+              </p>
+
+              <p>
+                <label>Password</label>
+                <input type="password"
+                  value={this.state.password}
+                  onChange={this.update('password')}
+                  className="login-input"
+                />
+              </p>
+              {(this.props.formType === 'create account') ? <p className="login-form-notes">8 to 16 characters</p> : ''}
+              <input className="session-submit" type="submit" value={this.props.formType} />
+              {(this.props.formType === 'sign in') ? <a href='#'>Forgot your password?</a> : ''}
+              {(this.props.formType === 'create account') ? <p className="login-form-notes">We will not sell, rent, or share your address</p> : ''}
+            
+            </div>
+          </form>
+        </div>
       </div>
     );
   }
