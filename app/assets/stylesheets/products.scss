@@ -49,6 +49,7 @@
     a:hover{
       text-decoration: underline;
       text-decoration-color: $dark-green;
+      transition-duration: 0.2s;
     }
 
     display: flex;
@@ -92,6 +93,7 @@
       span:hover {
         text-decoration: underline;
         text-decoration-color: $dark-green;
+        transition-duration: 0.2s;
       }
       color: $black;
       text-decoration: none;

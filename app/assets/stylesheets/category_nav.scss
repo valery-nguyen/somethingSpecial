@@ -93,14 +93,12 @@
     padding: 20px 0;
     z-index: 1;
     border: 1px solid $beige;
+    transition-duration: 0.2s;
   }
-
-  // .category-nav-links:hover {
-  //   display: none;
-  // }
 
   .hamburger-dropdown ul li:hover a {
     text-decoration: underline;
     text-decoration-color: $dark-green;
+    transition-duration: 0.2s;
   }
 }

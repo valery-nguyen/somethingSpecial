@@ -5,7 +5,7 @@
   overflow: hidden;
 }
 
-.is-open {
+.is-open, .hidden {
   display: none;
 }
 
@@ -21,6 +21,14 @@
   right: 0;
   z-index: 2;
   background: rgba(0, 0, 0, 0.3);
+}
+
+.logout-message {
+  background-color: $green;
+  font-size: 12px;
+  font-family: $open-sans;
+  padding: 20px;
+  width: auto;
 }
 
 .modal-form {
@@ -68,31 +76,75 @@
       font-family: $playfair-serif;
       font-size: 18px;
       padding: 10px;
+      display: flex;
+      justify-content: center;
     }
     display: flex;
     flex-direction: column;
-    margin: auto;
+    margin: auto 0;
     padding-bottom: 10px;
   }
   .modal-form-login-container {
     h1 {
+      button {
+        
+        width: 24x;
+        height: 24px;
+        font-size: 24px;
+        font-family: $open-sans;
+        color: $dark-green;
+        border: none;
+        transform: scaleX(1.7);
+        cursor: pointer;
+      }
+      
       font-family: $playfair-serif;
       font-size: 18px;
       padding-top: 10px;
       padding-bottom: 10px;
       border-top: 2px solid $beige;
+
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
     }
-    padding-bottom: 10px;
   }
   .modal-form-signup-container {
-    h1{
+    h1 {      
+      button {
+        width: 24x;
+        height: 24px;
+        font-size: 24px;
+        font-family: $open-sans;
+        color: $dark-green;
+        border: none;
+        transform: scaleX(1.7);
+        cursor: pointer;
+      }
       font-family: $playfair-serif;
       font-size: 18px;
       padding-top: 10px;
       padding-bottom: 10px;
       border-top: 2px solid $beige;
+
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
     }
-    padding-bottom: 10px;
+  }
+  hr{
+    border-top: 2px solid $beige;
+    border-left: none;
+    border-right: none;
+    border-bottom: none;
+    padding: 0;
+    margin: 0;
+    height: 2px;
+    width: 100%;
   }
   display: flex;
   flex-direction: column;
@@ -103,7 +155,26 @@
   .login-form-container {
     .login-form-box {
       .login-form {
-        p {
+        div {
+          .login-password {
+            input {
+              width: 100%;
+            }
+            .password-show {
+              height: 34px;
+              font-size: 14px;
+              color: grey;
+            }
+
+            .password-show:hover {
+              color: $black;
+              background-color: $sea-green;
+              transition-duration: 0.2s;
+            }
+
+            display: flex;
+            flex-direction: row;
+          }
           label {
             padding: 5px 0;
             font-size: 12px;
@@ -114,9 +185,24 @@
             font-size: 14px;
             padding: 0 5px;
           }
+          div {
+            div {
+            label {
+              padding: 5px 0;
+              font-size: 12px;
+              font-family: $open-sans;
+            }
+            input {
+              height: 30px;
+              font-size: 14px;
+              padding: 0 5px;
+            }
+
+            }
+          }
           display: flex;
           flex-direction: column;
-          margin-bottom: 10px;
+          margin-bottom: 5px;
         }
         .session-submit {
           width: 100%;
@@ -127,12 +213,14 @@
           font-family: $playfair-serif;
           border-radius: 4px;
           padding: 10px;
+          margin-top: 10px;
         }
 
         .session-submit:hover {
           cursor: pointer;
           color: $black;
           background-color: $sea-green;
+          transition-duration: 0.2s;
         }
 
         a {
@@ -141,6 +229,7 @@
           font-family: $open-sans;
           font-size: 12px;
           padding-top: 20px;
+          padding-bottom: 10px;
         }
 
         .login-form-notes {
@@ -159,6 +248,7 @@
           font-style: italic;
           color: grey;
         }
+
         display: flex;
         flex-direction: column;
       }
@@ -172,6 +262,89 @@
   font-weight: 900;
   padding-top: 5px;
   color: red;
+}
+
+.account-panel {
+  section {
+    div{
+      div {
+        a{
+          text-decoration: none;
+          font-family: $open-sans;
+          color: $black;
+          padding: 10px;
+
+        }
+
+        a:hover{
+          text-decoration: underline;
+          text-decoration-color: $dark-green;
+          background-color: $white;
+          transition-duration: 0.2s;
+          cursor: pointer;
+        }
+
+        i{
+          background-image: image-url('icons/heart_icon2.png');
+          background-size: 100%;
+          display: inline-block;
+          background-repeat: no-repeat;
+          vertical-align: top;
+          overflow: hidden;
+          height: 18px;
+          width: 18px;
+          padding: 0px;
+        }
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        border-top: 2px solid $beige;
+        border-bottom: 2px solid $beige;
+      }
+      a{
+        display: flex;
+        justify-content: left;
+        text-decoration: none;
+        font-family: $open-sans;
+        text-decoration-color: $dark-green;
+        color: $black;
+        border: none;
+        padding: 10px;
+      }
+
+      a:hover{
+        text-decoration: underline;
+        text-decoration-color: $dark-green;
+        background-color: $white;
+        transition-duration: 0.2s;
+      }
+      display: flex;
+      flex-direction: column;
+      justify-content: left;
+    }
+    a{
+      text-decoration: none;
+      font-family: $playfair-serif;
+      font-size: 12px;
+      color: $darkest-green;
+      border: 2px solid $green;
+      height: 30px;
+      border-radius: 2px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 5px;
+    }
+
+    a:hover{
+      color: $black;
+      background-color: $sea-green;
+      transition-duration: 0.2s;
+    }
+
+    display:flex;
+    flex-direction: column;
+  }
 }
 
 @media all and (max-width: 900px) {

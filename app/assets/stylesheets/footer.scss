@@ -9,6 +9,7 @@
   a:hover, div a:hover {
     text-decoration: underline;
     text-decoration-color: $dark-green;
+    transition-duration: 0.2s;
   }
 
   background-color: $green;
@@ -39,6 +40,7 @@
         a:hover{
           text-decoration: underline;
           text-decoration-color: $dark-green;
+          transition-duration: 0.2s;
         }
         padding: 10px 0;
       }
@@ -88,6 +90,7 @@
           cursor: pointer;
           color: $black;
           background-color: $sea-green;
+          transition-duration: 0.2s;
         }
         display: flex;
         align-items: center;
@@ -123,6 +126,7 @@
 
         a:hover {
           background-color: $green;
+          transition-duration: 0.2s;
         }
         font-size: 14px;
         font-family: $open-sans;
@@ -168,6 +172,7 @@
       a:hover{
         text-decoration: underline;
         text-decoration-color: $dark-green;
+        transition-duration: 0.2s;
       }
       padding-right: 5px;
     }
