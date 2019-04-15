@@ -27,9 +27,8 @@ class ProductShow extends React.Component {
   render() {
     const { product, loading } = this.props;
     
-    if (!product) return null;
-    if (loading) return null;
-    
+    if (!product || this.props.images.length === 0 || loading) return null;
+
     const imagesLis = this.props.images.map( (image, idx) => {
       return <li key={idx}> <img src={ image.image_url } alt={ product.title } /> </li>
     });

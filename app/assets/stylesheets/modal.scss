@@ -159,11 +159,15 @@
           .login-password {
             input {
               width: 100%;
+              float: right;
             }
             .password-show {
-              height: 34px;
+
+              width: 70px;
               font-size: 14px;
               color: grey;
+              box-sizing: content-box;
+              float: right;
             }
 
             .password-show:hover {

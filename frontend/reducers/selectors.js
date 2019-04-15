@@ -21,7 +21,8 @@ export const selectImages = (state, productTitle) => {
   const searchTitle = productTitle.split('-').join(' ');
   const products = state.entities.products;
   Object.keys(products).forEach(key => {
-    if (products[key].title.toLowerCase() === searchTitle) {
+    if (products[key].title.toLowerCase() === searchTitle &&
+      state.entities.products[key]['image_urls']) {
       result = Object.values(state.entities.products[key].image_urls);
     }
   });
@@ -32,7 +33,11 @@ export const selectRelatedProducts = (state, productTitle) => {
   // The code below is simulating related products by choosing 6 random
   // products among all products in our mock database.
   Object.freeze(state);
-  let allProducts = Object.values(state.entities.products);
+  let allProducts = [];
+  Object.values(state.entities.products).forEach(product => {
+    if( product['image_urls'] ) allProducts.push(product);
+  });
+
   allProducts.sort(() => { return 0.5 - Math.random() });
   let selectedProducts = [];
   let numProducts = 6;

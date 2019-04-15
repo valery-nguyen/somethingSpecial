@@ -7,6 +7,7 @@ class Api::ProductsController < ApplicationController
     title = params[:id].split('-').map(&:capitalize).join(' ')
     @product = Product.where(title: title).first
     @related_products = @product.related_products
+    @products = Product.all
   end
 
 end

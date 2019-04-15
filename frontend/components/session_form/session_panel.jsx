@@ -62,8 +62,8 @@ class SessionPanel extends React.Component {
   render () {
     const currentUser = this.props.currentUser;
     return (
-      <div className="modal">
-        <section className="modal-screen is-open">
+      <div className="modal" >
+        <section className="modal-screen is-open" onClick={this.handleCloseClick}>
         </section>
 
         <section className="modal-form is-open">

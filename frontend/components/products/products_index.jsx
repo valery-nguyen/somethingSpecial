@@ -7,6 +7,11 @@ import LinksNav from './links_nav';
 import { WellnessLink } from './category_link';
 
 class ProductsIndex extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.arePreviewsInState = this.arePreviewsInState.bind(this);
+  }
   componentDidMount() {
     this.props.requestAllProducts();
     window.scrollTo(0, 0);
@@ -15,10 +20,20 @@ class ProductsIndex extends React.Component {
   componentDidUpdate(prevProp) {
   }
 
+  arePreviewsInState() {
+    if (this.props.products.length === 0) return false;
+    let numPreviewsLoaded = 0;
+    Object.values(this.props.products).forEach(product => {
+      if (product['image_urls']) numPreviewsLoaded = numPreviewsLoaded + 1;
+    });
+    return (this.props.products.length === numPreviewsLoaded);
+  }
+
   render() {
     const { products, loading } = this.props;
 
     if (loading) return null;
+    if (!this.arePreviewsInState()) return null;
 
     return (
       <div className="background-products main-body">
@@ -36,9 +51,5 @@ class ProductsIndex extends React.Component {
   }
 }
 
-function areEqual(prevProps, nextProps) {
-  // return _.isEqual(prevProps.products, nextProps.products);
-  return false;
-}
 
-export default React.memo(ProductsIndex, areEqual);
+export default ProductsIndex;
