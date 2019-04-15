@@ -8,6 +8,14 @@
 
 Product.destroy_all
 ProductImage.destroy_all
+User.destroy_all
+
+user1 = User.create({
+  fname: 'Valery',
+  lname: 'Nguyen',
+  email: 'admin@gmail.com',
+  password: 'california'
+})
 
 product1 = Product.create({ 
     title: 'Urban Map Glass', 

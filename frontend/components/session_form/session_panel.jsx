@@ -15,7 +15,31 @@ class SessionPanel extends React.Component {
 
     this.handleSigninOpen = this.handleSigninOpen.bind(this);
     this.handleSignUpOpen = this.handleSignUpOpen.bind(this);
+    this.handleDemoSubmit = this.handleDemoSubmit.bind(this);
+    this.closePanel = this.closePanel.bind(this);
   }
+
+  // this function handleDemoSubmit  and closePanel have been added for demonstration purposes only
+  handleDemoSubmit(e) {
+    e.preventDefault();
+    const logoutMsg = document.getElementsByClassName("logout-message")[0];
+    logoutMsg.classList.add("hidden");
+    const demoUser = {
+      email: 'admin@gmail.com',
+      password: 'california'
+    };
+    this.props.login(demoUser).then(this.closePanel);
+  }
+  closePanel() {
+    const modalEl = document.getElementsByClassName("modal-screen")[0];
+    const modalForm = document.getElementsByClassName("modal-form")[0];
+    const body = document.getElementById("root");
+    modalEl.classList.add("is-open");
+    modalForm.classList.add("is-open");
+    body.classList.remove("noscroll");
+  }
+  // <-- see opening comment above
+
   handleCloseClick(e) {
     e.preventDefault();
     const modalEl = document.getElementsByClassName("modal-screen")[0];
@@ -87,7 +111,11 @@ class SessionPanel extends React.Component {
             </div>
             {(currentUser) ? '' : <hr></hr>}
           </div>
+
+          {/* temporary button to user for demonstration */}
+          {(currentUser) ? '' : <input className="session-demo-btn" type="submit" onClick={this.handleDemoSubmit} value="demo sign in" />}
           
+        
         </section>
 
       </div>
