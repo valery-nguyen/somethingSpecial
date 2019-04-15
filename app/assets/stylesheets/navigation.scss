@@ -152,6 +152,8 @@
   }
   display: flex;
   align-items: center;
+  box-sizing: border-box;
+  padding-left: 10px;
 }
 
 
@@ -178,6 +180,17 @@
 @media all and (max-width: 900px) {
   .title-nav {
     width: 100%;
+  }
+
+}
+
+@media all and (max-width: 650px) {
+  .title-search{
+    width: calc(100vw - 330px)
+  }
+
+  .title-search-results{
+    width: calc(100vw - 320px)
   }
 }
 
