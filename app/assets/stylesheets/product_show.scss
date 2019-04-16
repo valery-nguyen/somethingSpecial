@@ -10,6 +10,7 @@
   display: flex;
   justify-content: center;
   margin: auto;
+  padding-top: 10px;
 }
 
 .show-images {
@@ -512,7 +513,6 @@
 .product-details-shipping {
   h1 {
     button {
-      
       width: 24x;
       height: 24px;
       font-size: 24px;
@@ -521,6 +521,7 @@
       border: none;
       transform: scaleX(1.7);
       cursor: pointer;
+      box-sizing: border-box;
     }
     
     font-family: $playfair-serif;

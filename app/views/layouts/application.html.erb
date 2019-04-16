@@ -12,6 +12,8 @@
     <link href="https://fonts.googleapis.com/css?family=Playfair+Display" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Roboto:500" rel="stylesheet">
     <%= javascript_include_tag 'application' %>
+
+
   </head>
 
   <body>
@@ -21,6 +23,10 @@
             <%= render("api/users/user.json.jbuilder", user: current_user).html_safe %>
       </script>
     <% end %>
+
+    <script type="text/javascript">
+      window.emptyCartURL = "<%= image_url('empty-cart.svg') %>"
+    </script>
     
     <%= yield %>
   </body>

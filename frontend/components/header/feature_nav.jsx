@@ -12,6 +12,16 @@ class FeatureNav extends React.Component {
     body.classList.add("noscroll");
   }
 
+  handleShipClick(e) {
+    e.preventDefault();
+    const modalEl = document.getElementsByClassName("ship-modal-screen")[0];
+    const modalForm = document.getElementsByClassName("ship-modal-section")[0];
+    const body = document.getElementById("root");
+    modalEl.classList.remove("is-open");
+    modalForm.classList.remove("is-open");
+    body.classList.add("noscroll");
+  }
+
   render() {
     const currentUser = this.props.currentUser;
 
@@ -19,7 +29,7 @@ class FeatureNav extends React.Component {
       <nav className="feature-nav">
         <section>
           <div>
-            <a href="#" className="link-blog">Our Blog: <i>The Goods</i></a>
+            <a href="https://www.uncommongoods.com/blog/" className="link-blog">Our Blog: <i>The Goods</i></a>
             <a href="#"><i className="icon-gift"></i> Gift Finder</a>
           </div>
 
@@ -29,7 +39,7 @@ class FeatureNav extends React.Component {
             </a>
             
             <a href="#"><i className="icon-heart"></i> Wish Lists</a>
-            <a href="#"><i className="icon-flag"></i> Ship To</a>
+            <a href="#" onClick={this.handleShipClick}><i className="icon-flag"></i> Ship To</a>
           </div >
         </section>
       </nav>
