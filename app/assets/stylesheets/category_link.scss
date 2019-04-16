@@ -44,7 +44,11 @@
 }
 
 @media all and (max-width: 450px) {
-  .wellness-link a button {
-    width: 300px;
+  .wellness-link {
+    a button {
+      width: 80vw;
+    }
+    width: 90vw;
+    box-sizing: border-box;
   }
 }

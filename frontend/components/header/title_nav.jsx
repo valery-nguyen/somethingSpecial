@@ -17,17 +17,21 @@ class TitleNav extends React.Component {
 
   handleClick(e) {
     e.preventDefault();
-    this.props.history.push('/api/products');
+    this.props.history.push('/');
   }
 
   render() {
     return <nav className="title-nav">
-      <Link to="#" className="header-link" onClick={this.handleClick.bind(this)}>
+      <Link to="/" className="header-link" onClick={this.handleClick.bind(this)}>
         <h1> something<span>Special</span> </h1>
       </Link>
       <ProductSearch />
       <div className="title-cart" >
-        <button onClick={this.handleCartClick}><i className="icon-cart"></i></button>
+        <div className="title-cart-inner" onClick={this.handleCartClick}>
+          {(false) ? '' : <div className="title-nav-cart-count">{98}</div>}
+          {(false) ? <button><i className="icon-cart"></i></button> : <button><i className="title-nav-empty-cart-icon"></i></button>}
+        </div>
+
         <a href="#">checkout</a>
       </div>
   </nav>

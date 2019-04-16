@@ -1,7 +1,8 @@
 import React from 'react';
 import {
   Route,
-  Switch
+  Switch,
+  Redirect
 } from 'react-router-dom';
 import { AuthRoute, ProtectedRoute } from '../util/route_util';
 
@@ -19,7 +20,8 @@ const App = () => (
     <Switch>
       <Route exact path="/api/products" component={ProductsIndexContainer} />
       <Route exact path="/api/products/:productTitle" component={ProductShowContainer} />
-      <Route path="/" component={ProductsIndexContainer} />
+      <Route exact path="/" component={ProductsIndexContainer} />
+      <Redirect from='/' to='/' />
     </Switch>
     <Footer />
     <SessionPanel />

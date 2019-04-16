@@ -88,7 +88,7 @@
   .hamburger-dropdown:hover ul {
     display: flex;
     background-color: white;
-    width: 100vw;
+    width: calc(100vw - 15px);
     height: 100vw;
     padding: 20px 0;
     z-index: 1;
