@@ -1,7 +1,13 @@
 import React from 'react';
 import { withRouter } from 'react-router';
+import { Link } from 'react-router-dom';
 
 class CartPanel extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.handleCloseClick = this.handleCloseClick.bind(this);
+  }
   handleCloseClick(e) {
     e.preventDefault();
     const modalScreen = document.getElementsByClassName("cart-modal-screen")[0];
@@ -11,12 +17,13 @@ class CartPanel extends React.Component {
     modalSection.classList.add("is-open");
     body.classList.remove("noscroll");
 
+    //temporary - push to cart page
     this.props.history.push('/api/products');
   }
 
   render () {
     //temporary
-      const tempProduct = {
+      let tempProduct = {
         title: 'Birthstone Wishing Balls',
         description: "Capture a single wish, accomplishment, or meditation every week throughout the year inside this work of art.",
         price: 32.59,
@@ -31,20 +38,58 @@ class CartPanel extends React.Component {
         care: "",
         notes: "Includes 52 slips of paper.",
         item_id: 26446,
-        made_in: "usa"
+        made_in: "usa",
+        image_urls: {
+          2492: { image_url: "/assets/items/49658_1_640px-31978c98720f3553950a5cd0247e9a4e20e5aae86643d5e0706cff4d0531cb4c.jpg"},
+          2493: { image_url: "/assets/items/49658_2_640px-090626acad6f8538b9a44c5a16cafde1e52571378ed134a21cac00b99bf43885.jpg"}
+        }
+
       };
     // <- see above
-    let subtotal = 58.5945645;
-    let productsInCart = [tempProduct];
-    // let productsInCart = [];
+    let subtotal = 0;
+    let productsInCart = [
+      tempProduct, 
+      tempProduct, 
+      tempProduct, 
+      tempProduct, 
+      tempProduct,
+      tempProduct,
+      tempProduct, 
+      tempProduct,
+      tempProduct,
+      tempProduct, 
+      tempProduct,
+      tempProduct,
+      tempProduct];
+    tempProduct.qty = 2;
 
-    // const numProducts = productsInCart.length;
-    const numProducts = 75; // for testing, to remove
+    const numProducts = productsInCart.length;
     productsInCart.forEach(product => {
-      subtotal = (subtotal + product.price).toFixed(2);
+      subtotal = (subtotal + (product.price * product.qty));
     });
     
     const currentUser = this.props.currentUser;
+    const productsLis = productsInCart.map((product, idx) => {
+      let productExtension = product.title.toLowerCase().split(' ').join('-');
+      return (
+        <li key={idx}>
+          <div className="cart-panel-details">
+              < Link to={`/api/products/${productExtension}`}>
+                <img onClick={this.handleCloseClick} src={Object.values(product.image_urls)[0].image_url} alt={product.title} />
+              </Link >
+              <div>
+                <h2>{product.title}</h2>
+              </div>
+          </div>
+          <div className="cart-panel-qty-price">
+            <p>Qty: {product.qty}</p>
+            <p>${product.price.toFixed(2)}</p>
+          </div>
+          
+        </li>
+      )
+    })
+
     return (
       <div className="cart-panel-outer" >
         <section className="cart-modal-screen is-open" onClick={this.handleCloseClick}>
@@ -58,11 +103,13 @@ class CartPanel extends React.Component {
             <div className="cart-panel-header">
               {(productsInCart.length === 0) ? '' : <div className="cart-panel-icon-count">{numProducts}</div>}
               {(productsInCart.length === 0) ? '' : <i className="cart-panel-header-icon"></i>}
-              {(productsInCart.length === 0) ? <h1>Your cart is empty</h1> : <h2>Subtotal: ${subtotal.toString()}</h2>}
+              {(productsInCart.length === 0) ? <h1>Your cart is empty</h1> : <h2>Subtotal: ${subtotal.toFixed(2)}</h2>}
             </div>
             <div className="cart-panel-body">
               {(productsInCart.length === 0) ? <img src={window.emptyCartURL} className="cart-empty-splash" /> : ''}
-              {(productsInCart.length === 0) ? '' : <button className="view-cart-btn" onClick={this.handleCloseClick.bind(this)}><h1>visit cart / checkout</h1></button>}
+
+              {(productsInCart.length === 0) ? '' : <button className="view-cart-btn" onClick={this.handleCloseClick}><h1>visit cart / checkout</h1></button>}
+              {(productsInCart.length === 0) ? '' : <ul>{productsLis}</ul>}
             </div>
           </div>
         </section>
