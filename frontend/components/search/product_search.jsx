@@ -44,7 +44,7 @@ class ProductSearch extends React.Component {
           <li 
           key={result.id} 
           onClick={this.selectProduct}>
-            <Link to={`/api/products/${url}`}>
+            <Link to={`/product/${url}`}>
               {result.title}
             </Link>
           </li>

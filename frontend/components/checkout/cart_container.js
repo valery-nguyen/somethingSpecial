@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 
-import CartPanel from './cart_panel';
+import Cart from './cart';
 import { requestCartItems, clearCartItems } from '../../actions/products_actions';
 import { selectCartItems } from '../../reducers/selectors';
 
@@ -17,9 +17,7 @@ const mapDispatchToProps = dispatch => {
   return { 
     requestCartItems: () => dispatch(requestCartItems()),
     clearCartItems: () => dispatch(clearCartItems()) 
-  
   }
 };
 
-
-export default connect(mapStateToProps, mapDispatchToProps)(CartPanel);
+export default connect(mapStateToProps, mapDispatchToProps)(Cart);

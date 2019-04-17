@@ -9,18 +9,26 @@
         padding: 10px 5px;
         position: relative;
         top: 5px;
+        font-size: 13px;
+        display: inline-block;
+        margin-top: auto;
+        margin-bottom: auto;
       }
-    font-size: 12px;
+      
     }
     display: flex;
     justify-content: space-between;
-    height: 26px;
+    align-items: center;
+    height: 30px;
     font-size: 20px;
     font-family: $open-sans;
     width: 900px;
-    margin: auto;
   }
   background-color: $beige;
+  padding-bottom: 5px;
+  height: 24px;
+  display: flex;
+  justify-content: center;
 }
 
 .feature-nav section div a:not(:first-of-type) {
@@ -52,23 +60,50 @@
 .icon-heart {
   background-image: image-url('icons/heart_icon.png');
   background-size: 75%;
-  background-position: 3px 1px;
+  background-position: 3px -1px;
 }
 
 .icon-flag {
   background-image: image-url('icons/flag_icon.png');
-  background-size: 90%;
+  background-size: 75%;
   background-position: 2 2px;
-}
-
-@media all and (max-width: 500px) {
-  .feature-nav {
-    display: none;
-  }
 }
 
 @media all and (max-width: 900px) {
   .feature-nav section {
     width: 100%;
   }
+
+  .feature-nav {
+    section{
+      div {
+        a{
+          top: 4px;
+        }
+        font-size: 12px;
+                
+      }
+    }
+  }
 }
+
+@media all and (max-width: 600px) {
+  .feature-nav {
+    section{
+      div {
+        a{
+          span {
+          display: none;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media all and (max-width: 450px) {
+  .feature-nav {
+    display: none;
+  }
+}
+

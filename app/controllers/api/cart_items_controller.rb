@@ -1,7 +1,10 @@
 class Api::CartItemsController < ApplicationController
   def index
-    @cart_items = current_user.cart_items.includes(:product)
-    @products = current_user.products.includes(:product_images)
+    @current_user = current_user
+    @cart_items = @current_user.cart_items.includes(:product)
+    @products = @current_user.products.includes(:product_images)
+    @all_products = Product.all
+    
     render :index
   end
   
@@ -17,8 +20,10 @@ class Api::CartItemsController < ApplicationController
     end
 
     if @cart_item.save
-      @cart_items = current_user.cart_items
-      @products = current_user.products
+      @current_user = current_user
+      @cart_items = @current_user.cart_items.includes(:product)
+      @products = @current_user.products.includes(:product_images)
+      @all_products = Product.all
       render :index
     else
       render json: @cart_item.errors.full_messages, status: 422
@@ -26,15 +31,30 @@ class Api::CartItemsController < ApplicationController
   end
 
   def update
-    # debugger
-    # @cart_item = current_user.cart_items.find(params[:id])
+    item_lookup_results = CartItem.where("product_id = ? and user_id = ?", cart_item_params["product_id"], current_user.id.to_s);
+    @cart_item = item_lookup_results.first
 
-    # if @product.update(product_params)
-    #     redirect_to product_url(@product)
-    # else
-    #     flash.now[:errors] = @product.errors.full_messages
-    #     render :edit
-    # end
+    if @cart_item.update(cart_item_params)
+      @current_user = current_user
+      @cart_items = @current_user.cart_items.includes(:product)
+      @products = @current_user.products.includes(:product_images)
+      @all_products = Product.all
+      render :index
+    else
+      render json: @cart_item.errors.full_messages, status: 422
+    end
+  end
+
+  def destroy
+    item_lookup_results = CartItem.where("product_id = ? and user_id = ?", cart_item_params["product_id"], current_user.id.to_s);
+    @cart_item = item_lookup_results.first
+    @cart_item.destroy
+
+    @current_user = current_user
+    @cart_items = @current_user.cart_items.includes(:product)
+    @products = @current_user.products.includes(:product_images)
+    @all_products = Product.all
+    render :index
   end
 
   private

@@ -64,12 +64,12 @@ class SessionForm extends React.Component {
       <ul>
         {this.state.errors.map((error, i) => {
           if(this.props.formType === 'sign in' && 
-            error === "We don't seem to have that email on file. Try again!") {
+            error === "We don't seem to have that email/password on file. Try again!") {
             return <li key={`error-${i}`}>
               {error}
             </li>
           } else if (this.props.formType === 'create account' &&
-            error !== "We don't seem to have that email on file. Try again!") {
+            error !== "We don't seem to have that email/password on file. Try again!") {
             return <li key={`error-${i}`}>
               {error}
             </li>
@@ -114,7 +114,7 @@ class SessionForm extends React.Component {
                     onChange={this.update('password')}
                     className="login-input"
                   />
-                  {(this.props.formType === 'sign in') ? <button onClick={this.handleShowClick} className="password-show">SHOW</button> : ''}
+                  {(this.props.formType === 'sign in') ? <button onClick={this.handleShowClick} className="password-show" type="button">SHOW</button> : ''}
                 </div>
                 
               </div>

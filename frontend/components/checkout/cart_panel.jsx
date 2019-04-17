@@ -43,9 +43,7 @@ class CartPanel extends React.Component {
 
   handleViewCartClick () {
     this.handleCloseClick();
-
-    //temporary - push to view cart page
-    this.props.history.push('/api/products');
+    this.props.history.push('/checkout/cart');
   }
 
   render () {
@@ -65,7 +63,7 @@ class CartPanel extends React.Component {
       return (
         <li key={idx}>
           <div className="cart-panel-details">
-              < Link to={`/api/products/${productExtension}`}>
+              < Link to={`/product/${productExtension}`}>
               <img onClick={this.handleProductClick} src={Object.values(product.image_urls)[0].image_url} alt={product.title} />
               </Link >
               <div>

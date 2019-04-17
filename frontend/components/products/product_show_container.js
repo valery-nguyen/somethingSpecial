@@ -10,8 +10,12 @@ const mapStateToProps = (state, ownProps) => {
   const product = selectProduct(state, productTitle);
   const images = selectImages(state, productTitle);
   const loading = state.ui.loading.detailLoading;
-  
+  const session = state.session;
+  const users = state.entities.users;
+  const currentUser = users[session.currentUserId];
+
   return {
+    currentUser,
     products,
     productTitle,
     product,

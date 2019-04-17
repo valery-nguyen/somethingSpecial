@@ -30,7 +30,7 @@ class FeatureNav extends React.Component {
         <section>
           <div>
             <a href="https://www.uncommongoods.com/blog/" className="link-blog">Our Blog: <i>The Goods</i></a>
-            <a href="#"><i className="icon-gift"></i> Gift Finder</a>
+            <a href="#"><i className="icon-gift"></i><span>Gift Finder</span></a>
           </div>
 
           <div>
@@ -38,8 +38,8 @@ class FeatureNav extends React.Component {
               <i className="icon-user"></i> {(currentUser) ? `Hi, ${currentUser.fname || ''} ${currentUser.lname || ''}` : 'Sign In'}
             </a>
             
-            <a href="#"><i className="icon-heart"></i> Wish Lists</a>
-            <a href="#" onClick={this.handleShipClick}><i className="icon-flag"></i> Ship To</a>
+            <a href="#"><i className="icon-heart"></i> <span>Wish Lists</span></a>
+            <a href="#" onClick={this.handleShipClick}><i className="icon-flag"></i> <span>Ship To</span></a>
           </div >
         </section>
       </nav>

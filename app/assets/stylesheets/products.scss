@@ -44,7 +44,7 @@
       text-decoration: none;
       color: $black;
       padding: 0 12px;
-      font-size: 11px;
+      font-size: 14px;
       font-family: $open-sans;
     }
 
@@ -134,6 +134,17 @@
 
   .header-background {
     height: 240px;
+  }
+}
+
+@media all and (max-width: 600px) {
+  .links-nav {
+    div div, 
+    div {
+      a{
+        font-size: 11px;
+      }
+    }
   }
 }
 

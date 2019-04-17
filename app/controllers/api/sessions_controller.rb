@@ -9,7 +9,7 @@ class Api::SessionsController < ApplicationController
       login(@user)
       render "api/users/show"
     else
-      render json: ["We don't seem to have that email on file. Try again!"], status: 401
+      render json: ["We don't seem to have that email/password on file. Try again!"], status: 401
     end
   end
 

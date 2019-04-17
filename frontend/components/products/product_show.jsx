@@ -47,13 +47,22 @@ class ProductShow extends React.Component {
 
   handleAddToCart(e) {
     e.preventDefault();
-    const qtyEl = document.getElementById("show-product-qty");
-    const itemQty = parseInt(qtyEl.options[qtyEl.options.selectedIndex].value);
-    const cartItem = {
-      product_id: this.props.product.id,
-      quantity: itemQty
-    };
-    this.props.addCartItem(cartItem).then(this.previewCart);
+    if (this.props.currentUser) {
+      const qtyEl = document.getElementById("show-product-qty");
+      const itemQty = parseInt(qtyEl.options[qtyEl.options.selectedIndex].value);
+      const cartItem = {
+        product_id: this.props.product.id,
+        quantity: itemQty
+      };
+      this.props.addCartItem(cartItem).then(this.previewCart);
+    } else {
+      const modalEl = document.getElementsByClassName("modal-screen")[0];
+      const modalForm = document.getElementsByClassName("modal-form")[0];
+      const body = document.getElementById("root");
+      modalEl.classList.remove("is-open");
+      modalForm.classList.remove("is-open");
+      body.classList.add("noscroll");
+    }
   }
 
   render() {
