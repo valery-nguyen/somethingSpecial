@@ -1,5 +1,6 @@
 import { connect } from 'react-redux';
 import { selectAllProducts } from '../../reducers/selectors';
+import { requestSearchItems } from '../../actions/products_actions';
 import ProductSearch from './product_search';
 
 const mapStateToProps = (state) => {
@@ -9,4 +10,10 @@ const mapStateToProps = (state) => {
   }
 };
 
-export default connect(mapStateToProps)(ProductSearch);
+const mapDispatchToProps = dispatch => {
+  return {
+    requestSearchItems: () => dispatch(requestSearchItems()),
+  }
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(ProductSearch);

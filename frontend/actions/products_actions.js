@@ -2,6 +2,7 @@ import * as APIUtil from '../util/api_util';
 
 export const RECEIVE_ALL_PRODUCTS = 'RECEIVE_ALL_PRODUCTS';
 export const RECEIVE_CART_ITEMS = 'RECEIVE_CART_ITEMS';
+export const RECEIVE_SEARCH_INDEX = 'RECEIVE_SEARCH_INDEX';
 export const START_LOADING_ALL_PRODUCTS = 'START_LOADING_ALL_PRODUCTS';
 export const START_LOADING_CART_ITEMS = 'START_LOADING_CART_ITEMS';
 export const START_LOADING_PRODUCT = 'START_LOADING_PRODUCT';
@@ -16,6 +17,11 @@ const receiveAllProducts = products => ({
 const receiveCartItems = cartItems => ({
   type: RECEIVE_CART_ITEMS,
   cartItems
+});
+
+const receiveSearchIndex = products => ({
+  type: RECEIVE_SEARCH_INDEX,
+  products
 });
 
 const startLoadingAllProducts = () => ({
@@ -69,4 +75,9 @@ export const addCartItem = (cartItem) => (dispatch) => {
 
 export const clearCartItems = () => (dispatch) => {
   return dispatch(clearCartAction());
+}
+
+export const requestSearchItems = () => (dispatch) => {
+  return APIUtil.fetchSearchIndex()
+    .then(products => dispatch(receiveSearchIndex(products)));
 }

@@ -26,3 +26,10 @@ export const createCartItem = (cartItem) => (
     data: { cart_item: cartItem }
   })
 );
+
+export const fetchSearchIndex = () => (
+  $.ajax({
+    method: 'GET',
+    url: 'api/searches'
+  })
+);

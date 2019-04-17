@@ -3,7 +3,6 @@ class Api::CartItemsController < ApplicationController
     @current_user = current_user
     @cart_items = @current_user.cart_items.includes(:product)
     @products = @current_user.products.includes(:product_images)
-    @all_products = Product.all
     
     render :index
   end
@@ -23,7 +22,6 @@ class Api::CartItemsController < ApplicationController
       @current_user = current_user
       @cart_items = @current_user.cart_items.includes(:product)
       @products = @current_user.products.includes(:product_images)
-      @all_products = Product.all
       render :index
     else
       render json: @cart_item.errors.full_messages, status: 422
@@ -38,7 +36,6 @@ class Api::CartItemsController < ApplicationController
       @current_user = current_user
       @cart_items = @current_user.cart_items.includes(:product)
       @products = @current_user.products.includes(:product_images)
-      @all_products = Product.all
       render :index
     else
       render json: @cart_item.errors.full_messages, status: 422
@@ -53,7 +50,6 @@ class Api::CartItemsController < ApplicationController
     @current_user = current_user
     @cart_items = @current_user.cart_items.includes(:product)
     @products = @current_user.products.includes(:product_images)
-    @all_products = Product.all
     render :index
   end
 

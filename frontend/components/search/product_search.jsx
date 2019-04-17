@@ -12,6 +12,10 @@ class ProductSearch extends React.Component {
     this.handleInput = this.handleInput.bind(this);
   }
 
+  componentDidMount() {
+    this.props.requestSearchItems();
+  }
+
   handleInput(e) {
     this.setState({ inputVal: e.currentTarget.value });
   }
