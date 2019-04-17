@@ -98,15 +98,18 @@
             }
           }
 
-          div h2 {
-            padding-left: 10px;
-            padding-right: 20px;
-            font-family: $playfair-serif;
-            font-size: 14px;
+          div {
+            h2 {
+              padding-left: 10px;
+              padding-right: 15px;
+              font-family: $playfair-serif;
+              font-size: 14px;
+            }
           }
           display: flex;
           flex-direction: row;
           justify-content: left;
+          width: calc(100% - 50px);
         }
 
         .cart-panel-qty-price {
@@ -156,7 +159,10 @@
       background-color: $sea-green;
       transition-duration: 0.2s;
     }
-    padding: 0 10px;
+    padding-top: 0;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-bottom: 20px;
   }
   width: calc(100% - 20px);
   

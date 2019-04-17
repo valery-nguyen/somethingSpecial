@@ -1,12 +1,15 @@
 import {
   RECEIVE_ALL_PRODUCTS,
   START_LOADING_ALL_PRODUCTS,
-  START_LOADING_PRODUCT
+  START_LOADING_PRODUCT,
+  RECEIVE_CART_ITEMS,
+  START_LOADING_CART_ITEMS
 } from '../actions/products_actions';
 
 const initialState = {
   indexLoading: false,
-  detailLoading: false
+  detailLoading: false,
+  cartLoading: false
 };
 
 const loadingReducer = (state = initialState, action) => {
@@ -18,6 +21,10 @@ const loadingReducer = (state = initialState, action) => {
       return Object.assign({}, state, { indexLoading: true });
     case START_LOADING_PRODUCT:
       return Object.assign({}, state, { detailLoading: true });
+    case RECEIVE_CART_ITEMS:
+      return Object.assign({}, state, { cartLoading: false });
+    case START_LOADING_CART_ITEMS:
+      return Object.assign({}, state, { cartLoading: true });
     default:
       return state;
   }

@@ -29,6 +29,12 @@ export const selectImages = (state, productTitle) => {
   return result;
 }
 
+export const selectCartItems = (cartItems) => {
+  return Object.values(cartItems);
+}
+
+
+
 export const selectRelatedProducts = (state, productTitle) => {
   // The code below is simulating related products by choosing 6 random
   // products among all products in our mock database.

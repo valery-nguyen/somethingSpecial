@@ -3,6 +3,12 @@ import AlsoLike from './also_like_container';
 import ProductDetails from './product_details';
 
 class ProductShow extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.handleAddToCart = this.handleAddToCart.bind(this);
+  }
+
   componentDidMount() {
     window.scrollTo(0, 0);
     if (!this.props['product']) {
@@ -22,6 +28,32 @@ class ProductShow extends React.Component {
         !this.props.products[this.props.product.id]["item_id"])
           this.props.requestProduct(this.props.productTitle);
     }
+  }
+
+  previewCart() {
+    const modalScreen = document.getElementsByClassName("cart-modal-screen")[0];
+    const modalSection = document.getElementsByClassName("cart-modal-section")[0];
+    const body = document.getElementById("root");
+    modalScreen.classList.remove("is-open");
+    modalSection.classList.remove("is-open");
+    body.classList.add("noscroll");
+
+    setTimeout(function () {
+      modalScreen.classList.add("is-open");
+      modalSection.classList.add("is-open");
+      body.classList.remove("noscroll");
+    }, 1500);
+  }
+
+  handleAddToCart(e) {
+    e.preventDefault();
+    const qtyEl = document.getElementById("show-product-qty");
+    const itemQty = parseInt(qtyEl.options[qtyEl.options.selectedIndex].value);
+    const cartItem = {
+      product_id: this.props.product.id,
+      quantity: itemQty
+    };
+    this.props.addCartItem(cartItem).then(this.previewCart);
   }
 
   render() {
@@ -51,10 +83,10 @@ class ProductShow extends React.Component {
             <p className="show-product-description">{product.description}</p>
             <p className="show-product-price">${product.price}</p>
             <div>
-              <select>
+              <select id="show-product-qty" defaultValue="1">
                 {qtyOptions}
               </select>
-              <button>add to cart</button>
+              <button onClick={this.handleAddToCart}>add to cart</button>
             </div>
             <div className="show-product-wish">
               <a href="#"><i className="icon-heart2"></i></a>

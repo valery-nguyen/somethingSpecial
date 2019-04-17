@@ -1,9 +1,11 @@
 import { connect } from 'react-redux';
 import TitleNav from './title_nav';
 
-const mapStateToProps = (state) => {
+const mapStateToProps = ({ session, entities: { users, products, cartItems }}) => {
   return {
-    products: state.entities.products
+    currentUser: users[session.currentUserId],
+    products,
+    numCartItems: Object.keys(cartItems).length
   };
 };
 

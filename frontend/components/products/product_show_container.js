@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 
 import ProductShow from './product_show';
 import { selectProduct, selectImages } from '../../reducers/selectors';
-import { requestProduct } from '../../actions/products_actions';
+import { requestProduct, addCartItem } from '../../actions/products_actions';
 
 const mapStateToProps = (state, ownProps) => {
   const products = state.entities.products;
@@ -21,7 +21,10 @@ const mapStateToProps = (state, ownProps) => {
 };
 
 const mapDispatchToProps = dispatch => { 
-  return { requestProduct: productTitle => dispatch(requestProduct(productTitle)) }
+  return { 
+    requestProduct: productTitle => dispatch(requestProduct(productTitle)),
+    addCartItem: (cartItem) => dispatch(addCartItem(cartItem))
+  }
 };
 
 export default connect(
