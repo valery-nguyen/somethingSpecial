@@ -2,7 +2,8 @@ import { connect } from 'react-redux';
 
 import ProductShow from './product_show';
 import { selectProduct, selectImages } from '../../reducers/selectors';
-import { requestProduct, addCartItem } from '../../actions/products_actions';
+import { requestProduct } from '../../actions/products_actions';
+import { addCartItem } from '../../actions/cart_actions';
 
 const mapStateToProps = (state, ownProps) => {
   const products = state.entities.products;

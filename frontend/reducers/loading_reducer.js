@@ -2,9 +2,12 @@ import {
   RECEIVE_ALL_PRODUCTS,
   START_LOADING_ALL_PRODUCTS,
   START_LOADING_PRODUCT,
+} from '../actions/products_actions';
+
+import {
   RECEIVE_CART_ITEMS,
   START_LOADING_CART_ITEMS
-} from '../actions/products_actions';
+} from '../actions/cart_actions';
 
 const initialState = {
   indexLoading: false,

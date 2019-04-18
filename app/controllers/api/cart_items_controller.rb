@@ -8,11 +8,11 @@ class Api::CartItemsController < ApplicationController
   end
   
   def create
-    item_lookup_results = CartItem.where("product_id = ? and user_id = ?", cart_item_params["product_id"], current_user.id.to_s);
+    item_lookup_results = CartItem.where("product_id = ? and user_id = ?", cart_item_params[:product_id], current_user.id.to_s);
     
     if item_lookup_results.length != 0
       @cart_item = item_lookup_results.first
-      @cart_item.quantity += cart_item_params["quantity"].to_i
+      @cart_item.quantity += cart_item_params[:quantity].to_i
     else
       @cart_item = CartItem.new(cart_item_params)
       @cart_item.user_id = current_user.id
@@ -29,7 +29,7 @@ class Api::CartItemsController < ApplicationController
   end
 
   def update
-    item_lookup_results = CartItem.where("product_id = ? and user_id = ?", cart_item_params["product_id"], current_user.id.to_s);
+    item_lookup_results = CartItem.where("product_id = ? and user_id = ?", cart_item_params[:product_id], current_user.id.to_s);
     @cart_item = item_lookup_results.first
 
     if @cart_item.update(cart_item_params)
@@ -43,7 +43,7 @@ class Api::CartItemsController < ApplicationController
   end
 
   def destroy
-    item_lookup_results = CartItem.where("product_id = ? and user_id = ?", cart_item_params["product_id"], current_user.id.to_s);
+    item_lookup_results = CartItem.where("product_id = ? and user_id = ?", params[:id], current_user.id.to_s);
     @cart_item = item_lookup_results.first
     @cart_item.destroy
 

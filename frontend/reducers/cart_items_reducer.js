@@ -1,7 +1,7 @@
 import {
   RECEIVE_CART_ITEMS,
   CLEAR_CART
-} from '../actions/products_actions';
+} from '../actions/cart_actions';
 import merge from 'lodash/merge';
 
 const cartItemsReducer = (state = {}, action) => {

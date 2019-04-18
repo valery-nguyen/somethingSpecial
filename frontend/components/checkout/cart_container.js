@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 
 import Cart from './cart';
-import { requestCartItems, clearCartItems } from '../../actions/products_actions';
+import { requestCartItems, clearCartItems, deleteCartItem, updateCartItem} from '../../actions/cart_actions';
 import { selectCartItems } from '../../reducers/selectors';
 
 const mapStateToProps = ({ session, entities: { users, cartItems }, ui: { loading }, errors }) => {
@@ -16,7 +16,9 @@ const mapStateToProps = ({ session, entities: { users, cartItems }, ui: { loadin
 const mapDispatchToProps = dispatch => {
   return { 
     requestCartItems: () => dispatch(requestCartItems()),
-    clearCartItems: () => dispatch(clearCartItems()) 
+    clearCartItems: () => dispatch(clearCartItems()),
+    deleteCartItem: (itemId) => dispatch(deleteCartItem(itemId)),
+    updateCartItem: (item) => dispatch(updateCartItem(item)),
   }
 };
 

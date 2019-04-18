@@ -1,7 +1,7 @@
 import {
   RECEIVE_CART_ITEMS,
   RECEIVE_CART_ERRORS
-} from '../actions/products_actions';
+} from '../actions/cart_actions';
 
 export default (state = [], action) => {
   Object.freeze(state);

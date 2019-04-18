@@ -12,18 +12,18 @@ export const fetchProduct = (productTitle) => (
   })
 );
 
-export const fetchCartItems = (cartItem) => (
+export const fetchCartItems = () => (
   $.ajax({
     method: 'GET',
     url: 'api/cart_items'
   })
 );
 
-export const createCartItem = (cartItem) => (
+export const createCartItem = (cart_item) => (
   $.ajax({
     method: 'POST',
     url: 'api/cart_items',
-    data: { cart_item: cartItem }
+    data: { cart_item }
   })
 );
 
@@ -31,5 +31,20 @@ export const fetchSearchIndex = () => (
   $.ajax({
     method: 'GET',
     url: 'api/searches'
+  })
+);
+
+export const removeCartItem = (itemId) => (
+  $.ajax({
+    method: 'DELETE',
+    url: `api/cart_items/${itemId}`
+  })
+);
+
+export const modifyCartItem = (cart_item) => (
+  $.ajax({
+    method: 'PATCH',
+    url: `api/cart_items/${cart_item.id}`,
+    data: { cart_item }
   })
 );

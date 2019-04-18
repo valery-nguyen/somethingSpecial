@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 
 import CartPanel from './cart_panel';
-import { requestCartItems, clearCartItems } from '../../actions/products_actions';
+import { requestCartItems, clearCartItems } from '../../actions/cart_actions';
 import { selectCartItems } from '../../reducers/selectors';
 
 const mapStateToProps = ({ session, entities: { users, cartItems }, ui: { loading }, errors }) => {
