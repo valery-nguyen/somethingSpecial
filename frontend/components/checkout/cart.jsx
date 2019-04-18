@@ -93,12 +93,14 @@ class CartPanel extends React.Component {
           <section className="cart-body-right">
             <h2>Order Summary</h2>
             <ul>
-              <li><span>Subtotal:</span><span>${subtotal.toFixed(2)}</span> </li>
-              <li><span>Est. Shipping:</span><span>FREE</span></li>
-              <li><span>Est. Sales Tax:</span><span>$0.00</span></li>
+              <li><span>Subtotal:</span><span>{(this.props.baseCurrency === 1) ? '$': ''}{(subtotal * this.props.baseCurrency).toFixed(2)}</span> </li>
+
+              <li><span>Est. Shipping:</span><span>{(this.props.shippingCost === 0) ? "FREE" : `${(this.props.baseCurrency === 1) ? '$': ''}${(this.props.shippingCost*this.props.baseCurrency).toFixed(2)}`}</span></li>
+              {(this.props.shippingCost === 0) ? <li><span>Est. Sales Tax:</span><span>{(this.props.baseCurrency === 1) ? '$' : ''}0.00</span></li> : ''}
             </ul>
             <div className="cart-total">
-                <h1>Total:</h1><p>${subtotal.toFixed(2)}</p>
+              <h1>Total:</h1>
+              <p>{(this.props.baseCurrency === 1) ? '$' : ''}{((subtotal + this.props.shippingCost) * this.props.baseCurrency ).toFixed(2)}</p>
             </div>
             <button className="cart-checkout-btn" onClick={this.handleCheckoutClick}><h1>	&#128274; checkout</h1></button>
             <section className="cart-body-right-footer">
