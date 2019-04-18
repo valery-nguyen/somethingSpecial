@@ -5,11 +5,12 @@ import FooterLinks from './footer_links';
 import FooterEmailSignUp from './footer_email_sign_up';
 import FooterDescription from './footer_description';
 import SponsorsLinks from './sponsors_links';
+import LoadingIcon from '../loading/loading_icon';
 
 class Footer extends React.Component {
   render() {
     const loading = this.props.loading;
-    if (loading) return null;
+    if (loading) return <LoadingIcon />;
     
     return <footer className="app-footer" >
       <FooterNav />

@@ -1,4 +1,26 @@
 @import "variables";
+
+#loading-icon-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#loading-icon {
+  background-image: image-url('ajax-loader.gif');
+  position: absolute;
+  top: 50vh;
+  height: 50px;
+  width: 50px;
+  background-size: 100%;
+  display: inline-block;
+  background-repeat: no-repeat;
+  vertical-align: top;
+  overflow: hidden;
+}
+
 .footer-nav {
   a, div a{
     padding: 0 10px;

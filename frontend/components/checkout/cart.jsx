@@ -7,13 +7,9 @@ class CartPanel extends React.Component {
     super(props);
 
     this.handleCheckoutClick = this.handleCheckoutClick.bind(this);
-    // this.handleQtyChange = this.handleQtyChange.bind(this);
-    // this.handleRemoveClick = this.handleRemoveClick.bind(this);
   }
 
   handleCheckoutClick () {
-    //temporary - push to view cart page
-    // this.props.history.push('/products');
   }
 
   handleQtyChange(id) {
