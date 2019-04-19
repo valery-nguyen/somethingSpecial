@@ -79,10 +79,13 @@ class ProductSearch extends React.Component {
       <div className="category">
         <div className="category-header">
           <div>
-            <h1>{displayedName}</h1>
+            {(categoryName === "teen" || categoryName === "sale" ||
+              categoryName === "new") ? '' : <h1>{displayedName}</h1>}
             {(categoryName === "teen" || categoryName === "sale" ||
               categoryName === "new") ? '' : <img className="category-background" src={bannerSource} />}
           </div>
+          {(categoryName === "teen" || categoryName === "sale" ||
+            categoryName === "new") ? <h2>{displayedName}</h2> : ''}
         </div>
         <div className="category-outer">
           <section className="category-section">
