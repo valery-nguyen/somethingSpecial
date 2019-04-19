@@ -382,19 +382,19 @@
   }
 }
 
-@media all and (max-width: 900px) {
+@media all and (max-width: 1000px) {
   .modal-form {
     width: calc(100% / 3);
   }
 }
 
-@media all and (max-width: 600px) {
+@media all and (max-width: 800px) {
   .modal-form {
     width: calc(100% / 2);
   }
 }
 
-@media all and (max-width: 450px) {
+@media all and (max-width: 640px) {
   .modal-form {
     width: calc(100% / 1.5);
   }

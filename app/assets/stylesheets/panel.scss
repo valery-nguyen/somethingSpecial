@@ -267,7 +267,7 @@
   width: calc(100% - 20px);
 }
 
-@media all and (max-width: 900px) {
+@media all and (max-width: 1000px) {
   .cart-modal-section,
   .ship-modal-section {
     width: calc(100% / 3 + 30px);
@@ -278,7 +278,7 @@
   }
 }
 
-@media all and (max-width: 600px) {
+@media all and (max-width: 800px) {
   .cart-modal-section,
   .ship-modal-section {
     width: calc(100% / 2 + 30px);
@@ -289,7 +289,7 @@
   }
 }
 
-@media all and (max-width: 450px) {
+@media all and (max-width: 640px) {
   .cart-modal-section,
   .ship-modal-section {
     width: calc(100% / 1.5 + 40px);

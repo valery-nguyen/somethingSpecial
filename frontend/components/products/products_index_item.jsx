@@ -7,7 +7,7 @@ const ProductsIndexItem = ({ product }) => {
   return <li className="products-index-item">
     <Link to={`/product/${productExtension}`}>
       <img src={imagesArr[0].image_url} alt={product.title} />
-      <h2>{product.title}</h2>
+      <span>{product.title}</span>
     </Link>
     <span>${product.price}</span>
   </li>

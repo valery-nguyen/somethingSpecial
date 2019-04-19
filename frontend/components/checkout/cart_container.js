@@ -4,14 +4,11 @@ import Cart from './cart';
 import { requestCartItems, clearCartItems, deleteCartItem, updateCartItem} from '../../actions/cart_actions';
 import { selectCartItems } from '../../reducers/selectors';
 
-const mapStateToProps = ({ session, entities: { users, cartItems }, ui: { loading, shipping }, errors }) => {
-  const loadingState = loading.cartLoading;
+const mapStateToProps = ({ session, entities: { users, cartItems }, ui: { loading }, errors }) => {
   return {
     currentUser: users[session.currentUserId],
     cartItems: selectCartItems(cartItems),
-    loading: loadingState,
-    shippingCost: shipping.shippingCost,
-    baseCurrency: shipping.baseCurrency,
+    loading: loading.cartLoading,
     errors: errors.cart,
   };
 };

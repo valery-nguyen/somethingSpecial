@@ -9,16 +9,10 @@ import {
   START_LOADING_CART_ITEMS
 } from '../actions/cart_actions';
 
-import {
-  RECEIVE_SEARCH_ITEMS,
-  START_LOADING_SEARCH_ITEMS
-} from '../actions/search_actions';
-
 const initialState = {
   indexLoading: false,
   detailLoading: false,
-  cartLoading: false,
-  searchLoading: false
+  cartLoading: false
 };
 
 const loadingReducer = (state = initialState, action) => {
@@ -34,10 +28,6 @@ const loadingReducer = (state = initialState, action) => {
       return Object.assign({}, state, { cartLoading: false });
     case START_LOADING_CART_ITEMS:
       return Object.assign({}, state, { cartLoading: true });
-    case RECEIVE_SEARCH_ITEMS:
-      return Object.assign({}, state, { searchLoading: false });
-    case START_LOADING_SEARCH_ITEMS:
-      return Object.assign({}, state, { searchLoading: true });
     default:
       return state;
   }

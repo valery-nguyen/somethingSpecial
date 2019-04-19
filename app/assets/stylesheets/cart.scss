@@ -10,7 +10,7 @@
   }
   .cart-checkout-empty-splash {
   margin: auto;
-  width: calc(900px / 2);
+  width: calc(1000px / 2);
   }
 }
 
@@ -274,13 +274,13 @@
   background-position: -1px 4px;
 }
 
-@media all and (max-width: 900px) {
+@media all and (max-width: 1000px) {
   .cart-checkout-empty-splash {
     width: 50%;
   }
 }
 
-@media all and (max-width: 600px) {
+@media all and (max-width: 800px) {
   .cart-checkout-empty-splash {
     width: calc(100% * 2 / 3);
   }
@@ -298,7 +298,7 @@
   }
 }
 
-@media all and (max-width: 450px) {
+@media all and (max-width: 640px) {
   .cart-checkout-empty-splash {
     width: 100%;
   }

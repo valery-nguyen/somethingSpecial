@@ -1,0 +1,24 @@
+@import "variables";
+
+.product-search {
+  h1 {
+    font-family: $playfair-serif;
+    font-size: 18px;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    padding: 15px;
+  }
+
+  .product-search-outer {
+    section{
+      ul {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        font-size: 18px;
+      }
+    }
+  }
+}
+

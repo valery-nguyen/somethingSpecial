@@ -1,5 +1,8 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import {
+  Link,
+  Redirect 
+} from 'react-router-dom';
 import { withRouter } from 'react-router';
 
 import ProductSearch from '../search/product_search_container';
