@@ -299,6 +299,11 @@
         // box-sizing: border-box;
         display: none;
       }
+
+      .header-link {
+        margin-left: calc(50vw - 160px);
+        width: 100%;
+      }
       
       .title-cart {
         .title-cart-inner {
@@ -336,7 +341,7 @@
         box-sizing: border-box;
       }
       display: flex;
-      justify-content: right;
+      justify-content: space-between;
       padding: 0;
     }
     display: flex;
