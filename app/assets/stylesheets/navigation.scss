@@ -8,12 +8,12 @@
   .header-link {
     h1 {
       span {
-        color: $dark-green;
+        color: $gold;
         font-family: $roboto-serif;
       }
 
       font-size: 36px;
-      color: $green;
+      color: $darkest-green;
       font-family: $pacifico-serif;
       padding: 10px 5px;
     }
@@ -158,7 +158,7 @@
 
   a {
     text-decoration: none;
-    color: $dark-green;
+    color: $darkest-green;
     font-family: $playfair-serif;
     font-size: 18px;
     font-weight: bolder;
