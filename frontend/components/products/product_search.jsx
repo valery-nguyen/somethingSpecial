@@ -1,5 +1,4 @@
 import React from 'react';
-import Query from 'query-string';
 
 import ProductsIndexItem from './products_index_item';
 
@@ -10,16 +9,14 @@ class ProductSearch extends React.Component {
   }
   componentDidMount() {
     window.scrollTo(0, 0);
-    const values = Query.parse(this.props.location.search);
-    const searchQuery = values.q;
+    const searchQuery = this.props.location.search.slice(3).split("+").join(" ");
     this.props.requestSearch(searchQuery);
   }
 
   componentDidUpdate(prevProps) {
     window.scrollTo(0, 0);
     if (prevProps.location.search !== this.props.location.search) {
-      const values = Query.parse(this.props.location.search);
-      const searchQuery = values.q;
+      const searchQuery = this.props.location.search.slice(3).split("+").join(" ");
       this.props.requestSearch(searchQuery);
     }
   }
