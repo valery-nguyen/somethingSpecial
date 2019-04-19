@@ -5,6 +5,7 @@ Rails.application.routes.draw do
     resources :products, only: [:index, :show]
     resources :cart_items, only: [:index, :create, :update, :destroy]
     resources :searches, only: :index
+    resources :search_products, only: :index
   end
   
   root to: 'static_pages#root'

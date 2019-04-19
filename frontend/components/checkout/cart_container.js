@@ -5,10 +5,11 @@ import { requestCartItems, clearCartItems, deleteCartItem, updateCartItem} from 
 import { selectCartItems } from '../../reducers/selectors';
 
 const mapStateToProps = ({ session, entities: { users, cartItems }, ui: { loading, shipping }, errors }) => {
+  const loadingState = loading.cartLoading;
   return {
     currentUser: users[session.currentUserId],
     cartItems: selectCartItems(cartItems),
-    loading: loading.cartLoading,
+    loading: loadingState,
     shippingCost: shipping.shippingCost,
     baseCurrency: shipping.baseCurrency,
     errors: errors.cart,

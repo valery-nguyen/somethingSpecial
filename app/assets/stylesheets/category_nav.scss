@@ -21,7 +21,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 890px;
+  width: calc(1000px - 10px);
   height: 42px;
   margin: auto;
   padding-bottom: 5px;
@@ -31,7 +31,7 @@
   box-sizing: border-box;
 }
 
-@media all and (max-width: 900px) {
+@media all and (max-width: 1000px) {
   .category-nav {
     margin: 0 10px;
   }
@@ -40,7 +40,7 @@
   }
 }
 
-@media all and (max-width: 700px) {
+@media all and (max-width: 800px) {
   .category-nav-links {
     li a{
       margin-right: 2px;
@@ -50,7 +50,7 @@
   }
 }
 
-@media all and (max-width: 450px) {
+@media all and (max-width: 640px) {
   .app-header {
     display: flex;
     flex-direction: row-reverse;

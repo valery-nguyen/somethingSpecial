@@ -6,7 +6,7 @@
       a {
         text-decoration: none;
         color: $black;
-        padding: 10px 5px;
+        padding: 10px 10px;
         position: relative;
         top: 5px;
         font-size: 13px;
@@ -22,7 +22,7 @@
     height: 30px;
     font-size: 20px;
     font-family: $open-sans;
-    width: 900px;
+    width: 1000px;
   }
   background-color: $beige;
   padding-bottom: 5px;
@@ -49,6 +49,7 @@
   background-image: image-url('icons/gift_icon.png');
   background-size: 90%;
   background-position: 1px 0px;
+  margin: 0 5px 0 0;
 }
 
 .icon-user {
@@ -69,7 +70,7 @@
   background-position: 2 2px;
 }
 
-@media all and (max-width: 900px) {
+@media all and (max-width: 1000px) {
   .feature-nav section {
     width: 100%;
   }
@@ -79,15 +80,15 @@
       div {
         a{
           top: 4px;
+          padding: 10px 5px;
         }
         font-size: 12px;
-                
       }
     }
   }
 }
 
-@media all and (max-width: 600px) {
+@media all and (max-width: 800px) {
   .feature-nav {
     section{
       div {
@@ -101,7 +102,7 @@
   }
 }
 
-@media all and (max-width: 450px) {
+@media all and (max-width: 640px) {
   .feature-nav {
     display: none;
   }

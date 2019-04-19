@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { withRouter } from 'react-router';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
 class ProductSearch extends React.Component {
@@ -10,10 +11,18 @@ class ProductSearch extends React.Component {
     };
     this.selectProduct = this.selectProduct.bind(this);
     this.handleInput = this.handleInput.bind(this);
+    this.handleSearch = this.handleSearch.bind(this);
   }
 
   componentDidMount() {
     this.props.requestSearchItems();
+  }
+
+  handleSearch(e) {
+    e.preventDefault();
+    this.setState({ inputVal: '' });
+    const searchQuery = this.state.inputVal.split(' ').join('+');
+    this.props.history.push(`/search?q=${searchQuery}`);
   }
 
   handleInput(e) {
@@ -58,15 +67,16 @@ class ProductSearch extends React.Component {
 
     return (
       <div className="title-search-outer">
-        <div className="title-search">
+        <form className="title-search" onSubmit={this.handleSearch}>
           <input 
+            id="title-search-input"
             type="text" 
             placeholder="search keyword or item number" 
             onChange={this.handleInput}
             value={this.state.inputVal}
           />
           <button><i className="icon-search"></i></button>
-        </div>
+        </form>
         <ul className="title-search-results">
           <ReactCSSTransitionGroup
             transitionName='auto'
@@ -80,4 +90,4 @@ class ProductSearch extends React.Component {
   }
 };
 
-export default ProductSearch;
+export default withRouter(ProductSearch);
