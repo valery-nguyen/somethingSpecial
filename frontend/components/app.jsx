@@ -18,9 +18,9 @@ import ProductSearchContainer from './../components/products/product_search_cont
 
 const App = () => (
   <div>
-    {/* <Header /> */}
+    <Header />
     <Switch>
-      <Route exact path="/products" component={ProductsIndexContainer} />
+      {/* <Route exact path="/products" component={ProductsIndexContainer} /> */}
       <Route exact path="/product/:productTitle" component={ProductShowContainer} />
       <Route exact path="/checkout/cart" component={Cart} />
       <Route path="/search" component={ProductSearchContainer} />
