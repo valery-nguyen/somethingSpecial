@@ -33,6 +33,15 @@ export const selectCartItems = (cartItems) => {
   return Object.values(cartItems);
 }
 
+export const selectCategoryProducts = (products, categoryName) => {
+  let results = [];
+  Object.keys(products).forEach(key => {
+    if (products[key].category === categoryName) {
+      results.push(products[key]);
+    }
+  });
+  return results;
+}
 
 
 export const selectRelatedProducts = (state, productTitle) => {

@@ -9,6 +9,7 @@
 Product.destroy_all
 ProductImage.destroy_all
 User.destroy_all
+Category.destroy_all
 
 user1 = User.create({
   fname: 'Valery',
@@ -660,7 +661,7 @@ product33 = Product.create({
     description: 'Put your favorite libation to new use with this all-natural beer shampoo and conditioner.', 
     price: 19,
     story_title: 'Please Lather Responsibly',
-    story_body: 'This just in: Brewers, barkeeps, and boozers have found a new use for their favorite refreshment. Turns out, beer is great for hair. These IPA-inspired shampoo and conditioners (sold separately) are designed for voluminous, silky soft locks. It’s naturally rich in amino acids, hops, roasted barley, and malt with some added botanical extracts for an exceptional scent. Always sulfate, paragon, and phthalate-free, you’ll lather up for a great-smelling mane from root to tip. Made in California.',
+    story_body: 'new: Brewers, barkeeps, and boozers have found a new use for their favorite refreshment. Turns out, beer is great for hair. These IPA-inspired shampoo and conditioners (sold separately) are designed for voluminous, silky soft locks. It’s naturally rich in amino acids, hops, roasted barley, and malt with some added botanical extracts for an exceptional scent. Always sulfate, paragon, and phthalate-free, you’ll lather up for a great-smelling mane from root to tip. Made in California.',
     maker_name: 'Josefina Lyons',
     maker_location: 'Arkansas',
     maker_quote: '',
@@ -1170,7 +1171,7 @@ product62 = Product.create({
     description: 'To exfoliate and soothe hard-working feet, scrub with coconut fiber brush, then massage with foot salve.', 
     price: 28,
     story_title: 'Please Lather Responsibly',
-    story_body: 'This just in: Brewers, barkeeps, and boozers have found a new use for their favorite refreshment. Turns out, beer is great for hair. These IPA-inspired shampoo and conditioners (sold separately) are designed for voluminous, silky soft locks. It’s naturally rich in amino acids, hops, roasted barley, and malt with some added botanical extracts for an exceptional scent. Always sulfate, paragon, and phthalate-free, you’ll lather up for a great-smelling mane from root to tip. Made in California.',
+    story_body: 'new: Brewers, barkeeps, and boozers have found a new use for their favorite refreshment. Turns out, beer is great for hair. These IPA-inspired shampoo and conditioners (sold separately) are designed for voluminous, silky soft locks. It’s naturally rich in amino acids, hops, roasted barley, and malt with some added botanical extracts for an exceptional scent. Always sulfate, paragon, and phthalate-free, you’ll lather up for a great-smelling mane from root to tip. Made in California.',
     maker_name: 'Josefina Lyons',
     maker_location: 'Arkansas',
     maker_quote: '',
@@ -1666,7 +1667,7 @@ product91 = Product.create({
     description: 'This high design, bamboo bento box update holds leak-proof, modular containers for flexible meal options.', 
     price: 69,
     story_title: 'Please Lather Responsibly',
-    story_body: 'This just in: Brewers, barkeeps, and boozers have found a new use for their favorite refreshment. Turns out, beer is great for hair. These IPA-inspired shampoo and conditioners (sold separately) are designed for voluminous, silky soft locks. It’s naturally rich in amino acids, hops, roasted barley, and malt with some added botanical extracts for an exceptional scent. Always sulfate, paragon, and phthalate-free, you’ll lather up for a great-smelling mane from root to tip. Made in California.',
+    story_body: 'new: Brewers, barkeeps, and boozers have found a new use for their favorite refreshment. Turns out, beer is great for hair. These IPA-inspired shampoo and conditioners (sold separately) are designed for voluminous, silky soft locks. It’s naturally rich in amino acids, hops, roasted barley, and malt with some added botanical extracts for an exceptional scent. Always sulfate, paragon, and phthalate-free, you’ll lather up for a great-smelling mane from root to tip. Made in California.',
     maker_name: 'Josefina Lyons',
     maker_location: 'Arkansas',
     maker_quote: '',
@@ -1831,12 +1832,6 @@ product100 = Product.create({
     item_id: 35370,
     made_in: 'usa'
 })
-
-# product = Product.create({ 
-#     title: '', 
-#     description: "",
-#     price: .00
-# })
 
 products = ProductImage.create([
   { 
@@ -2840,4 +2835,1551 @@ products = ProductImage.create([
     product_id: product100.id, 
     image_url: 'items/49845_3_640px.jpg'
   }
+])
+
+categories = Category.create([
+  { 
+      product_id: product1.id, 
+      name: 'kitchen'
+    },
+  { 
+      product_id: product2.id, 
+      name: 'fun'
+    },
+  { 
+      product_id: product3.id, 
+      name: 'art'
+    },
+  { 
+      product_id: product4.id, 
+      name: 'home'
+    },
+  { 
+      product_id: product5.id, 
+      name: 'gifts'
+    },
+  { 
+      product_id: product6.id, 
+      name: 'home'
+    },
+  { 
+      product_id: product7.id, 
+      name: 'home'
+    },
+  { 
+      product_id: product8.id, 
+      name: 'home'
+    },
+  { 
+      product_id: product9.id, 
+      name: 'home'
+    },
+  { 
+      product_id: product10.id, 
+      name: 'fun'
+    },
+  { 
+      product_id: product11.id, 
+      name: 'fun'
+    },
+  { 
+      product_id: product12.id, 
+      name: 'kids'
+    },
+  { 
+      product_id: product13.id, 
+      name: 'teen'
+    },
+  { 
+      product_id: product14.id, 
+      name: 'home'
+    },
+  { 
+      product_id: product15.id, 
+      name: 'teen'
+    },
+  { 
+      product_id: product16.id, 
+      name: 'women'
+    },
+  { 
+      product_id: product17.id, 
+      name: 'fun'
+    },
+  { 
+      product_id: product18.id, 
+      name: 'fun'
+    },
+  { 
+      product_id: product19.id, 
+      name: 'fun'
+    },
+  { 
+      product_id: product20.id, 
+      name: 'home'
+    },
+  { 
+      product_id: product21.id, 
+      name: 'home'
+    },
+  { 
+      product_id: product22.id, 
+      name: 'home'
+    },
+  { 
+      product_id: product23.id, 
+      name: 'women'
+    },
+  { 
+      product_id: product24.id, 
+      name: 'art'
+    },
+  { 
+      product_id: product25.id, 
+      name: 'kids'
+    },
+  { 
+      product_id: product26.id, 
+      name: 'home'
+    },
+  { 
+      product_id: product27.id, 
+      name: 'gifts'
+    },
+  { 
+      product_id: product28.id, 
+      name: 'gifts'
+    },
+  { 
+      product_id: product29.id, 
+      name: 'home'
+    },
+  { 
+      product_id: product30.id, 
+      name: 'teen'
+    },
+  { 
+      product_id: product31.id, 
+      name: 'teen'
+    },
+  { 
+      product_id: product32.id, 
+      name: 'home'
+    },
+  { 
+      product_id: product33.id, 
+      name: 'fun'
+    },
+  { 
+      product_id: product34.id, 
+      name: 'men'
+    },
+  { 
+      product_id: product35.id, 
+      name: 'men'
+    },
+  { 
+      product_id: product36.id, 
+      name: 'men'
+    },
+  { 
+      product_id: product37.id, 
+      name: 'home'
+    },
+  { 
+      product_id: product38.id, 
+      name: 'women'
+    },
+  { 
+      product_id: product39.id, 
+      name: 'women'
+    },
+  { 
+      product_id: product40.id, 
+      name: 'women'
+    },
+  { 
+      product_id: product41.id, 
+      name: 'gifts'
+    },
+  { 
+      product_id: product42.id, 
+      name: 'kids'
+    },
+  { 
+      product_id: product43.id, 
+      name: 'gifts'
+    },
+  { 
+      product_id: product44.id, 
+      name: 'women'
+    },
+  { 
+      product_id: product45.id, 
+      name: 'fun'
+    },
+  { 
+      product_id: product46.id, 
+      name: 'gifts'
+    },
+  { 
+      product_id: product47.id, 
+      name: 'women'
+    },
+  { 
+      product_id: product48.id, 
+      name: 'gifts'
+    },
+  { 
+      product_id: product49.id, 
+      name: 'gifts'
+    },
+  { 
+      product_id: product50.id, 
+      name: 'fun'
+    },
+  { 
+      product_id: product51.id, 
+      name: 'home'
+    },
+  { 
+      product_id: product52.id, 
+      name: 'kitchen'
+    },
+  { 
+      product_id: product53.id, 
+      name: 'kitchen'
+    },
+  { 
+      product_id: product54.id, 
+      name: 'kids'
+    },
+  { 
+      product_id: product55.id, 
+      name: 'kids'
+    },
+  { 
+      product_id: product56.id, 
+      name: 'kids'
+    },
+  { 
+      product_id: product57.id, 
+      name: 'art'
+    },
+  { 
+      product_id: product58.id, 
+      name: 'kitchen'
+    },
+  { 
+      product_id: product59.id, 
+      name: 'home'
+    },
+  { 
+      product_id: product60.id, 
+      name: 'men'
+    },
+  { 
+      product_id: product61.id, 
+      name: 'kids'
+    },
+  { 
+      product_id: product62.id, 
+      name: 'men'
+    },
+  { 
+      product_id: product63.id, 
+      name: 'men'
+    },
+  { 
+      product_id: product64.id, 
+      name: 'kids'
+    },
+  { 
+      product_id: product65.id, 
+      name: 'art'
+    },
+  { 
+      product_id: product66.id, 
+      name: 'art'
+    },
+  { 
+      product_id: product67.id, 
+      name: 'kitchen'
+    },
+  { 
+      product_id: product68.id, 
+      name: 'kitchen'
+    },
+  { 
+      product_id: product69.id, 
+      name: 'kitchen'
+    },
+  { 
+      product_id: product70.id, 
+      name: 'kids'
+    },
+  { 
+      product_id: product71.id, 
+      name: 'kitchen'
+    },
+  { 
+      product_id: product72.id, 
+      name: 'home'
+    },
+  { 
+      product_id: product73.id, 
+      name: 'kitchen'
+    },
+  { 
+      product_id: product74.id, 
+      name: 'art'
+    },
+  { 
+      product_id: product75.id, 
+      name: 'kitchen'
+    },
+  { 
+      product_id: product76.id, 
+      name: 'kitchen'
+    },
+  { 
+      product_id: product77.id, 
+      name: 'kitchen'
+    },
+  { 
+      product_id: product78.id, 
+      name: 'kitchen'
+    },
+  { 
+      product_id: product79.id, 
+      name: 'kids'
+    },
+  { 
+      product_id: product80.id, 
+      name: 'teen'
+    },
+  { 
+      product_id: product81.id, 
+      name: 'kitchen'
+    },
+  { 
+      product_id: product82.id, 
+      name: 'home'
+    },
+  { 
+      product_id: product83.id, 
+      name: 'art'
+    },
+  { 
+      product_id: product84.id, 
+      name: 'kitchen'
+    },
+  { 
+      product_id: product85.id, 
+      name: 'kitchen'
+    },
+  { 
+      product_id: product86.id, 
+      name: 'kids'
+    },
+  { 
+      product_id: product87.id, 
+      name: 'art'
+    },
+  { 
+      product_id: product88.id, 
+      name: 'fun'
+    },
+  { 
+      product_id: product89.id, 
+      name: 'men'
+    },
+  { 
+      product_id: product90.id, 
+      name: 'kitchen'
+    },
+  { 
+      product_id: product91.id, 
+      name: 'home'
+    },
+  { 
+      product_id: product92.id, 
+      name: 'home'
+    },
+  { 
+      product_id: product93.id, 
+      name: 'men'
+    },
+  { 
+      product_id: product94.id, 
+      name: 'kitchen'
+    },
+  { 
+      product_id: product95.id, 
+      name: 'fun'
+    },
+  { 
+      product_id: product96.id, 
+      name: 'kitchen'
+    },
+  { 
+      product_id: product97.id, 
+      name: 'kitchen'
+    },
+  { 
+      product_id: product98.id, 
+      name: 'gifts'
+    },
+  { 
+      product_id: product99.id, 
+      name: 'home'
+    },
+  { 
+      product_id: product100.id, 
+      name: 'gifts'
+    },
+  { 
+      product_id: product7.id, 
+      name: 'women'
+    },
+  { 
+      product_id: product9.id, 
+      name: 'women'
+    },
+  { 
+      product_id: product12.id, 
+      name: 'women'
+    },
+  { 
+      product_id: product13.id, 
+      name: 'women'
+    },
+  { 
+      product_id: product24.id, 
+      name: 'women'
+    },
+  { 
+      product_id: product26.id, 
+      name: 'teen'
+    },
+  { 
+      product_id: product27.id, 
+      name: 'men'
+    },
+  { 
+      product_id: product31.id, 
+      name: 'women'
+    },
+  { 
+      product_id: product100.id, 
+      name: 'teen'
+    },
+  { 
+      product_id: product2.id, 
+      name: 'new'
+    },
+  { 
+      product_id: product3.id, 
+      name: 'new'
+    },
+  { 
+      product_id: product4.id, 
+      name: 'new'
+    },
+  { 
+      product_id: product5.id, 
+      name: 'new'
+    },
+  { 
+      product_id: product6.id, 
+      name: 'new'
+    },
+  { 
+      product_id: product7.id, 
+      name: 'new'
+    },
+  { 
+      product_id: product8.id, 
+      name: 'new'
+    },
+  { 
+      product_id: product9.id, 
+      name: 'new'
+    },
+  { 
+      product_id: product10.id, 
+      name: 'new'
+    },
+  { 
+      product_id: product11.id, 
+      name: 'new'
+    },
+  { 
+      product_id: product12.id, 
+      name: 'new'
+    },
+  { 
+      product_id: product13.id, 
+      name: 'new'
+    },
+  { 
+      product_id: product14.id, 
+      name: 'new'
+    },
+  { 
+      product_id: product15.id, 
+      name: 'new'
+    },
+  { 
+      product_id: product16.id, 
+      name: 'new'
+    },
+  { 
+      product_id: product17.id, 
+      name: 'new'
+    },
+  { 
+      product_id: product18.id, 
+      name: 'new'
+    },
+  { 
+      product_id: product19.id, 
+      name: 'new'
+    },
+  { 
+      product_id: product20.id, 
+      name: 'new'
+    },
+  { 
+      product_id: product21.id, 
+      name: 'new'
+    },
+  { 
+      product_id: product22.id, 
+      name: 'new'
+    },
+  { 
+      product_id: product23.id, 
+      name: 'new'
+    },
+  { 
+      product_id: product24.id, 
+      name: 'new'
+    },
+  { 
+      product_id: product25.id, 
+      name: 'new'
+    },
+  { 
+      product_id: product26.id, 
+      name: 'new'
+    },
+  { 
+      product_id: product27.id, 
+      name: 'new'
+    },
+  { 
+      product_id: product28.id, 
+      name: 'new'
+    },
+  { 
+      product_id: product29.id, 
+      name: 'new'
+    },
+  { 
+      product_id: product30.id, 
+      name: 'new'
+    },
+  { 
+      product_id: product31.id, 
+      name: 'new'
+    },
+  { 
+      product_id: product32.id, 
+      name: 'new'
+    },
+  { 
+      product_id: product33.id, 
+      name: 'new'
+    },
+  { 
+      product_id: product34.id, 
+      name: 'new'
+    },
+  { 
+      product_id: product35.id, 
+      name: 'new'
+    },
+  { 
+      product_id: product36.id, 
+      name: 'new'
+    },
+  { 
+      product_id: product37.id, 
+      name: 'new'
+    },
+  { 
+      product_id: product38.id, 
+      name: 'new'
+    },
+  { 
+      product_id: product39.id, 
+      name: 'new'
+    },
+  { 
+      product_id: product40.id, 
+      name: 'new'
+    },
+  { 
+      product_id: product41.id, 
+      name: 'new'
+    },
+  { 
+      product_id: product42.id, 
+      name: 'new'
+    },
+  { 
+      product_id: product43.id, 
+      name: 'new'
+    },
+  { 
+      product_id: product44.id, 
+      name: 'new'
+    },
+  { 
+      product_id: product45.id, 
+      name: 'new'
+    },
+  { 
+      product_id: product46.id, 
+      name: 'new'
+    },
+  { 
+      product_id: product47.id, 
+      name: 'new'
+    },
+  { 
+      product_id: product48.id, 
+      name: 'new'
+    },
+  { 
+      product_id: product49.id, 
+      name: 'new'
+    },
+  { 
+      product_id: product50.id, 
+      name: 'new'
+    },
+  { 
+      product_id: product51.id, 
+      name: 'new'
+    },
+  { 
+      product_id: product52.id, 
+      name: 'new'
+    },
+  { 
+      product_id: product53.id, 
+      name: 'new'
+    },
+  { 
+      product_id: product54.id, 
+      name: 'new'
+    },
+  { 
+      product_id: product55.id, 
+      name: 'new'
+    },
+  { 
+      product_id: product56.id, 
+      name: 'new'
+    },
+  { 
+      product_id: product57.id, 
+      name: 'new'
+    },
+  { 
+      product_id: product58.id, 
+      name: 'new'
+    },
+  { 
+      product_id: product59.id, 
+      name: 'new'
+    },
+  { 
+      product_id: product60.id, 
+      name: 'new'
+    },
+  { 
+      product_id: product61.id, 
+      name: 'new'
+    },
+  { 
+      product_id: product62.id, 
+      name: 'new'
+    },
+  { 
+      product_id: product63.id, 
+      name: 'new'
+    },
+  { 
+      product_id: product64.id, 
+      name: 'new'
+    },
+  { 
+      product_id: product65.id, 
+      name: 'new'
+    },
+  { 
+      product_id: product66.id, 
+      name: 'new'
+    },
+  { 
+      product_id: product67.id, 
+      name: 'new'
+    },
+  { 
+      product_id: product68.id, 
+      name: 'new'
+    },
+  { 
+      product_id: product69.id, 
+      name: 'new'
+    },
+  { 
+      product_id: product70.id, 
+      name: 'new'
+    },
+  { 
+      product_id: product71.id, 
+      name: 'new'
+    },
+  { 
+      product_id: product72.id, 
+      name: 'new'
+    },
+  { 
+      product_id: product73.id, 
+      name: 'new'
+    },
+  { 
+      product_id: product74.id, 
+      name: 'new'
+    },
+  { 
+      product_id: product82.id, 
+      name: 'sale'
+    },
+  { 
+      product_id: product83.id, 
+      name: 'sale'
+    },
+  { 
+      product_id: product84.id, 
+      name: 'sale'
+    },
+  { 
+      product_id: product85.id, 
+      name: 'sale'
+    },
+  { 
+      product_id: product86.id, 
+      name: 'sale'
+    },
+  { 
+      product_id: product87.id, 
+      name: 'sale'
+    },
+  { 
+      product_id: product88.id, 
+      name: 'sale'
+    },
+  { 
+      product_id: product89.id, 
+      name: 'sale'
+    },
+  { 
+      product_id: product90.id, 
+      name: 'sale'
+    },
+  { 
+      product_id: product91.id, 
+      name: 'sale'
+    },
+  { 
+      product_id: product92.id, 
+      name: 'sale'
+    },
+  { 
+      product_id: product93.id, 
+      name: 'sale'
+    },
+  { 
+      product_id: product94.id, 
+      name: 'sale'
+    },
+  { 
+      product_id: product95.id, 
+      name: 'sale'
+    },
+  { 
+      product_id: product96.id, 
+      name: 'sale'
+    },
+  { 
+      product_id: product97.id, 
+      name: 'sale'
+    },
+  { 
+      product_id: product98.id, 
+      name: 'sale'
+    },
+  { 
+      product_id: product99.id, 
+      name: 'sale'
+    },
+  { 
+      product_id: product100.id, 
+      name: 'sale'
+    },
+  { 
+      product_id: product1.id, 
+      name: 'men'
+    },
+  { 
+      product_id: product2.id, 
+      name: 'women'
+    },
+  { 
+      product_id: product3.id, 
+      name: 'women'
+    },
+  { 
+      product_id: product4.id, 
+      name: 'women'
+    },
+  { 
+      product_id: product5.id, 
+      name: 'women'
+    },
+  { 
+      product_id: product6.id, 
+      name: 'art'
+    },
+  { 
+      product_id: product7.id, 
+      name: 'art'
+    },
+  { 
+      product_id: product8.id, 
+      name: 'men'
+    },
+  { 
+      product_id: product9.id, 
+      name: 'art'
+    },
+  { 
+      product_id: product10.id, 
+      name: 'teen'
+    },
+  { 
+      product_id: product11.id, 
+      name: 'teen'
+    },
+  { 
+      product_id: product12.id, 
+      name: 'teen'
+    },
+  { 
+      product_id: product13.id, 
+      name: 'gifts'
+    },
+  { 
+      product_id: product14.id, 
+      name: 'kitchen'
+    },
+  { 
+      product_id: product15.id, 
+      name: 'gifts'
+    },
+  { 
+      product_id: product16.id, 
+      name: 'men'
+    },
+  { 
+      product_id: product17.id, 
+      name: 'teen'
+    },
+  { 
+      product_id: product18.id, 
+      name: 'kids'
+    },
+  { 
+      product_id: product19.id, 
+      name: 'kids'
+    },
+  { 
+      product_id: product20.id, 
+      name: 'women'
+    },
+  { 
+      product_id: product21.id, 
+      name: 'men'
+    },
+  { 
+      product_id: product22.id, 
+      name: 'gifts'
+    },
+  { 
+      product_id: product23.id, 
+      name: 'gifts'
+    },
+  { 
+      product_id: product24.id, 
+      name: 'home'
+    },
+  { 
+      product_id: product25.id, 
+      name: 'teen'
+    },
+  { 
+      product_id: product26.id, 
+      name: 'kitchen'
+    },
+  { 
+      product_id: product27.id, 
+      name: 'teen'
+    },
+  { 
+      product_id: product28.id, 
+      name: 'men'
+    },
+  { 
+      product_id: product29.id, 
+      name: 'fun'
+    },
+  { 
+      product_id: product30.id, 
+      name: 'men'
+    },
+  { 
+      product_id: product31.id, 
+      name: 'men'
+    },
+  { 
+      product_id: product32.id, 
+      name: 'women'
+    },
+  { 
+      product_id: product33.id, 
+      name: 'men'
+    },
+  { 
+      product_id: product34.id, 
+      name: 'gifts'
+    },
+  { 
+      product_id: product35.id, 
+      name: 'gifts'
+    },
+  { 
+      product_id: product36.id, 
+      name: 'gifts'
+    },
+  { 
+      product_id: product37.id, 
+      name: 'gifts'
+    },
+  { 
+      product_id: product38.id, 
+      name: 'jewelry'
+    },
+  { 
+      product_id: product39.id, 
+      name: 'jewelry'
+    },
+  { 
+      product_id: product41.id, 
+      name: 'men'
+    },
+  { 
+      product_id: product42.id, 
+      name: 'gifts'
+    },
+  { 
+      product_id: product43.id, 
+      name: 'teen'
+    },
+  { 
+      product_id: product44.id, 
+      name: 'gifts'
+    },
+  { 
+      product_id: product45.id, 
+      name: 'kids'
+    },
+  { 
+      product_id: product46.id, 
+      name: 'men'
+    },
+  { 
+      product_id: product47.id, 
+      name: 'gifts'
+    },
+  { 
+      product_id: product48.id, 
+      name: 'men'
+    },
+  { 
+      product_id: product49.id, 
+      name: 'women'
+    },
+  { 
+      product_id: product50.id, 
+      name: 'men'
+    },
+  { 
+      product_id: product51.id, 
+      name: 'art'
+    },
+  { 
+      product_id: product52.id, 
+      name: 'home'
+    },
+  { 
+      product_id: product53.id, 
+      name: 'home'
+    },
+  { 
+      product_id: product54.id, 
+      name: 'teen'
+    },
+  { 
+      product_id: product55.id, 
+      name: 'teen'
+    },
+  { 
+      product_id: product56.id, 
+      name: 'teen'
+    },
+  { 
+      product_id: product57.id, 
+      name: 'home'
+    },
+  { 
+      product_id: product58.id, 
+      name: 'home'
+    },
+  { 
+      product_id: product59.id, 
+      name: 'kitchen'
+    },
+  { 
+      product_id: product60.id, 
+      name: 'women'
+    },
+  { 
+      product_id: product61.id, 
+      name: 'teen'
+    },
+  { 
+      product_id: product62.id, 
+      name: 'women'
+    },
+  { 
+      product_id: product63.id, 
+      name: 'women'
+    },
+  { 
+      product_id: product64.id, 
+      name: 'teen'
+    },
+  { 
+      product_id: product65.id, 
+      name: 'home'
+    },
+  { 
+      product_id: product66.id, 
+      name: 'home'
+    },
+  { 
+      product_id: product67.id, 
+      name: 'home'
+    },
+  { 
+      product_id: product68.id, 
+      name: 'home'
+    },
+  { 
+      product_id: product69.id, 
+      name: 'home'
+    },
+  { 
+      product_id: product70.id, 
+      name: 'fun'
+    },
+  { 
+      product_id: product71.id, 
+      name: 'home'
+    },
+  { 
+      product_id: product72.id, 
+      name: 'art'
+    },
+  { 
+      product_id: product73.id, 
+      name: 'fun'
+    },
+  { 
+      product_id: product74.id, 
+      name: 'home'
+    },
+  { 
+      product_id: product75.id, 
+      name: 'home'
+    },
+  { 
+      product_id: product76.id, 
+      name: 'teen'
+    },
+  { 
+      product_id: product77.id, 
+      name: 'home'
+    },
+  { 
+      product_id: product78.id, 
+      name: 'home'
+    },
+  { 
+      product_id: product79.id, 
+      name: 'teen'
+    },
+  { 
+      product_id: product80.id, 
+      name: 'men'
+    },
+  { 
+      product_id: product81.id, 
+      name: 'home'
+    },
+  { 
+      product_id: product82.id, 
+      name: 'gifts'
+    },
+  { 
+      product_id: product83.id, 
+      name: 'gifts'
+    },
+  { 
+      product_id: product84.id, 
+      name: 'home'
+    },
+  { 
+      product_id: product85.id, 
+      name: 'home'
+    },
+  { 
+      product_id: product86.id, 
+      name: 'gifts'
+    },
+  { 
+      product_id: product87.id, 
+      name: 'home'
+    },
+  { 
+      product_id: product88.id, 
+      name: 'gifts'
+    },
+  { 
+      product_id: product89.id, 
+      name: 'gifts'
+    },
+  { 
+      product_id: product90.id, 
+      name: 'home'
+    },
+  { 
+      product_id: product91.id, 
+      name: 'kitchen'
+    },
+  { 
+      product_id: product92.id, 
+      name: 'kitchen'
+    },
+  { 
+      product_id: product93.id, 
+      name: 'women'
+    },
+  { 
+      product_id: product94.id, 
+      name: 'home'
+    },
+  { 
+      product_id: product95.id, 
+      name: 'teen'
+    },
+  { 
+      product_id: product96.id, 
+      name: 'home'
+    },
+  { 
+      product_id: product97.id, 
+      name: 'home'
+    },
+  { 
+      product_id: product98.id, 
+      name: 'men'
+    },
+  { 
+      product_id: product99.id, 
+      name: 'kitchen'
+    },
+  { 
+      product_id: product100.id, 
+      name: 'men'
+    },
+  { 
+      product_id: product1.id, 
+      name: 'gifts'
+    },
+  { 
+      product_id: product2.id, 
+      name: 'gifts'
+    },
+  { 
+      product_id: product6.id, 
+      name: 'teen'
+    },
+  { 
+      product_id: product7.id, 
+      name: 'men'
+    },
+  { 
+      product_id: product9.id, 
+      name: 'men'
+    },
+  { 
+      product_id: product10.id, 
+      name: 'kids'
+    },
+  { 
+      product_id: product11.id, 
+      name: 'kids'
+    },
+  { 
+      product_id: product12.id, 
+      name: 'gifts'
+    },
+  { 
+      product_id: product13.id, 
+      name: 'men'
+    },
+  { 
+      product_id: product14.id, 
+      name: 'kids'
+    },
+  { 
+      product_id: product15.id, 
+      name: 'fun'
+    },
+  { 
+      product_id: product16.id, 
+      name: 'gifts'
+    },
+  { 
+      product_id: product17.id, 
+      name: 'kids'
+    },
+  { 
+      product_id: product18.id, 
+      name: 'gifts'
+    },
+  { 
+      product_id: product19.id, 
+      name: 'gifts'
+    },
+  { 
+      product_id: product20.id, 
+      name: 'gifts'
+    },
+  { 
+      product_id: product21.id, 
+      name: 'gifts'
+    },
+  { 
+      product_id: product24.id, 
+      name: 'men'
+    },
+  { 
+      product_id: product25.id, 
+      name: 'home'
+    },
+  { 
+      product_id: product26.id, 
+      name: 'gifts'
+    },
+  { 
+      product_id: product27.id, 
+      name: 'women'
+    },
+  { 
+      product_id: product28.id, 
+      name: 'women'
+    },
+  { 
+      product_id: product29.id, 
+      name: 'art'
+    },
+  { 
+      product_id: product30.id, 
+      name: 'home'
+    },
+  { 
+      product_id: product31.id, 
+      name: 'home'
+    },
+  { 
+      product_id: product33.id, 
+      name: 'gifts'
+    },
+  { 
+      product_id: product34.id, 
+      name: 'teen'
+    },
+  { 
+      product_id: product35.id, 
+      name: 'teen'
+    },
+  { 
+      product_id: product36.id, 
+      name: 'teen'
+    },
+  { 
+      product_id: product38.id, 
+      name: 'gifts'
+    },
+  { 
+      product_id: product39.id, 
+      name: 'gifts'
+    },
+  { 
+      product_id: product41.id, 
+      name: 'women'
+    },
+  { 
+      product_id: product42.id, 
+      name: 'teen'
+    },
+  { 
+      product_id: product43.id, 
+      name: 'women'
+    },
+  { 
+      product_id: product44.id, 
+      name: 'men'
+    },
+  { 
+      product_id: product45.id, 
+      name: 'teen'
+    },
+  { 
+      product_id: product46.id, 
+      name: 'women'
+    },
+  { 
+      product_id: product48.id, 
+      name: 'women'
+    },
+  { 
+      product_id: product50.id, 
+      name: 'women'
+    },
+  { 
+      product_id: product51.id, 
+      name: 'gifts'
+    },
+  { 
+      product_id: product52.id, 
+      name: 'gifts'
+    },
+  { 
+      product_id: product53.id, 
+      name: 'gifts'
+    },
+  { 
+      product_id: product54.id, 
+      name: 'gifts'
+    },
+  { 
+      product_id: product55.id, 
+      name: 'gifts'
+    },
+  { 
+      product_id: product56.id, 
+      name: 'gifts'
+    },
+  { 
+      product_id: product57.id, 
+      name: 'gifts'
+    },
+  { 
+      product_id: product58.id, 
+      name: 'gifts'
+    },
+  { 
+      product_id: product59.id, 
+      name: 'gifts'
+    },
+  { 
+      product_id: product60.id, 
+      name: 'gifts'
+    },
+  { 
+      product_id: product61.id, 
+      name: 'gifts'
+    },
+  { 
+      product_id: product62.id, 
+      name: 'gifts'
+    },
+  { 
+      product_id: product63.id, 
+      name: 'gifts'
+    },
+  { 
+      product_id: product64.id, 
+      name: 'gifts'
+    },
+  { 
+      product_id: product65.id, 
+      name: 'gifts'
+    },
+  { 
+      product_id: product66.id, 
+      name: 'gifts'
+    },
+  { 
+      product_id: product67.id, 
+      name: 'gifts'
+    },
+  { 
+      product_id: product68.id, 
+      name: 'gifts'
+    },
+  { 
+      product_id: product69.id, 
+      name: 'gifts'
+    },
+  { 
+      product_id: product70.id, 
+      name: 'gifts'
+    },
+  { 
+      product_id: product71.id, 
+      name: 'gifts'
+    },
+  { 
+      product_id: product72.id, 
+      name: 'gifts'
+    },
+  { 
+      product_id: product73.id, 
+      name: 'gifts'
+    },
+  { 
+      product_id: product74.id, 
+      name: 'gifts'
+    },
+  { 
+      product_id: product75.id, 
+      name: 'gifts'
+    },
+  { 
+      product_id: product76.id, 
+      name: 'gifts'
+    },
+  { 
+      product_id: product77.id, 
+      name: 'gifts'
+    },
+  { 
+      product_id: product78.id, 
+      name: 'gifts'
+    },
+  { 
+      product_id: product79.id, 
+      name: 'fun'
+    },
+  { 
+      product_id: product80.id, 
+      name: 'women'
+    },
+  { 
+      product_id: product81.id, 
+      name: 'gifts'
+    },
+  { 
+      product_id: product82.id, 
+      name: 'men'
+    },
+  { 
+      product_id: product83.id, 
+      name: 'fun'
+    },
+  { 
+      product_id: product84.id, 
+      name: 'gifts'
+    },
+  { 
+      product_id: product85.id, 
+      name: 'gifts'
+    },
+  { 
+      product_id: product86.id, 
+      name: 'fun'
+    },
+  { 
+      product_id: product87.id, 
+      name: 'gifts'
+    },
+  { 
+      product_id: product88.id, 
+      name: 'men'
+    },
+  { 
+      product_id: product90.id, 
+      name: 'gifts'
+    },
+  { 
+      product_id: product91.id, 
+      name: 'men'
+    },
+  { 
+      product_id: product92.id, 
+      name: 'men'
+    },
+  { 
+      product_id: product93.id, 
+      name: 'gifts'
+    },
+  { 
+      product_id: product94.id, 
+      name: 'gifts'
+    },
+  { 
+      product_id: product96.id, 
+      name: 'gifts'
+    },
+  { 
+      product_id: product97.id, 
+      name: 'gifts'
+    },
+  { 
+      product_id: product98.id, 
+      name: 'women'
+    },
+  { 
+      product_id: product100.id, 
+      name: 'women'
+    }
 ])

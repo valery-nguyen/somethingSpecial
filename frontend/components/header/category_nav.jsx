@@ -1,22 +1,23 @@
 import React from 'react';
 import { withRouter } from 'react-router';
+import { Link } from 'react-router-dom';
 
 const CategoryNav = () => {
   return <nav className="category-nav">
     <ul className="hamburger-dropdown">
       <li>
         <ul className="category-nav-links">
-          <li><a href="#">gifts</a></li>
-          <li><a href="#">fun</a></li>
-          <li><a href="#">home</a></li>
-          <li><a href="#">kitchen &amp; bar</a></li >
-          <li><a href="#">art</a></li >
-          <li><a href="#">jewelry</a></li >
-          <li><a href="#">women</a></li>
-          <li><a href="#">men</a></li >
-          <li><a href="#">kids</a></li >
-          <li><a href="#">sale</a></li >
-          <li><a href="#">this just in</a></li >
+          <li><Link to="/category/gifts">gifts</Link></li>
+          <li><Link to="/category/fun">fun</Link></li>
+          <li><Link to="/category/home">home</Link></li>
+          <li><Link to="/category/kitchen">kitchen &amp; bar</Link></li >
+          <li><Link to="/category/art">art</Link></li >
+          <li><Link to="/category/jewelry">jewelry</Link></li >
+          <li><Link to="/category/women">women</Link></li>
+          <li><Link to="/category/men">men</Link></li >
+          <li><Link to="/category/kids">kids</Link></li >
+          <li><Link to="/category/sale">sale</Link></li >
+          <li><Link to="/category/new">this just in</Link></li >
         </ul>
       </li>
     </ul>

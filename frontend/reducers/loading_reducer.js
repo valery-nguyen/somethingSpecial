@@ -2,6 +2,7 @@ import {
   RECEIVE_ALL_PRODUCTS,
   START_LOADING_ALL_PRODUCTS,
   START_LOADING_PRODUCT,
+  START_LOADING_CATEGORY
 } from '../actions/products_actions';
 
 import {
@@ -18,14 +19,16 @@ const initialState = {
   indexLoading: false,
   detailLoading: false,
   cartLoading: false,
-  searchLoading: false
+  searchLoading: false,
+  categoryLoading: false
 };
 
 const loadingReducer = (state = initialState, action) => {
   Object.freeze(state);
   switch (action.type) {
     case RECEIVE_ALL_PRODUCTS:
-      return Object.assign({}, state, { indexLoading: false, detailLoading: false });
+      return Object.assign({}, state, { indexLoading: false, 
+        detailLoading: false, categoryLoading: false });
     case START_LOADING_ALL_PRODUCTS:
       return Object.assign({}, state, { indexLoading: true });
     case START_LOADING_PRODUCT:
@@ -38,6 +41,8 @@ const loadingReducer = (state = initialState, action) => {
       return Object.assign({}, state, { searchLoading: false });
     case START_LOADING_SEARCH_ITEMS:
       return Object.assign({}, state, { searchLoading: true });
+    case START_LOADING_CATEGORY:
+      return Object.assign({}, state, { categoryLoading: true });
     default:
       return state;
   }

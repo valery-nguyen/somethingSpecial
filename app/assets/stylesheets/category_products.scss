@@ -1,0 +1,46 @@
+@import "variables";
+
+.category {
+  .category-header {
+    div {
+      h1 {
+        font-family: $playfair-serif;
+        font-size: 32px;
+        display: flex;
+        justify-content: center;
+        text-align: center;
+        padding: 15px;
+        position: absolute;
+        z-index: 1;
+        padding: 15px;
+        background-color: $white;
+        top: 132px;
+      }
+      img{
+
+        height: 300px;
+        margin-top: 10px;
+        margin-bottom: 20px;
+
+      }
+      position: relative;
+      display: flex;
+      justify-content: center;
+      overflow: hidden;
+      padding: 10px;
+    }
+    padding: 0 10px;
+  }
+
+  .category-outer {
+    section{
+      ul {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        font-size: 18px;
+      }
+    }
+  }
+  
+}

@@ -49,11 +49,17 @@ export const modifyCartItem = (cart_item) => (
   })
 );
 
-
 export const fetchSearchProducts = (search_query) => (
   $.ajax({
     method: 'GET',
     url: 'api/search_products',
     data: { search_query }
+  })
+);
+
+export const fetchCategoryProducts = (categoryName) => (
+  $.ajax({
+    method: 'GET',
+    url: `api/categories/${categoryName}`
   })
 );

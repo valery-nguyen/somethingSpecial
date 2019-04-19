@@ -4,7 +4,7 @@ import _ from 'lodash';
 import ProductsIndexItem from './products_index_item';
 import BackgroundBanner from '../header/background_banner';
 import LinksNav from './links_nav';
-import { WellnessLink } from './category_link';
+import { FirstLink } from './category_link';
 
 class ProductsIndex extends React.Component {
   constructor(props) {
@@ -38,7 +38,7 @@ class ProductsIndex extends React.Component {
     return (
       <div className="background-products main-body">
         <BackgroundBanner />
-        <WellnessLink />
+        <FirstLink />
         <LinksNav />
         <section className="products">
           <ul>

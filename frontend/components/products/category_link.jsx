@@ -1,13 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-export const WellnessLink = () => {
+export const FirstLink = () => {
   return <div className="for-her-link">
-    <Link to="#">
+    <div>
       <label>For Your Stellar Humans</label>
-    </Link>
-    <a href="#">
+    </div>
+    <Link to="/category/women">
       <button>shop for her</button>
-    </a>
+    </Link>
   </div>
 };

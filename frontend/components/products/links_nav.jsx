@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const LinksNav = () => {
   return <nav className="links-nav">
@@ -6,21 +7,21 @@ const LinksNav = () => {
     <div className="links-nav-shop">
       <label><p>Shop For</p></label>
       <div>
-        <a href="#"><p>her</p></a>
-        <a href="#"><p>him</p></a>
-        <a href="#"><p>kids</p></a>
-        <a href="#"><p>teens</p></a>
+        <Link to="/category/women"><p>her</p></Link>
+        <Link to="/category/men"><p>him</p></Link>
+        <Link to="/category/kids"><p>kids</p></Link>
+        <Link to="/category/teen"><p>teens</p></Link>
       </div>
 
     </div>
     <div className="links-nav-categories">
       <label>Top Categories</label>
-      <a href="#">exclusive</a>
-      <a href="#">handmade</a>      
-      <a href="#">art</a>
-      <a href="#">jewelry</a>
-      <a href="#">this just in</a>
-      <a href="#">sale</a>
+      <Link to="/category/home">home</Link>
+      <Link to="/category/kitchen">kitchen</Link>
+      <Link to="/category/art">art</Link>
+      <Link to="/category/jewelry">jewelry</Link>
+      <Link to="/category/new">this just in</Link>
+      <Link to="/category/sale">sale</Link>
     </div>
     <hr/>
   </nav>
