@@ -1,5 +1,5 @@
 import React from 'react';
-import queryString from 'query-string';
+// import queryString from 'query-string';
 
 import AlsoLike from './also_like_container';
 import ProductsIndexItem from './products_index_item';
@@ -11,17 +11,17 @@ class ProductSearch extends React.Component {
   }
   componentDidMount() {
     window.scrollTo(0, 0);
-    const values = queryString.parse(this.props.location.search);
-    const searchQuery = values.q;
-    this.props.requestSearch(searchQuery);
+    // const values = queryString.parse(this.props.location.search);
+    // const searchQuery = values.q;
+    // this.props.requestSearch(searchQuery);
   }
 
   componentDidUpdate(prevProps) {
     window.scrollTo(0, 0);
     if (prevProps.location.search !== this.props.location.search) {
-      const values = queryString.parse(this.props.location.search);
-      const searchQuery = values.q;
-      this.props.requestSearch(searchQuery);
+      // const values = queryString.parse(this.props.location.search);
+      // const searchQuery = values.q;
+      // this.props.requestSearch(searchQuery);
     }
   }
 
