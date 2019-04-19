@@ -1,7 +1,6 @@
 import React from 'react';
 // import queryString from 'query-string';
 
-import AlsoLike from './also_like_container';
 import ProductsIndexItem from './products_index_item';
 
 class ProductSearch extends React.Component {
