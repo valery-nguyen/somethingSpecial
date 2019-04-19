@@ -9,14 +9,16 @@ class ProductSearch extends React.Component {
   }
   componentDidMount() {
     window.scrollTo(0, 0);
-    const searchQuery = this.props.location.search.slice(3).split("+").join(" ");
+    const urlParams = new URLSearchParams(this.props.location.search);
+    const searchQuery = urlParams.get('q').toLowerCase();
     this.props.requestSearch(searchQuery);
   }
 
   componentDidUpdate(prevProps) {
-    window.scrollTo(0, 0);
     if (prevProps.location.search !== this.props.location.search) {
-      const searchQuery = this.props.location.search.slice(3).split("+").join(" ");
+      window.scrollTo(0, 0);
+      const urlParams = new URLSearchParams(this.props.location.search);
+      const searchQuery = urlParams.get('q').toLowerCase();
       this.props.requestSearch(searchQuery);
     }
   }

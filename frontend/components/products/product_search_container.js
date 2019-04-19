@@ -5,9 +5,11 @@ import { requestSearch } from '../../actions/search_actions';
 
 const mapStateToProps = (state, ownProps) => {
   const loading = state.ui.loading.searchLoading || state.ui.loading.cartLoading;
+  const urlParams = new URLSearchParams(ownProps.location.search);
+  const searchQuery = urlParams.get('q');
   return {
     searchProducts: Object.values(state.entities.searches),
-    searchQuery: ownProps.location.search.slice(3).split("+").join(" "),
+    searchQuery,
     loading
   };
 }
