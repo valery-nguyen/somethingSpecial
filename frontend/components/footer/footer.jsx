@@ -9,8 +9,8 @@ import LoadingIcon from '../loading/loading_icon';
 
 class Footer extends React.Component {
   render() {
-    if (this.props.loading) return <LoadingIcon />;
-    if (this.props.cartLoading) return '';
+    const loading = this.props.loading;
+    if (loading) return <LoadingIcon />;
     
     return <footer className="app-footer" >
       <FooterNav />

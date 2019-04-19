@@ -10,7 +10,7 @@ const mapStateToProps = (state, ownProps) => {
   const productTitle = ownProps.match.params.productTitle;
   const product = selectProduct(state, productTitle);
   const images = selectImages(state, productTitle);
-  const loading = state.ui.loading.detailLoading || state.ui.loading.cartLoading;
+  const loading = state.ui.loading.detailLoading;
   const session = state.session;
   const users = state.entities.users;
   const currentUser = users[session.currentUserId];
