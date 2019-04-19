@@ -5,9 +5,10 @@ import { selectAllProducts } from '../../reducers/selectors';
 import { requestAllProducts } from '../../actions/products_actions';
 
 const mapStateToProps = (state, ownProps) => {
+  const loading = state.ui.loading.indexLoading || state.ui.loading.cartLoading;
   return {
   products: selectAllProducts(state),
-  loading: state.ui.loading.indexLoading
+  loading
   };
 }
 

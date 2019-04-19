@@ -2,12 +2,12 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 export const WellnessLink = () => {
-  return <div className="wellness-link">
+  return <div className="for-her-link">
     <Link to="#">
-      <label>More Om for Your Home</label>
+      <label>For Your Stellar Humans</label>
     </Link>
     <a href="#">
-      <button>shop wellness</button>
+      <button>shop for her</button>
     </a>
   </div>
 };

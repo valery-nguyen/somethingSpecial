@@ -1,4 +1,5 @@
 import { connect } from 'react-redux';
+import { updateShippingCosts } from '../../actions/session_actions';
 
 import ShipPanel from './ship_panel';
 
@@ -8,4 +9,8 @@ const mapStateToProps = ({ session, entities: { users } }) => {
   };
 };
 
-export default connect(mapStateToProps)(ShipPanel);
+const mapDispatchToProps = dispatch => ({
+  updateShippingCosts: (shippingOptions) => dispatch(updateShippingCosts(shippingOptions)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(ShipPanel);
