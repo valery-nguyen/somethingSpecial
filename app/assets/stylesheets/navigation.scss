@@ -360,14 +360,3 @@
     top: 12px;
   }
 }
-
-@media all and (max-width: 350px) {
-  .app-header {
-    .title-nav {
-      .title-search-outer,
-      .title-cart {
-        display: none;
-      }
-    }
-  }
-}
