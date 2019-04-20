@@ -76,15 +76,18 @@
 .modal-close-btn {
   button {
     float: right;
-    font-size: 36px;
-    width: 38px;
-    height: 38px;
+    font-size: 38px;
+    width: 36px;
+    height: 42px;
     border: none;
     padding: 0;
-    margin: 0;
+    margin-left: 0;
+    margin-right: 10px;
+    margin-top: 0;
+    margin-bottom: 0;
   }
   button:before {
-    content: "\00D7" ;
+    content: "\00D7";
   }
   button:hover:before {
     content:"+";
