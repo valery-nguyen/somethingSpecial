@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 const CategoryNav = () => {
   return <nav className="category-nav">
-    <ul className="hamburger-dropdown">
+    <ul id="hamburger-dropdown-btn"className="hamburger-dropdown">
       <li>
         <ul className="category-nav-links">
           <li><Link to="/category/gifts">gifts</Link></li>
