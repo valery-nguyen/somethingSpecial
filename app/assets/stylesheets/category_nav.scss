@@ -60,6 +60,9 @@
 
   .category-nav {
     border-bottom: none;
+    height: 30px;
+    margin-top: 12px;
+    
   }
 
   .category-nav-links {
@@ -74,9 +77,9 @@
     height: 30px;
     position: relative;
     cursor: pointer;
-    background-position: 0px 10px;
-    padding-bottom: 20px;
-    padding-right: 20px;
+    // background-position: 0px 10px;
+    padding-bottom: 0px;
+    padding-right: 0px;
   }
 
   .hamburger-dropdown ul {
@@ -91,7 +94,7 @@
   .hamburger-dropdown:hover ul {
     display: flex;
     background-color: white;
-    width: calc(100vw - 15px);
+    width: calc(100vw - 4px);
     height: 100vw;
     padding: 20px 0;
     z-index: 2;
