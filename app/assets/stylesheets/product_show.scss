@@ -256,7 +256,7 @@
     border: none;
     margin: 0;
     height: 6px;
-    background-image: url('boxborder-top.png');
+    background-image: image-url('boxborder-top.png');
     background-color: $green;
     width: 100%;
     position: absolute;
@@ -267,11 +267,11 @@
     border: none;
     margin: 0;
     height: 6px;
-    background-image: url('boxborder-bottom.png');
+    background-image: image-url('boxborder-bottom.png');
     background-color: $green;
   }
   position: relative;
-  background-image: url('graintexture50.png');
+  background-image: image-url('graintexture50.png');
   background-color: $green;
   width: 100%;
   display: flex;
