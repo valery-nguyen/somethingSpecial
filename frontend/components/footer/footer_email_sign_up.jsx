@@ -1,26 +1,45 @@
 import React from 'react';
+import { withRouter } from 'react-router';
 
-const FooterEmailSignUp = () => {
-  return <section className="footer-email-signup">
-    <div>
-      <form>
-        <label>Sign Up For Emails</label>
-        <div>
-          <input type="text" placeholder="email" />
-          <button>SUBMIT</button>
-        </div>
-      </form>
-    </div>
+class FooterEmailSignUp extends React.Component {
+  constructor(props) {
+    super(props);
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
 
-    <section>
-      <i></i>
+  handleSubmit(e) {
+    e.preventDefault();
+    document.getElementById("footer-email-signup-input").value = '';
+    document.getElementById("footer-email-signup-btn").innerHTML = "THANK YOU!";
+    setTimeout(function () {
+      document.getElementById("footer-email-signup-btn").innerHTML = "SUBMIT";
+    }, 10000);
+  
+  }
+
+  render() {
+    return <section className="footer-email-signup">
       <div>
-        <h2>Want Unlimited FREE Shipping?</h2>
-        <p>Sign up for Uncommon Perks and enjoy it for $19 a year! <a href="#">Learn More</a></p>
+        <form onSubmit={this.handleSubmit}>
+          <label>Sign Up For Emails</label>
+          <div>
+            <input id="footer-email-signup-input" type="text" placeholder="email" />
+            <button id="footer-email-signup-btn">SUBMIT</button>
+          </div>
+        </form>
       </div>
-    </section>
 
-  </section>
+      <section>
+        <i></i>
+        <div>
+          <h2>Want Unlimited FREE Shipping?</h2>
+          <p>Sign up for Uncommon Perks and enjoy it for $19 a year! <a href="#">Learn More</a></p>
+        </div>
+      </section>
+
+    </section>
+  }
+
 };
 
-export default FooterEmailSignUp;
+export default withRouter(FooterEmailSignUp);
