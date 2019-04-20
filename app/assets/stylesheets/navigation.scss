@@ -318,6 +318,9 @@
     padding-right: 10px;
     padding-bottom: 5px;
     flex-wrap: nowrap;
+    flex-direction: row-reverse;
+    align-items: center;
+    margin-top: 20px;
   }
 
   .title-nav-empty-cart-icon {

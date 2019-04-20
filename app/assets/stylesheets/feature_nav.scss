@@ -104,7 +104,18 @@
 
 @media all and (max-width: 640px) {
   .feature-nav {
-    display: none;
+    section {
+      div {
+        a {
+          font-size: 10px;
+        }
+      }
+    }
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
   }
 }
 

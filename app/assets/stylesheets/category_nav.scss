@@ -50,12 +50,12 @@
 }
 
 @media all and (max-width: 640px) {
-  .app-header {
-    display: flex;
-    flex-direction: row-reverse;
-    justify-content: space-between;
-    align-items: center;
-  }
+  // .app-header {
+  //   display: flex;
+  //   flex-direction: row-reverse;
+  //   justify-content: space-between;
+  //   align-items: center;
+  // }
 
   .category-nav {
     border-bottom: none;
