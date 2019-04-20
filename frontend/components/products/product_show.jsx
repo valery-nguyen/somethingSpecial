@@ -28,6 +28,9 @@ class ProductShow extends React.Component {
       if (!Object.keys(this.props.products).includes(String(this.props.product.id)) ||
         !this.props.products[this.props.product.id]["item_id"])
           this.props.requestProduct(this.props.productTitle);
+        Array.from(document.getElementById("product-show-img-ul").children).forEach((li, idx) => {
+          (idx === 0) ? li.children[0].className = 'visible' : li.children[0].className = 'blurred';
+        });
     }
   }
 
