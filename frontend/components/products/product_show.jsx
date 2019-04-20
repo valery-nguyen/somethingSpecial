@@ -7,6 +7,7 @@ class ProductShow extends React.Component {
     super(props);
 
     this.handleAddToCart = this.handleAddToCart.bind(this);
+    this.handlePreviewClick = this.handlePreviewClick.bind(this);
   }
 
   componentDidMount() {
@@ -28,6 +29,14 @@ class ProductShow extends React.Component {
         !this.props.products[this.props.product.id]["item_id"])
           this.props.requestProduct(this.props.productTitle);
     }
+  }
+
+  handlePreviewClick(e) {
+    document.getElementById("product-show-img-preview").src = e.target.src;
+    Array.from(document.getElementById("product-show-img-ul").children).forEach(li => {
+      li.children[0].className = 'blurred';
+    });
+    e.target.className = 'visible';
   }
 
   previewCart() {
@@ -70,8 +79,10 @@ class ProductShow extends React.Component {
     
     if (!product || this.props.images.length === 0 || loading) return null;
 
+    let imgLiClass = '';
     const imagesLis = this.props.images.map( (image, idx) => {
-      return <li key={idx}> <img src={ image.image_url } alt={ product.title } /> </li>
+      (idx === 0) ? imgLiClass = 'visible' : imgLiClass = "blurred";
+      return <li key={idx}> <img onClick={this.handlePreviewClick} className={imgLiClass} src={ image.image_url } alt={ product.title } /> </li>
     });
    
     let qtyOptions = Array.apply(null, { length: 100 }).map(Number.call, Number)
@@ -84,8 +95,8 @@ class ProductShow extends React.Component {
       <section className="product-show-page main-body">
         <section className="product-show">
           <div className="show-images">
-            <img src={this.props.images[0].image_url} />
-            <ul>{imagesLis}</ul>
+            <img id="product-show-img-preview" src={this.props.images[0].image_url} />
+            <ul id="product-show-img-ul">{imagesLis}</ul>
           </div>
           <section className="show-product-summary">
             <h1>{product.title}</h1>
@@ -103,9 +114,9 @@ class ProductShow extends React.Component {
             </div>
             <div className="show-product-share">
               <ul>
-                <li><a href="#"><i className="icon-email2"></i></a></li>
-                <li><a href="#"><i className="icon-facebook2"></i></a></li>
-                <li><a href="#"><i className="icon-pinterest2"></i></a></li>
+                <li><a href="mailto:"><i className="icon-email2"></i></a></li>
+                <li><a href="https://www.facebook.com/"><i className="icon-facebook2"></i></a></li>
+                <li><a href="https://www.pinterest.com/"><i className="icon-pinterest2"></i></a></li>
               </ul>
             </div>
           </section>

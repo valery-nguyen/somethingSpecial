@@ -7,7 +7,7 @@ const FooterDescription = () => {
       <li><a href="#">site map</a></li>
       <li><a href="#">terms &amp; conditions</a></li>
       <li><a href="#">privacy policy</a></li>
-      <li><a href="#">made in NYC</a></li>
+      <li><a href="https://nytm.org/made">made in NYC</a></li>
     </ul>
     <p>©2019 Valery's duplicate website of UncommonGoods.com</p>
   </section>

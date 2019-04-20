@@ -3,17 +3,17 @@ import React from 'react';
 const FooterNav = () => {
   return <nav className="footer-nav">
       <div>
-        <a href="#"><i className="icon-help"></i> help center</a>
+        <a href="https://support.uncommongoods.com/hc/en-us"><i className="icon-help"></i> help center</a>
         <a href="#"><i className="icon-chat"></i> live chat</a>
-        <a href="#"><i className="icon-email"></i> email us</a>
-        <a href="#"><i className="icon-phone"></i> 408.886.8447</a>
+        <a href="mailto:valery.nguyen@ucla.edu"><i className="icon-email"></i> email us</a>
+        <a href="tel:4088868447"><i className="icon-phone"></i> 408.886.8447</a>
       </div>     
       <div>
         <span>
-          <a href="#"><i className="icon-facebook"></i></a>
-          <a href="#"><i className="icon-twitter"></i></a>
-          <a href="#"><i className="icon-pinterest"></i></a>
-          <a href="#"><i className="icon-instagram"></i></a>
+          <a href="https://www.facebook.com/pages/UncommonGoods/44340057816"><i className="icon-facebook"></i></a>
+          <a href="https://www.twitter.com/uncommongoods"><i className="icon-twitter"></i></a>
+          <a href="https://pinterest.com/uncommongoods"><i className="icon-pinterest"></i></a>
+          <a href="https://instagram.com/uncommongoods"><i className="icon-instagram"></i></a>
         </span>
       </div>
   </nav>

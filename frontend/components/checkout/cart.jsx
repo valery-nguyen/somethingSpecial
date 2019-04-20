@@ -106,9 +106,9 @@ class CartPanel extends React.Component {
             <section className="cart-body-right-footer">
               <h2>Need help?</h2>
               <ul>
-                <span><i className="cart-icon-phone"></i><a href="#">408.886.8447</a></span>
+                <span><i className="cart-icon-phone"></i><a href="tel:4088868447">408.886.8447</a></span>
                 <span><i className="cart-icon-chat"></i><a href="#">live chat</a></span>
-                <span><i className="cart-icon-email"></i><a href="#">help@somethingspecial.com</a></span>
+                <span><i className="cart-icon-email"></i><a href="mailto:valery.nguyen@ucla.edu">help@somethingspecial.com</a></span>
               </ul>
             </section>
           </section>

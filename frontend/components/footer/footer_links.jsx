@@ -7,7 +7,7 @@ const FooterLinks = () => {
       <ul>
         <li><a href="#">our story</a></li>
         <li><a href="#">better to give</a></li>
-        <li><a href="#">our team</a></li>
+        <li><a href="https://www.linkedin.com/in/valeryn/">our team</a></li>
         <li><a href="#">careers</a></li>
       </ul>
     </div>
@@ -16,7 +16,7 @@ const FooterLinks = () => {
       <label>support</label>
       <ul>
         <li><a href="#">check order status</a></li>
-        <li><a href="#">shipping &amp; returns</a></li>
+        <li><a href="https://ugoods.zendesk.com/forums/20813852-shipping-options-pricing">shipping &amp; returns</a></li>
         <li><a href="#">corporate orders</a></li>
         <li><a href="#">email unsubscribe</a></li>
         <li><a href="#">submit feedback</a></li>
