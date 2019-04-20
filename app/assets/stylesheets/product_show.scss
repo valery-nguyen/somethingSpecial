@@ -288,6 +288,10 @@
       .product-details-story {
         .the-story {
           h1 {
+            button {
+              padding: 0;
+              margin: 0;
+            }
             font-family: $playfair-serif;
             padding: 10px;
             font-weight: bold;
@@ -318,6 +322,10 @@
       .product-details-maker {
         .the-maker {
           h1 {
+            button {
+              padding: 0;
+              margin: 0;
+            }
             font-family: $playfair-serif;
             padding-left: 10px;
             padding-right: 10px;
@@ -447,6 +455,10 @@
 
   .product-details-shipping {
     h1 {
+      button {
+        padding: 0;
+        margin: 0;
+      }
       font-family: $playfair-serif;
       padding: 10px;
       font-weight: bold;
