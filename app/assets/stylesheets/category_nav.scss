@@ -1,7 +1,7 @@
 @import "variables";
 
 .category-nav {
-   border-bottom: 0.5px solid $beige;
+  border-bottom: 0.5px solid $beige;
 }
 
 .category-nav-links {
@@ -14,7 +14,6 @@
       background-color: white;
       padding: 10px 5px;
       margin-right: 10px;
-
     }
   }
 
@@ -62,51 +61,30 @@
     border-bottom: none;
     height: 30px;
     margin-top: 12px;
-    
   }
 
-  .category-nav-links {
+  .hamburger-li-hidden {
     display: none;
   }
 
-  .hamburger-dropdown > li {
+  .hamburger-bg-open-icon {
     background-image: image-url('hamburger.png');
+  }
+
+  .hamburger-bg-close-icon {
+    background-image: image-url('hamburger_close.png');
+  }
+
+  .hamburger-dropdown > li {
     background-repeat: no-repeat;
     background-size: 30px 30px;
     width: 30px;
     height: 30px;
     position: relative;
     cursor: pointer;
-    // background-position: 0px 10px;
     padding-bottom: 0px;
     padding-right: 0px;
   }
-
-  /////////
-// .modal-close-btn {
-//   button {
-//     float: right;
-//     font-size: 24px;
-//     width: 42px;
-//     height: 42px;
-//     // border: none;
-//     padding: 0;
-//     margin: 0;
-//   }
-//   button:before {
-//     content: "\00D7" ;
-//   }
-//   button:hover:before {
-//     content:"+";
-//   }
-//   display: block;
-//   height: 36px;
-//   box-sizing: border-box;
-// }
-
-
-
-  //////////
 
   .hamburger-dropdown ul {
     position: absolute;
@@ -115,9 +93,15 @@
     flex-direction: column;
     z-index: 2;
     cursor: pointer;
+    background-color: white;
+    width: calc(100vw - 4px);
+    height: 100vw;
+    padding: 20px 0;
+    border: 1px solid $beige;
+    transition-duration: 0.2s;
   }
 
-  .hamburger-dropdown:hover ul {
+  .hamburger-downdown-show {
     display: flex;
     background-color: white;
     width: calc(100vw - 4px);
@@ -126,6 +110,7 @@
     z-index: 2;
     border: 1px solid $beige;
     transition-duration: 0.2s;
+
   }
 
   .hamburger-dropdown ul li:hover a {
