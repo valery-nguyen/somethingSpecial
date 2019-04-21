@@ -48,22 +48,22 @@
 
 .icon-linkedin {
   background-image: image-url('icons/linkedin_icon.png');
-  background-size: 80%;
-  background-position: 3px 0px;
+  background-size: 70%;
+  background-position: 6px 0px;
   padding: 3px
 }
 
 .icon-angel {
   background-image: image-url('icons/angel_icon.png');
-  background-size: 46%;
-  background-position: 6px 0px;
+  background-size: 43%;
+  background-position: 8px 0px;
   padding: 3px
 }
 
 .icon-github {
   background-image: image-url('icons/github_icon.png');
-  background-size: 72%;
-  background-position: 4px 0px;
+  background-size: 62%;
+  background-position: 6px 0px;
   padding: 3px
 }
 
@@ -100,10 +100,6 @@
   .feature-nav {
     section{
       div {
-        a{
-          top: 4px;
-          padding: 10px 5px;
-        }
         font-size: 12px;
       }
     }
@@ -130,6 +126,7 @@
       div {
         a {
           font-size: 10px;
+          padding: 10px 5px;
         }
       }
     }

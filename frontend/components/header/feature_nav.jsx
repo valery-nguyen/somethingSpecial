@@ -3,6 +3,27 @@ import { withRouter } from 'react-router';
 import { Link } from 'react-router-dom';
 
 class FeatureNav extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.handleWishClick = this.handleWishClick.bind(this);
+  }
+
+  handleWishClick(e) {
+    e.preventDefault();
+    if (this.props.currentUser) {
+      this.props.history.push('/construction');
+    } else {
+      const modalEl = document.getElementsByClassName("modal-screen")[0];
+      const modalForm = document.getElementsByClassName("modal-form")[0];
+      const body = document.getElementById("root");
+      modalEl.classList.remove("is-open");
+      modalForm.classList.remove("is-open");
+      body.classList.add("noscroll");
+    }
+  }
+
+
   handleSigninClick(e) {
     e.preventDefault();
     const modalEl = document.getElementsByClassName("modal-screen")[0];
@@ -44,7 +65,7 @@ class FeatureNav extends React.Component {
               <i className="icon-user"></i> {(currentUser) ? `Hi, ${currentUser.fname || ''} ${currentUser.lname || ''}` : 'Sign In'}
             </a>
             
-            <a href="#"><i className="icon-heart"></i> <span>Wish Lists</span></a>
+            <a href="#" onClick={this.handleWishClick}><i className="icon-heart"></i> <span>Wish Lists</span></a>
             <a href="/" onClick={this.handleShipClick}><i className="icon-flag"></i> <span>Ship To</span></a>
           </div >
         </section>

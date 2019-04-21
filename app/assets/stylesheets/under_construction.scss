@@ -20,9 +20,18 @@
       padding: 10px;
     }
     h2 {
+      a {
+        color: black;
+        text-decoration-color: $sea-green;
+      }
+      a:hover {
+        background-color: $sea-green;
+        transition-duration: 0.5s;
+      }
       display: flex;
       justify-content: center;
       text-align: center;
+      flex-wrap: wrap;
       font-family: $playfair-serif;
       font-size: 18px;
       line-height: 1.5;

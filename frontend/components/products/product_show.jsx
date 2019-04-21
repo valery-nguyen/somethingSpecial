@@ -6,6 +6,7 @@ class ProductShow extends React.Component {
   constructor(props) {
     super(props);
 
+    this.handleWishClick = this.handleWishClick.bind(this);
     this.handleAddToCart = this.handleAddToCart.bind(this);
     this.handlePreviewClick = this.handlePreviewClick.bind(this);
   }
@@ -31,6 +32,20 @@ class ProductShow extends React.Component {
         Array.from(document.getElementById("product-show-img-ul").children).forEach((li, idx) => {
           (idx === 0) ? li.children[0].className = 'visible' : li.children[0].className = 'blurred';
         });
+    }
+  }
+
+  handleWishClick(e) {
+    e.preventDefault();
+    if (this.props.currentUser) {
+      this.props.history.push('/construction');
+    } else {
+      const modalEl = document.getElementsByClassName("modal-screen")[0];
+      const modalForm = document.getElementsByClassName("modal-form")[0];
+      const body = document.getElementById("root");
+      modalEl.classList.remove("is-open");
+      modalForm.classList.remove("is-open");
+      body.classList.add("noscroll");
     }
   }
 
@@ -112,8 +127,8 @@ class ProductShow extends React.Component {
               <button onClick={this.handleAddToCart}>add to cart</button>
             </div>
             <div className="show-product-wish">
-              <a href="#"><i className="icon-heart2"></i></a>
-              <a href="#">wish list</a>
+              <a href="#" onClick={this.handleWishClick}><i className="icon-heart2"></i></a>
+              <a href="#" onClick={this.handleWishClick}>wish list</a>
             </div>
             <div className="show-product-share">
               <ul>

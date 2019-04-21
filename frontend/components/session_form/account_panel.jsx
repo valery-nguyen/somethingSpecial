@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 class AccountPanel extends React.Component {
   handleLogoutClick(e) {
@@ -24,7 +25,7 @@ class AccountPanel extends React.Component {
         <section>
           <a href="#" onClick={this.closePanel}> view account</a>
           <div>
-            <a href="#" onClick={this.closePanel}>Order Lookup</a>
+            <Link to="/orders" onClick={this.closePanel}>Order Lookup</Link>
             <div><i></i><a href="#" onClick={this.closePanel}>Wish List (0)</a></div>
             <a href="#" onClick={this.handleLogoutClick.bind(this)}>Sign Out</a>
           </div>
