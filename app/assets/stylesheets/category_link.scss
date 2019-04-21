@@ -50,6 +50,12 @@
     a button {
       width: 80vw;
     }
+    label {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      text-align: center;
+    }
     width: 90vw;
     box-sizing: border-box;
   }

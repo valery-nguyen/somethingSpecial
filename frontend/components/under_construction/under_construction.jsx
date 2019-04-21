@@ -9,7 +9,7 @@ class UnderConstruction extends React.Component {
     return (
       <div id="under-construction-container">
         <div>
-            <h1>What is SomethingSpecial?</h1>
+            <h1>Wait! What is SomethingSpecial?</h1>
             <p>SomethingSpecial is a duplicate website of UncommonGoods.com, built over
               a period of 2.5 weeks, which implements react &amp; redux frontend technologies
               and ruby on rails in the backend.
