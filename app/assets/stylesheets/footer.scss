@@ -377,8 +377,12 @@
     }
 
     ul {
-      a {
-        padding: 0 10px;
+      li {
+        a {
+        text-align: center;
+        }
+        display: flex;
+        justify-content: center;
       }
       display: flex;
       justify-content: center;
