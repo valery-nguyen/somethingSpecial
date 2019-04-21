@@ -52,3 +52,10 @@
   background-position: 0px 100px;
   background-position-x: center;
 }
+
+@media all and (max-width: 640px) {
+#under-construction-container {
+    padding-top: 10px;
+    margin-top: 90px;
+  }
+}

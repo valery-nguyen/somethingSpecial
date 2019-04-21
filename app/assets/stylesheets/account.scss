@@ -127,3 +127,11 @@
   display: flex;
   justify-content: center;
 }
+
+
+@media all and (max-width: 640px) {
+  .order-page {
+    padding-top: 10px;
+    margin-top: 80px;
+  }
+}
