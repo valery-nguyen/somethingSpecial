@@ -1,14 +1,15 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const FooterLinks = () => {
   return <section className="footer-links">
     <div>
       <label>about us</label>
       <ul>
-        <li><a href="#">our story</a></li>
-        <li><a href="#">better to give</a></li>
-        <li><a href="https://www.linkedin.com/in/valeryn/">our team</a></li>
-        <li><a href="#">careers</a></li>
+        <li><Link to="/construction">our story</Link></li>
+        <li><Link to="/construction">better to give</Link></li>
+        <li><a href="https://www.linkedin.com/in/valeryn/" target="_blank">our team</a></li>
+        <li><Link to="/construction">careers</Link></li>
       </ul>
     </div>
     
@@ -17,19 +18,19 @@ const FooterLinks = () => {
       <ul>
         <li><a href="#">check order status</a></li>
         <li><a href="https://ugoods.zendesk.com/forums/20813852-shipping-options-pricing">shipping &amp; returns</a></li>
-        <li><a href="#">corporate orders</a></li>
-        <li><a href="#">email unsubscribe</a></li>
-        <li><a href="#">submit feedback</a></li>
+        <li><Link to="/construction">corporate orders</Link></li>
+        <li><Link to="/construction">email unsubscribe</Link></li>
+        <li><Link to="/construction">submit feedback</Link></li>
       </ul>
     </div>
 
     <div>
       <label>makers &amp; products</label>
       <ul>
-        <li><a href="#">our catalog</a></li>
-        <li><a href="#">independent makers</a></li>
-        <li><a href="#">submit your product</a></li>
-        <li><a href="#">scholarship opportunity</a></li>
+        <li><Link to="/construction">our catalog</Link></li>
+        <li><Link to="/construction">independent makers</Link></li>
+        <li><Link to="/construction">submit your product</Link></li>
+        <li><Link to="/construction">scholarship opportunity</Link></li>
       </ul>
     </div>
   </section>

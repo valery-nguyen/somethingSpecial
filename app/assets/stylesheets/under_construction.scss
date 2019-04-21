@@ -1,0 +1,45 @@
+@import "variables";
+
+#under-construction-container {
+  div {
+    h1 {
+      display: flex;
+      justify-content: center;
+      font-family: $playfair-serif;
+      font-size: 24px;
+      margin-bottom: 10px;
+      padding: 10px;
+    }
+    p{
+      display: flex;
+      justify-content: center;
+      text-align: center;
+      font-family: $playfair-serif;
+      font-size: 16px;
+      line-height: 1.5;
+      padding: 10px;
+    }
+    h2 {
+      display: flex;
+      justify-content: center;
+      text-align: center;
+      font-family: $playfair-serif;
+      font-size: 18px;
+      line-height: 1.5;
+      padding: 10px;
+    }
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    top: 10px;
+  }
+  
+  box-sizing: border-box;
+  height: 425px;
+  width: 100%;
+  
+  background-image: image-url('perks.gif');
+  background-repeat: no-repeat;
+  background-position: 0px 100px;
+  background-position-x: center;
+}

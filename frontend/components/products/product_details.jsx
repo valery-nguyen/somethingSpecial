@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 class ProductDetail extends React.Component {
   constructor(props) {
@@ -132,7 +133,7 @@ class ProductDetail extends React.Component {
                       </div>
                       <div>
                         <h2>Enjoy unlimited <b>FREE 3-5 Day Shipping</b> on all U.S. orders for $19 a year.</h2>
-                        <a href="#">join uncommon perks</a>
+                        <Link to="/construction">join uncommon perks</Link>
                       </div>
                     </section>
                   </div>
@@ -161,36 +162,6 @@ class ProductDetail extends React.Component {
               </div>
             </div>
           </div>
-
-          {/* <div className="product-details-shipping-outer">
-            <div className="product-details-shipping">
-              <h1 onClick={this.shippingToggle}>shipping<button className="the-shipping-toggle">&#x2c5;</button></h1>
-            
-              <div className={(this.state.shippingOpen) ? '' : 'hidden'}>
-                  <p>Most of our items are in stock and will ship quickly. Orders for in-stock items placed before 5pm ET Monday through Friday, excluding Federal holidays, will ship in the US:</p>
-                <h2>ECONOMY SHIPPING:</h2>
-                  <p>within 8 days, arriving no later than the 9th business day after the order was placed.</p>
-                <h2>STANDARD SHIPPING:</h2>
-                  <p>within 4 days, arriving 5 business days after the order was placed.</p>
-                <h2>PREFERRED SHIPPING:</h2>
-                  <p>within 2 days, arriving 3 business days after the order was placed.</p>
-                <h2>EXPEDITED SHIPPING:</h2>
-                  <p>within 1 day, arriving 2 business days after the order was placed.</p>
-                <h2>EXPRESS SHIPPING:</h2>
-                  <p>will ship the same day and arrive 1 business day later.</p>
-                <section>
-                  <div>
-                    <i></i>
-                  </div>
-                  <div>
-                    <h2>Enjoy unlimited <b>FREE 3-5 Day Shipping</b> on all U.S. orders for $19 a year.</h2>
-                    <a href="#">join uncommon perks</a>
-                  </div>
-                </section>
-              </div>
-
-            </div>
-          </div> */}
         </div>
       <hr className="product-details-outer-bottom"/>
     </div>

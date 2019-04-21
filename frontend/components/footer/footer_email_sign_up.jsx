@@ -1,5 +1,6 @@
 import React from 'react';
 import { withRouter } from 'react-router';
+import { Link } from 'react-router-dom';
 
 class FooterEmailSignUp extends React.Component {
   constructor(props) {
@@ -33,7 +34,7 @@ class FooterEmailSignUp extends React.Component {
         <i></i>
         <div>
           <h2>Want Unlimited FREE Shipping?</h2>
-          <p>Sign up for Uncommon Perks and enjoy it for $19 a year! <a href="#">Learn More</a></p>
+          <p>Sign up for Uncommon Perks and enjoy it for $19 a year! <Link to="/construction">Learn More</Link></p>
         </div>
       </section>
 

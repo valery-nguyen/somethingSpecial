@@ -1,5 +1,6 @@
 import React from 'react';
 import { withRouter } from 'react-router';
+import { Link } from 'react-router-dom';
 
 class FeatureNav extends React.Component {
   handleSigninClick(e) {
@@ -30,12 +31,12 @@ class FeatureNav extends React.Component {
         <section>
           <div>
             <div>
-              <a href="https://www.linkedin.com/in/valeryn/" className="personal-links"><i className="icon-linkedin"></i></a>
-              <a href="https://angel.co/valeryn" className="personal-links"><i className="icon-angel"></i></a>
-              <a href="https://github.com/valery-nguyen/somethingSpecial" className="personal-links"><i className="icon-github"></i></a>
+              <a href="https://www.linkedin.com/in/valeryn/" target="_blank" className="personal-links"><i className="icon-linkedin"></i></a>
+              <a href="https://angel.co/valeryn" target="_blank" className="personal-links"><i className="icon-angel"></i></a>
+              <a href="https://github.com/valery-nguyen/somethingSpecial" target="_blank" className="personal-links"><i className="icon-github"></i></a>
             </div>
             {/* <a href="https://www.uncommongoods.com/blog/" className="link-blog">Our Blog: <i>The Goods</i></a> */}
-            {/* <a href="#"><i className="icon-gift"></i><span>Gift Finder</span></a> */}
+            {/* <Link to="/construction"><i className="icon-gift"></i><span>Gift Finder</span></Link> */}
           </div>
 
           <div>

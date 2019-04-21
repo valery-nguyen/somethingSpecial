@@ -68,7 +68,7 @@ class CartPanel extends React.Component {
                   </select >
                   <p>${(product.price * product.quantity).toFixed(2)}</p>
                 </div>
-              <a onClick={this.handleRemoveClick(product.id)}>Remove</a>
+              <a href="#" onClick={this.handleRemoveClick(product.id)}>Remove</a>
               </div>
           </div>
         </li>
@@ -107,7 +107,7 @@ class CartPanel extends React.Component {
               <h2>Need help?</h2>
               <ul>
                 <span><i className="cart-icon-phone"></i><a href="tel:4088868447">408.886.8447</a></span>
-                <span><i className="cart-icon-chat"></i><a href="#">live chat</a></span>
+                <span><i className="cart-icon-chat"></i><Link to="/construction">live chat</Link></span>
                 <span><i className="cart-icon-email"></i><a href="mailto:valery.nguyen@ucla.edu">help@somethingspecial.com</a></span>
               </ul>
             </section>

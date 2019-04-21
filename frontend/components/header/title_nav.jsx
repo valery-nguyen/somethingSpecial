@@ -65,7 +65,7 @@ class TitleNav extends React.Component {
           {(this.props.numCartItems === 0) ? <button><i className="icon-cart"></i></button> : <button><i className="title-nav-empty-cart-icon"></i></button>}
         </div>
 
-        <a onClick={this.handleCheckoutClick}>checkout</a>
+        <a href="#" onClick={this.handleCheckoutClick}>checkout</a>
       </div>
   </nav>
   }

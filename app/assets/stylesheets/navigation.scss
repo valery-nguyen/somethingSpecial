@@ -48,7 +48,7 @@
     height: 44px;
     width: 44px;
     padding: 5px 5px;
-    border-left: 0.5px solid $dark-beige;
+    border-left: 1px solid $dark-beige;
   }
 
   button:hover{
@@ -58,7 +58,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border: 0.5px solid $dark-beige;
+  border: 1px solid $dark-beige;
   border-top-right-radius: 3px;
   border-bottom-right-radius: 3px;
   width: 330px;

@@ -26,7 +26,7 @@ class AccountPanel extends React.Component {
           <div>
             <a href="#" onClick={this.closePanel}>Order Lookup</a>
             <div><i></i><a href="#" onClick={this.closePanel}>Wish List (0)</a></div>
-            <a onClick={this.handleLogoutClick.bind(this)}>Sign Out</a>
+            <a href="#" onClick={this.handleLogoutClick.bind(this)}>Sign Out</a>
           </div>
         </section>
       </div>
