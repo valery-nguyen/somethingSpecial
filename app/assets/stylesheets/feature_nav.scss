@@ -14,7 +14,8 @@
         margin-top: auto;
         margin-bottom: auto;
       }
-      
+      display: flex;
+      flex-direction: row;
     }
     display: flex;
     justify-content: space-between;
@@ -45,6 +46,27 @@
   padding: 0px;
 }
 
+.icon-linkedin {
+  background-image: image-url('icons/linkedin_icon.png');
+  background-size: 80%;
+  background-position: 3px 0px;
+  padding: 3px
+}
+
+.icon-angel {
+  background-image: image-url('icons/angel_icon.png');
+  background-size: 46%;
+  background-position: 6px 0px;
+  padding: 3px
+}
+
+.icon-github {
+  background-image: image-url('icons/github_icon.png');
+  background-size: 72%;
+  background-position: 4px 0px;
+  padding: 3px
+}
+
 .icon-gift {
   background-image: image-url('icons/gift_icon.png');
   background-size: 90%;
@@ -61,7 +83,7 @@
 .icon-heart {
   background-image: image-url('icons/heart_icon.png');
   background-size: 75%;
-  background-position: 3px -1px;
+  background-position: 3px 0px;
 }
 
 .icon-flag {
