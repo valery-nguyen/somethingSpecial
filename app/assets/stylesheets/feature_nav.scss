@@ -3,16 +3,29 @@
 .feature-nav {
   section{
     div {
+      div {
+        a {
+          text-decoration: none;
+          color: $black;
+          padding-right: 5px;
+          padding-left: 5px;
+          position: relative;
+        }
+        display: flex;
+        flex-direction: row;
+      }
       a {
+        span {
+          padding: 0 5px;
+        }
         text-decoration: none;
         color: $black;
-        padding: 10px 10px;
         position: relative;
-        top: 5px;
         font-size: 13px;
-        display: inline-block;
-        margin-top: auto;
-        margin-bottom: auto;
+        display: flex;
+        align-items: center;
+        padding-right: 5px;
+        padding-left: 5px;
       }
       display: flex;
       flex-direction: row;
@@ -49,47 +62,50 @@
 .icon-linkedin {
   background-image: image-url('icons/linkedin_icon.png');
   background-size: 70%;
-  background-position: 6px 0px;
+  background-position: 5px 5px;
   padding: 3px
 }
 
 .icon-angel {
   background-image: image-url('icons/angel_icon.png');
   background-size: 43%;
-  background-position: 8px 0px;
+  background-position: 7px 5px;
   padding: 3px
 }
 
 .icon-github {
   background-image: image-url('icons/github_icon.png');
   background-size: 62%;
-  background-position: 6px 0px;
+  background-position: 5px 5px;
   padding: 3px
 }
 
-.icon-gift {
-  background-image: image-url('icons/gift_icon.png');
-  background-size: 90%;
-  background-position: 1px 0px;
-  margin: 0 5px 0 0;
-}
+// .icon-gift {
+//   background-image: image-url('icons/gift_icon.png');
+//   background-size: 90%;
+//   background-position: 5px 5px;
+//   padding: 5px;
+// }
 
 .icon-user {
   background-image: image-url('icons/user_icon.png');
-  background-size: 70%;
-  background-position: 4px 0px;
+  background-size: 62%;
+  background-position: 5px 4px;
+  padding: 3px;
 }
 
 .icon-heart {
   background-image: image-url('icons/heart_icon.png');
-  background-size: 75%;
-  background-position: 3px 0px;
+  background-size: 70%;
+  background-position: 4px 5px;
+  padding: 3px;
 }
 
 .icon-flag {
   background-image: image-url('icons/flag_icon.png');
-  background-size: 75%;
-  background-position: 2 2px;
+  background-size: 90%;
+  background-position: 1px 6px;
+  padding: 3px;
 }
 
 @media all and (max-width: 1000px) {
@@ -126,7 +142,10 @@
       div {
         a {
           font-size: 10px;
-          padding: 10px 5px;
+          padding-top: 0;
+          padding-bottom: 0;
+          padding-left: 5px;
+          padding-right: 5px;
         }
       }
     }
