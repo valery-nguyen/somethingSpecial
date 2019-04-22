@@ -16,6 +16,10 @@ class CategoryNav extends React.Component {
       ulEl.classList.add("hamburger-li-hidden");
       liEl.classList.add("hamburger-bg-open-icon");
       liEl.classList.remove("hamburger-bg-close-icon");
+
+      const featureEl = document.getElementById("feature-nav");
+      featureEl.classList.remove("feature-nav-block-only");
+      featureEl.classList.add("feature-nav-display");
     }
   }
 
@@ -24,16 +28,25 @@ class CategoryNav extends React.Component {
     e.preventDefault();
     const ulEl = document.getElementsByClassName("category-nav-links")[0];
     const liEl = document.getElementById("hamburger-dropdown-li");
+    const featureEl = document.getElementById("feature-nav");
     if (e.target.id === "hamburger-dropdown-li" && 
       ulEl.className === "category-nav-links hamburger-li-hidden") {
       ulEl.classList.remove("hamburger-li-hidden");
       liEl.classList.remove("hamburger-bg-open-icon");
       liEl.classList.add("hamburger-bg-close-icon");
 
+      featureEl.classList.remove("feature-nav-display");
+      featureEl.classList.add("feature-nav-block-only");
+      
+
+
     } else if (e.target.id === "hamburger-dropdown-li") {
       ulEl.classList.add("hamburger-li-hidden");
       liEl.classList.add("hamburger-bg-open-icon");
       liEl.classList.remove("hamburger-bg-close-icon");
+
+      featureEl.classList.remove("feature-nav-block-only");
+      featureEl.classList.add("feature-nav-display");
     }
       
   }

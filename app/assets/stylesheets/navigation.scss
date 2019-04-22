@@ -330,9 +330,10 @@
     top: 0;
     width: 100%;
     box-sizing: border-box;
-    z-index: 3;
+    z-index: 4;
     background-color: $white;
     border-bottom: 1px solid $beige;
+    margin-top: 0;
   }
 
   .title-nav-empty-cart-icon {

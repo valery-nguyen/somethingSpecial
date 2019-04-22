@@ -12,7 +12,7 @@
   bottom: 0;
   left: 0;
   right: 0;
-  z-index: 2;
+  z-index: 9;
   background: rgba(0, 0, 0, 0.3);
 }
 
@@ -29,7 +29,7 @@
   position: fixed;
   right: 0;
   top: 0;
-  z-index: 3;
+  z-index: 10;
   background: $white;
   height: 100%;
   width: 330px;
@@ -44,7 +44,7 @@
       display: flex;
       justify-content: center;
       position: absolute;
-      z-index: 4;
+      z-index: 11;
       left: calc(50% - 6px) ;
       top: -1px;
       height: 15px;

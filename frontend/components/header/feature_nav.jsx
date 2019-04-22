@@ -48,9 +48,9 @@ class FeatureNav extends React.Component {
     const currentUser = this.props.currentUser;
 
     return (
-      <nav className="feature-nav">
+      <nav id="feature-nav" className="feature-nav feature-nav-display">
         <section>
-          <div>
+          <div id="personal-links">
             <div>
               <a href="https://www.linkedin.com/in/valeryn/" target="_blank" className="personal-links"><i className="icon-linkedin"></i></a>
               <a href="https://angel.co/valeryn" target="_blank" className="personal-links"><i className="icon-angel"></i></a>
@@ -62,7 +62,7 @@ class FeatureNav extends React.Component {
 
           <div>
             <a href="/" onClick={this.handleSigninClick}>
-              <i className="icon-user"></i> {(currentUser) ? `Hi, ${currentUser.fname || ''} ${currentUser.lname || ''}` : 'Sign In'}
+              <i className="icon-user"></i> {(currentUser) ? <div>Hi, {currentUser.fname || ''} {currentUser.lname || ''}</div> : <div>Sign In</div>}
             </a>
             
             <a href="#" onClick={this.handleWishClick}><i className="icon-heart"></i> <span>Wish Lists</span></a>

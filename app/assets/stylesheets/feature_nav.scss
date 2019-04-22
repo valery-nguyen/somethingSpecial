@@ -1,5 +1,13 @@
 @import "variables";
 
+.feature-nav-display {
+  display: flex;
+}
+
+.feature-nav-block-only {
+  display: block;
+}
+  
 .feature-nav {
   section{
     div {
@@ -41,7 +49,6 @@
   background-color: $beige;
   padding-bottom: 5px;
   height: 24px;
-  display: flex;
   justify-content: center;
 }
 
@@ -122,38 +129,50 @@
   }
 }
 
-@media all and (max-width: 800px) {
-  .feature-nav {
-    section{
-      div {
-        a{
-          span {
-          display: none;
-          }
-        }
-      }
-    }
-  }
-}
-
 @media all and (max-width: 640px) {
+  #personal-links {
+    display: none;
+  }
+
+  .feature-nav-display {
+    display: none;
+  }
+
   .feature-nav {
     section {
       div {
         a {
-          font-size: 10px;
-          padding-top: 0;
-          padding-bottom: 0;
+          div {
+            display: flex;
+            justify-content: center;
+          }
+          span {
+            display: inline-block;
+          }
+          font-size: 12px;
+
+          // margin-top: 37px;
+          padding-top: 13px;
+          padding-bottom: 15px;
           padding-left: 5px;
           padding-right: 5px;
+          width: calc(100% / 3);
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+
+          top: 17px;
         }
+        width: 100%;
       }
     }
-    display: block;
     position: absolute;
-    top: 0;
     left: 0;
     width: 100%;
+    height: 66px;
+    padding: 0px 12px;
+    top: 75px;
   }
 }
 
