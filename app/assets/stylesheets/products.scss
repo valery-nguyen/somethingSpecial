@@ -12,6 +12,131 @@
 .products {
 }
 
+.earth {
+  div{
+    div {
+      .vsc-controller {
+        width: 0;
+        margin: 20px 5px;
+        border: none;
+      }
+      video {
+        position: absolute;
+        top: -30px;
+        left: 6px;
+        width: 100%;
+      }
+      position: relative;
+      width: calc(100% * 2 / 3);
+      height: calc(100vw * 0.3);
+      max-height: 385px;
+      border: none;
+    }
+    .earth-links{
+      a {
+        h1 {
+          display: flex;
+          justify-content: center;
+          font-size: 24px;
+          font-family: $playfair-serif;
+          text-align: center;
+          cursor: pointer;
+        }
+        text-decoration: none;
+        color: $black;
+        padding: 5px;
+        cursor: pointer;
+        display: flex;
+        justify-content: center;
+        margin-left: auto;
+        margin-right: auto;
+      }
+      button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 46px;
+        color: white;
+        font-size: 16px;
+        background-color: $darkest-green;
+        font-family: $playfair-serif;
+        border-radius: 4px;
+        padding: 10px;
+        text-decoration: none;
+        box-sizing: border-box;
+        margin-top: 15px;
+        margin-bottom: 10px;
+        margin-left: auto;
+        margin-right: auto;
+        cursor: pointer;
+        width: calc(100% * 2 / 3);
+      }
+
+      button:hover {
+        color: $black;
+        background-color: $sea-green;
+        transition-duration: 0.2s;
+      }
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      width: calc(100% / 3);
+    }
+    display: flex;
+    flex-direction: row;
+    border: 1px solid $green;
+  }
+  margin-bottom: 40px;
+  padding-left: 5px;
+  padding-right: 5px;
+  box-sizing: border-box;
+}
+
+.home-three-cat {
+  div {
+    a {
+      img {
+        width: 100%;
+        height: 100%;
+        border: 1px solid $beige;
+        cursor: pointer;
+      }
+      h2 {
+        display: flex;
+        justify-content: center;
+        font-size: 24px;
+        font-family: $playfair-serif;
+        text-align: center;
+        cursor: pointer;
+      }
+      h3 {
+        font-size: 14px;
+        font-family: $open-sans;
+        text-decoration: underline;
+        text-decoration-color: $dark-green;
+        text-align: center;
+        cursor: pointer;
+      }
+      h3:hover {
+        background-color: $green;
+      }
+      text-decoration: none;
+      color: $black;
+      padding: 5px;
+      cursor: pointer;
+      display: flex;
+      justify-content: center;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 30px;
+  }
+  display: flex;
+  flex-direction: row;
+}
+
 .header-background-outer {
   padding-left: 5px;
   width: calc(100% - 5px);
@@ -158,10 +283,88 @@
 }
 
 @media all and (max-width: 640px) {
+  .earth {
+    div{
+      div {
+        video {
+          width: 100%;
+          top: -34px;
+          left: -12px;
+        }
+        width: calc(100% - 10px);
+        margin-bottom: 30px;
+      }
+      .earth-links{
+        width: 100%;
+        height: 160px;
+        margin: 0;
+      }
+      flex-direction: column;
+      border: none;
+    }
+    padding: 0;
+    background-color: white;
+    margin: 15px auto;
+    width: calc(100% - 10px);
+    display: flex;
+    justify-content: center;
+    box-sizing: border-box;
+  }
+
+  .home-three-cat {
+    div:nth-child(odd) {
+      div {
+        a {
+          img {
+            width: 50vw;
+            height: 50vw;
+          }
+          flex-direction: column;
+          padding-bottom: 0;
+          padding-top: 15px;
+        }
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        width: 100%;
+        border: none;
+      }
+      flex-direction: row;
+      padding-bottom: 0px;
+      border-bottom: 1px solid $beige;
+    }
+    div:nth-child(even) {
+      div {
+        a {
+          img {
+            width: 50vw;
+            height: 50vw;
+          }
+          flex-direction: column;
+          padding-bottom: 0;
+          padding-top: 15px;
+        }
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        width: 100%;
+        border: none;
+      }
+      flex-direction: row-reverse;
+      padding-bottom: 0px;
+      border-bottom: 1px solid $beige;
+    }
+    flex-direction: column;
+    background-color: white;
+    margin-bottom: 20px;
+  }
+
+
   .background-products {
     background-color: $beige;
     padding-top: 10px;
     margin-top: 76px;
+    padding-bottom: 15px;
   }
 
   .links-nav hr, .links-nav div:not(:first-of-type) {

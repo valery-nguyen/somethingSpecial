@@ -1,5 +1,6 @@
 @import "variables";
 
+.just-in-link,
 .for-her-link{
   div {
     label {
@@ -46,6 +47,7 @@
 }
 
 @media all and (max-width: 640px) {
+  .just-in-link,
   .for-her-link {
     a button {
       width: 80vw;

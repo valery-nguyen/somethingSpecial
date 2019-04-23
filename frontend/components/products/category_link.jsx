@@ -11,3 +11,14 @@ export const FirstLink = () => {
     </Link>
   </div>
 };
+
+export const SecondLink = () => {
+  return <div className="just-in-link">
+    <div>
+      <label>Brand-New Bestsellers</label>
+    </div>
+    <Link to="/category/new">
+      <button>just in &amp; just right</button>
+    </Link>
+  </div>
+};
