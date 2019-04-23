@@ -17,7 +17,7 @@ class AccountInformations extends React.Component {
   }
 
   componentDidMount() {
-    // this.props.requestUser(this.props.currentUser);
+    this.props.requestUser();
   }
 
   componentDidUpdate(prevProps) {
@@ -33,15 +33,17 @@ class AccountInformations extends React.Component {
   handleAddressSubmit(e) {
     e.preventDefault();
     const params = {
+      id: this.props.user.id,
       fname: document.getElementById("address-form-fname").value,
       lname: document.getElementById("address-form-lname").value,
       street: document.getElementById("address-form-street").value,
       zip: parseInt(document.getElementById("address-form-zip").value),
       city: document.getElementById("address-form-city").value,
       state: document.getElementById("address-form-state").value,
-      phone: parseInt(document.getElementById("address-form-phone").value)
+      phone: document.getElementById("address-form-phone").value
     };
     this.setState({ addressFormClosed: true });
+    this.props.updateUser(params);
   }
 
   handleUserClick(e) {
@@ -53,32 +55,31 @@ class AccountInformations extends React.Component {
   handleUserSubmit(e) {
     e.preventDefault();
     const params = {
-      fname: document.getElementById("user-form-fname").value,
-      lname: document.getElementById("user-form-lname").value,
-      password: document.getElementById("user-form-password").value,
-      newpassword: parseInt(document.getElementById("user-form-newpassword").value)
+      id: this.props.user.id,
+      fname: document.getElementById("user-form-fname").value || this.props.user.fname,
+      lname: document.getElementById("user-form-lname").value || this.props.user.lname,
+      email: document.getElementById("user-form-email").value || this.props.user.email,
+      old_password: document.getElementById("user-form-password").value || '',
+      new_password: document.getElementById("user-form-newpassword").value || ''
     };
     this.setState({ userFormClosed: true });
+    this.props.updateUser(params);
   }
 
   render() {
-    // const { user, loading } = this.props;
-    // if (loading) return null;
-    //show error messages 
+    let user = this.props.user;
+    if (!user['email']) return null;
 
-    const user = {
-      fname: 'Valery', 
-      lname: 'Nguyen', 
-      email: 'admin@gmail.com',
-      street: '590 Climbing Rose Blvd',
-      zip: 29829,
-      city: 'Graniteville',
-      state: 'SC',
-      phone: 4088868447
-    };
+    user.fname = user.fname || '';
+    user.lname = user.lname || '';
+    user.street = user.street || '';
+    user.city = user.city || '';
+    user.state = user.state || '';
+    user.zip = user.zip || 0;
+    user.phone = user.phone || '';
 
     const UserForm = (
-      <form id="address-form" className="address-form" onSubmit={this.handleAddressSubmit}>
+      <form id="address-form" className="address-form" onSubmit={this.handleUserSubmit}>
         <div>
           <label>First Name</label>
           <input id="user-form-fname" type="text" defaultValue={user.fname} />
@@ -125,7 +126,7 @@ class AccountInformations extends React.Component {
         <div>
           <div>
             <label>Zip Code</label>
-            <input id="address-form-zip" type="text" defaultValue={user.zip}/>
+            <input id="address-form-zip" type="text" defaultValue={(user.zip === 0) ? '' : user.zip}/>
           </div>
         </div>
         <div>
@@ -141,7 +142,7 @@ class AccountInformations extends React.Component {
         <div>
           <div>
             <label>Phone</label>
-            <input id="address-form-phone" type="text" defaultValue={user.phone}/>
+            <input id="address-form-phone" type="text" defaultValue={(user.phone === 0) ? '' : user.phone}/>
           </div>
         </div>
         <button>save address</button>
@@ -155,6 +156,7 @@ class AccountInformations extends React.Component {
           <div><h2>Name</h2><span>{user.fname} {user.lname}</span></div>
           <div><h2>Email Address</h2><span>{user.email}</span></div>
           <div><h2>Password</h2><span>*******</span></div>
+          <div className="user-errors">{this.props.errors.join(", ").toLowerCase()}</div>
           <span onClick={this.handleUserClick}><a href="/">edit</a></span>
         </div> : <div className="account-display">{UserForm}</div>
     )
@@ -165,7 +167,6 @@ class AccountInformations extends React.Component {
           <h2>You have no saved shipping address.</h2>
           <button onClick={this.handleAddressClick}>add shipping address</button>
         </div> : <div className="address-display address-display-green">{AddressForm}</div>
-      
     )
 
     const addressDisplay = (
@@ -173,8 +174,8 @@ class AccountInformations extends React.Component {
       <div className="address-display">
         <p>{user.fname} {user.lname}</p>
         <p>{user.street}</p>
-        <p>{user.city}, {user.state} {user.zip}</p>
-        <p>{user.phone}</p>
+          <p>{user.city}{(user.city && user.state) ? ', ' : ''}{user.state} {(user.zip === 0) ? '' : user.zip}</p>
+          <p>{(user.phone === 0) ? '' : user.phone}</p>
         <button onClick={this.handleAddressClick}>edit shipping address</button>
         </div> : <div className="address-display address-display-green">{AddressForm}</div>
     )

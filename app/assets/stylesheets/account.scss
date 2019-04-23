@@ -1,5 +1,17 @@
 @import "variables";
 
+.user-errors {
+  color: red;
+  font-style: italic;
+  font-family: $open-sans;
+  font-size: 14px;
+  width: 300px;
+  line-height: 1.5;
+  display: flex;
+  justify-content: center;
+  margin: auto;
+}
+
 .account-info {
   padding-left: 6px;
   padding-right: 6px;
