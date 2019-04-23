@@ -1,5 +1,435 @@
 @import "variables";
 
+.account-info {
+  padding-left: 6px;
+  padding-right: 6px;
+  padding-top: 20px;
+  display: flex;
+  justify-content: center;
+  margin: 0 auto;
+  width: 1000px;
+  box-sizing: border-box;
+
+  background-image: image-url('watercolorBG.jpg');
+  background-repeat: no-repeat;
+  background-size: 100%;
+  background-position-x: center;
+  background-position-y: bottom;
+}
+.address-display-green {
+  background-color: $green;
+}
+.account-info-outer {
+  .order-help {
+    p {
+      a {
+        color: black;
+        text-decoration-color: $sea-green;
+      }
+      a:hover {
+        background-color: $sea-green;
+        transition-duration: 0.5s;
+      }
+      font-style: italic;
+      line-height: 1.5;
+      font-family: $playfair-serif;
+      font-size: 16px;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    margin-top: 40px;
+    margin-bottom: 60px;
+  }
+
+  .account-header {
+    h1 {
+      font-family: $playfair-serif;
+      font-size: 32px;
+      margin-bottom: 20px;
+    }
+    display: flex;
+    justify-content: center;
+  }
+
+  .account-user {
+    div {
+      span {
+        a {
+          color: black;
+          text-decoration-color: $sea-green;
+          margin: auto;
+          font-size: 16px;
+          font-family: $open-sans;
+          margin-top: 20px;
+        }
+        a:hover {
+          background-color: $sea-green;
+          transition-duration: 0.5s;
+        }
+        display: flex;
+
+      }
+      div{
+        h2 {
+          font-family: $playfair-serif;
+          font-size: 18px;
+          width: 110px;
+          display: flex;
+          flex-wrap: wrap;
+          line-height: 1.2;
+          padding: 10px;
+        }
+        span {
+          font-family: $open-sans;
+          font-size: 16px;
+          width: 250px;
+        }
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+      }
+      display: flex;
+      flex-direction: column;
+    }
+
+    .account-display {
+      form {
+        div {
+          label {
+            font-family: $open-sans;
+            font-size: 16px;
+            padding: 5px 0px;
+            display: flex;
+            justify-content: left;
+            width: 100%;
+          }
+
+          input {
+            height: 32px;
+            width: 100%;
+            padding: 6px;
+            font-family: $open-sans;
+            font-size: 16px;
+            box-sizing: border-box;
+          }
+          display: flex;
+          flex-direction: column;
+          padding-left: 20px;
+          padding-right: 40px;
+          padding-bottom: 20px;
+          box-sizing: border-box;
+        }
+
+        button {
+          margin-left: 20px;
+          width: calc(100% - 60px);
+        }
+        padding: 10px 20px;
+        display: flex;
+        flex-direction: column;
+        box-sizing: border-box;
+      }
+      div {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+      }
+      h2 {
+        display: flex;
+        justify-content: center;
+        font-family: $playfair-serif;
+        font-size: 18px;
+        padding-bottom: 20px;
+        text-align: center;
+      }
+      p {
+        display: flex;
+        justify-content: center;
+        font-family: $playfair-serif;
+        font-size: 18px;
+        padding-bottom: 20px;
+      }
+      button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 46px;
+        color: white;
+        font-size: 16px;
+        background-color: $darkest-green;
+        font-family: $playfair-serif;
+        border-radius: 4px;
+        padding: 10px;
+        text-decoration: none;
+        box-sizing: border-box;
+        margin-top: 15px;
+        margin-bottom: 10px;
+        margin-left: auto;
+        margin-right: auto;
+        cursor: pointer;
+        width: calc(100% * 2 / 3);
+      }
+
+      button:hover {
+        color: $black;
+        background-color: $sea-green;
+        transition-duration: 0.2s;
+        content: "res";
+      }
+
+      a {
+        color: black;
+        text-decoration-color: $sea-green;
+        margin: auto;
+        font-size: 18px;
+        font-family: $open-sans;
+        margin-top: 20px;
+      }
+      a:hover {
+        background-color: $sea-green;
+        transition-duration: 0.5s;
+      }
+      width: 100%;
+      box-sizing: border-box;
+      padding: 10px 10px;
+    }
+
+    border: 2px solid $green;
+    padding-top: 20px;
+    padding-bottom: 100px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    
+    background-image: image-url('perks.gif');
+    background-repeat: no-repeat;
+    background-position-x: center;
+    background-position-y: bottom;
+  }
+
+  .account-links {
+    .account-links-orders,
+    .account-links-wishes {
+      label {
+        font-family: $playfair-serif;
+        font-size: 22px;
+        display: flex;
+        justify-content: center;
+        padding-top: 5px;
+      }
+      div {
+        p {
+          font-family: $open-sans;
+          font-size: 16px;
+          display: flex;
+          justify-content: center;
+          text-align: center;
+          padding-top: 10px;
+          padding-bottom: 10px;
+          line-height: 1.5;
+          align-items: bottom;
+        }
+        .icon-heart3 {
+          background-repeat: no-repeat;
+          vertical-align: bottom;
+          overflow: hidden;
+          height: 18px;
+          width: 18px;
+          padding: 0px;
+          background-image: image-url('icons/heart_icon3.png');
+          background-size: 100%;
+          background-position: 0px 3px;
+        }
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: center;
+      }
+      p {
+        font-family: $open-sans;
+        font-size: 16px;
+        display: flex;
+        justify-content: center;
+        text-align: center;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        line-height: 1.5;
+        align-items: center;
+      }
+
+      a {
+        text-decoration: none;
+        height: 28px;
+        font-family: $playfair-serif;
+        font-size: 18px;
+        color: $darkest-green;
+        background-color: white;
+        border: 2px solid $medium-green;
+        border-radius: 2px;
+        cursor: pointer;
+        padding: 8px;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 10px;
+        margin-bottom: 10px;
+        display: flex;
+        align-items: center;
+      }
+
+      a:hover {
+        color: $black;
+        background-color: $medium-green;
+        transition-duration: 0.2s;
+      }
+      
+      width: calc(50% - 15px);
+      background-color: $green;
+      margin-top: 10px;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      box-sizing: border-box;
+      position: relative;
+    }
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 30px 0;
+  }
+
+  .account-addresses {
+    div {
+      h2 {
+        display: flex;
+        justify-content: center;
+        font-family: $playfair-serif;
+        font-size: 24px;
+        padding-bottom: 20px;
+      }
+      h3 {
+        display: flex;
+        justify-content: center;
+        font-family: $playfair-serif;
+        font-size: 20px;
+        padding-bottom: 18px;
+        color: $darkest-green;
+      }
+      .address-display {
+        form {
+          div {
+            div {
+              display: flex;
+              flex-direction: column;
+              box-sizing: border-box;
+            }
+            display: flex;
+            flex-direction: row;
+            padding-left: 10px;
+            padding-right: 10px;
+            box-sizing: border-box;
+
+          }
+          div label {
+            font-family: $open-sans;
+            font-size: 16px;
+            padding: 5px 0;
+          }
+
+          div input {
+            height: 32px;
+            width: calc(100% - 10px);
+            padding: 6px;
+            font-family: $open-sans;
+            font-size: 16px;
+
+          }
+
+          button {
+            margin-left: 20px;
+            width: calc(100% - 35px);
+          }
+          background-color: $green;
+          padding: 10px 20px;
+          display: flex;
+          flex-direction: column;
+          box-sizing: border-box;
+        }
+        h2 {
+          display: flex;
+          justify-content: center;
+          font-family: $playfair-serif;
+          font-size: 18px;
+          padding-bottom: 20px;
+        }
+        p {
+          display: flex;
+          justify-content: center;
+          font-family: $playfair-serif;
+          font-size: 18px;
+          padding-bottom: 20px;
+        }
+        button {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          height: 46px;
+          color: white;
+          font-size: 16px;
+          background-color: $darkest-green;
+          font-family: $playfair-serif;
+          border-radius: 4px;
+          padding: 10px;
+          text-decoration: none;
+          box-sizing: border-box;
+          margin-top: 15px;
+          margin-bottom: 10px;
+          margin-left: auto;
+          margin-right: auto;
+          cursor: pointer;
+          width: calc(100% * 2 / 3);
+        }
+
+        button:hover {
+          color: $black;
+          background-color: $sea-green;
+          transition-duration: 0.2s;
+          content: "res";
+        }
+
+        a {
+          color: black;
+          text-decoration-color: $sea-green;
+          margin: auto;
+          font-size: 16px;
+          font-family: $open-sans;
+        }
+        a:hover {
+          background-color: $sea-green;
+          transition-duration: 0.5s;
+        }
+
+        border: 2px solid $medium-green;
+        width: 100%;
+        box-sizing: border-box;
+        padding: 20px 10px;
+      }
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      width: 100%;
+    }
+    display: flex;
+    justify-content: center;
+  }
+
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
 .order-page {
   div {
     .order-lookup {
@@ -128,10 +558,43 @@
   justify-content: center;
 }
 
+@media all and (max-width: 1000px) {
+  .account-info {
+    width: 100%;
+  }
+}
 
 @media all and (max-width: 640px) {
   .order-page {
     padding-top: 10px;
     margin-top: 67px;
   }
+
+  .account-info {
+    padding-top: 20px;
+    margin-top: 87px;
+  }
+
+  .account-info-outer {
+    .account-links {
+      .account-links-orders,
+      .account-links-wishes {
+        width: 100%;
+      }
+      display: flex;
+      flex-direction: column;
+    }
+
+    .account-addresses {
+      div {
+        .address-display {
+          button {
+            width: 100%;
+          }
+        }
+      }
+    }
+  }
+
+
 }

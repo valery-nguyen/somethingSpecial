@@ -23,11 +23,11 @@ class AccountPanel extends React.Component {
     return (
       <div className="account-panel">
         <section>
-          <a href="#" onClick={this.closePanel}> view account</a>
+          <Link to="/account" onClick={this.closePanel}> view account</Link>
           <div>
             <Link to="/orders" onClick={this.closePanel}>Order Lookup</Link>
             <div><i></i><a href="#" onClick={this.closePanel}>Wish List (0)</a></div>
-            <a href="#" onClick={this.handleLogoutClick.bind(this)}>Sign Out</a>
+            <a href="/" onClick={this.handleLogoutClick.bind(this)}>Sign Out</a>
           </div>
         </section>
       </div>

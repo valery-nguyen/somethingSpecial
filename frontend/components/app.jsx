@@ -17,6 +17,7 @@ import ProductShowContainer from './../components/products/product_show_containe
 import ProductSearchContainer from './../components/products/product_search_container';
 import CategoryContainer from './../components/category/category_container';
 import OrderHistoryContainer from './../components/account/order_history_container';
+import AccountInformations from './../components/account/account_informations_container';
 import UnderConstruction from './../components/under_construction/under_construction';
 
 const App = () => (
@@ -28,9 +29,11 @@ const App = () => (
       <Route exact path="/checkout/cart" component={Cart} />
       <Route path="/search" component={ProductSearchContainer} />
       <Route exact path="/category/:categoryName" component={CategoryContainer} />
-      <Route exact path="/" component={ProductsIndexContainer} />
       <Route exact path="/orders" component={OrderHistoryContainer} />
+      <ProtectedRoute exact path="/account" component={AccountInformations} />
       <Route exact path="/construction" component={UnderConstruction} />
+
+      <Route exact path="/" component={ProductsIndexContainer} />
       <Redirect from='/' to='/' />
     </Switch>
     <Footer />

@@ -68,7 +68,7 @@ class CartPanel extends React.Component {
                   </select >
                   <p>${(product.price * product.quantity).toFixed(2)}</p>
                 </div>
-              <a href="#" onClick={this.handleRemoveClick(product.id)}>Remove</a>
+              <a href="/" onClick={this.handleRemoveClick(product.id)}>Remove</a>
               </div>
           </div>
         </li>
