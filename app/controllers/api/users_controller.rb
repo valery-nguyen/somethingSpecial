@@ -17,15 +17,29 @@ class Api::UsersController < ApplicationController
   def update
     @user = current_user
     received_params = user_params
+    received_email = received_params.delete(:email)
+    errors = []
 
-    if @user.is_password?(params[:user][:old_password])
-      received_params[:password] = params[:user][:new_password]
+    if (user_params[:email] && user_params[:email] != @user.email)
+      if (!@user.is_password?(params[:user][:old_password]))
+        errors.push('current password -required for email update- is incorrect ')
+      else 
+        received_params[:email] = received_email
+      end
     end
 
-    if @user.update(received_params)
+    if (params[:user][:new_password] && params[:user][:new_password].length > 0)
+      if (!@user.is_password?(params[:user][:old_password]))
+        errors.push('current password -required for password update- is incorrect ')
+      else
+        received_params[:password] = params[:user][:new_password]
+      end
+    end
+
+    if errors.empty? && @user.update(received_params)
       render "api/users/index"
     else
-      render json: @user.errors.full_messages, status: 422
+      render json: errors.concat(@user.errors.full_messages), status: 422
     end
   end
 

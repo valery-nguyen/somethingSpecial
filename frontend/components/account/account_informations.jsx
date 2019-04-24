@@ -93,7 +93,7 @@ class AccountInformations extends React.Component {
             <input id="user-form-email" type="text" defaultValue={user.email} />
         </div>
         <div>
-          <label>Old Password</label>
+          <label>Current Password</label>
           <input id="user-form-password" type="password"/>
         </div>
         <div>
@@ -156,7 +156,7 @@ class AccountInformations extends React.Component {
           <div><h2>Name</h2><span>{user.fname} {user.lname}</span></div>
           <div><h2>Email Address</h2><span>{user.email}</span></div>
           <div><h2>Password</h2><span>*******</span></div>
-          <div className="user-errors">{this.props.errors.join(", ").toLowerCase()}</div>
+          <ul className="user-errors">{this.props.errors.map((error,i) => <li key={i}>The {error.toLowerCase()}.</li>)}</ul>
           <span onClick={this.handleUserClick}><a href="/">edit</a></span>
         </div> : <div className="account-display">{UserForm}</div>
     )
