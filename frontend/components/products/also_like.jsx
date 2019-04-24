@@ -9,6 +9,7 @@ class AlsoLike extends React.Component {
         {this.props.relatedProducts.map((product, idx) => 
           <ProductsIndexItem 
             key={idx}
+            currentUser={this.props.currentUser}
             product={product}
             isWish={this.props.isWish(product)}
             addWish={this.props.addWish.bind(this, product.id)}

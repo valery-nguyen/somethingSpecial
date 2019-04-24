@@ -107,6 +107,7 @@ class ProductSearch extends React.Component {
               {categoryProducts.map((product, idx) => 
                 <ProductsIndexItem 
                   key={idx} 
+                  currentUser={this.props.currentUser}
                   product={product} 
                   isWish={this.wishCheck(product)} 
                   addWish={this.props.addWish.bind(this, product.id)}
