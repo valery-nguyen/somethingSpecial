@@ -6,11 +6,15 @@ class ProductSearch extends React.Component {
   constructor(props) {
     super(props);
 
+    this.wishCheck = this.wishCheck.bind(this);
   }
   componentDidMount() {
     window.scrollTo(0, 0);
     const categoryName = this.props.location.pathname.slice(10);
     this.props.requestCategory(categoryName);
+    if (this.props.currentUser) {
+      this.props.requestWishes();
+    }
   }
 
   componentDidUpdate(prevProps) {
@@ -19,6 +23,16 @@ class ProductSearch extends React.Component {
       const categoryName = this.props.location.pathname.slice(10);
       this.props.requestCategory(categoryName);
     }
+  }
+
+  wishCheck(product) {
+    let isInWishList = false;
+    if (this.props.currentUser) {
+      this.props.wishes.forEach(wish => {
+        if (wish.id === product.id) isInWishList = isInWishList || true;
+      });
+    }
+    return isInWishList;
   }
 
   render() {
@@ -90,7 +104,14 @@ class ProductSearch extends React.Component {
         <div className="category-outer">
           <section className="category-section">
             <ul>
-              {categoryProducts.map((product, idx) => <ProductsIndexItem key={idx} product={product} />)}
+              {categoryProducts.map((product, idx) => 
+                <ProductsIndexItem 
+                  key={idx} 
+                  product={product} 
+                  isWish={this.wishCheck(product)} 
+                  addWish={this.props.addWish.bind(this, product.id)}
+                  deleteWish={this.props.deleteWish.bind(this, product.id)}
+                />)}
             </ul>
         </section>
         </div>

@@ -1,5 +1,6 @@
 import { connect } from 'react-redux';
 import { selectProduct, selectRelatedProducts } from '../../reducers/selectors';
+import { addWish, deleteWish } from '../../actions/wishes_actions';
 import AlsoLike from './also_like';
 
 const mapStateToProps = (state, ownProps) => {
@@ -11,8 +12,12 @@ const mapStateToProps = (state, ownProps) => {
     products,
     product,
     relatedProducts,
-  }
+  };
 };
 
-export default connect(
-  mapStateToProps)(AlsoLike);
+const mapDispatchToProps = dispatch => ({
+  addWish: (productId) => dispatch(addWish(productId)),
+  deleteWish: (productId) => dispatch(deleteWish(productId))
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(AlsoLike);

@@ -38,7 +38,7 @@ const mapDispatchToProps = dispatch => {
     requestWishes: () => dispatch(requestWishes()),
     addWish: (productId) => dispatch(addWish(productId)),
     deleteWish: (productId) => dispatch(deleteWish(productId))
-  }
+  };
 };
 
 export default connect(

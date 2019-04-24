@@ -55,8 +55,7 @@ export const selectRelatedProducts = (state, productTitle) => {
   Object.values(state.entities.products).forEach(product => {
     if( product['image_urls'] ) allProducts.push(product);
   });
-
-  allProducts.sort(() => { return 0.5 - Math.random() });
+  // allProducts.sort(() => { return 0.5 - Math.random() });
   let selectedProducts = [];
   let numProducts = 6;
   if (allProducts.length < 6) numProducts = allProducts.length;

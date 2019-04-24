@@ -75,9 +75,26 @@ class Wishes extends React.Component {
         </div>
         <div className="wishes-body">
           <div className="wishes-body-inner">
-            <ul>
-              {wishesLis}
-            </ul>
+            
+            {(wishes.length === 0) ?
+              <div className="wishes-body-empty">
+                <h1>One-click hearting</h1>
+                <h2>For favorites you’re flirting with.</h2>
+                <div>
+                  <i></i>
+                </div>
+                <h3>Your wish list is empty. Start shopping in one of our most popular categories:</h3>
+                <div>
+                  <Link to="/category/new">this just in &raquo;</Link>
+                  <Link to="/category/women">gifts for her &raquo;</Link>
+                  <Link to="/category/men">gifts for him &raquo;</Link>
+                </div>
+              </div>
+              : 
+              <ul>
+                {wishesLis}
+              </ul>
+            }
           </div>
         </div>
       </div>

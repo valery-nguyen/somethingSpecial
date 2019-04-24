@@ -10,10 +10,14 @@ class ProductShow extends React.Component {
     this.handleAddToCart = this.handleAddToCart.bind(this);
     this.handlePreviewClick = this.handlePreviewClick.bind(this);
     this.toggleWishClick = this.toggleWishClick.bind(this);
+    this.wishCheck = this.wishCheck.bind(this);
   }
 
   componentDidMount() {
     window.scrollTo(0, 0);
+    if (this.props.currentUser) {
+      this.props.requestWishes();
+    }
     if (!this.props['product']) {
       this.props.requestProduct(this.props.productTitle);
     } else {
@@ -24,16 +28,26 @@ class ProductShow extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    window.scrollTo(0, 0);
     if (prevProps.location.pathname !== this.props.location.pathname)
-    {
-      if (!Object.keys(this.props.products).includes(String(this.props.product.id)) ||
-        !this.props.products[this.props.product.id]["item_id"])
-          this.props.requestProduct(this.props.productTitle);
-        Array.from(document.getElementById("product-show-img-ul").children).forEach((li, idx) => {
-          (idx === 0) ? li.children[0].className = 'visible' : li.children[0].className = 'blurred';
-        });
+    { 
+      window.scrollTo(0, 0);
+      // if (!Object.keys(this.props.products).includes(String(this.props.product.id)) ||
+      //   !this.props.products[this.props.product.id]["item_id"])
+      this.props.requestProduct(this.props.productTitle);
+      Array.from(document.getElementById("product-show-img-ul").children).forEach((li, idx) => {
+        (idx === 0) ? li.children[0].className = 'visible' : li.children[0].className = 'blurred';
+      });
     }
+  }
+
+  wishCheck(product) {
+    let isInWishList = false;
+    if (this.props.currentUser) {
+      this.props.wishes.forEach(wish => {
+        if (wish.id === product.id) isInWishList = isInWishList || true;
+      });
+    }
+    return isInWishList;
   }
 
   toggleWishClick(e) {
@@ -57,7 +71,6 @@ class ProductShow extends React.Component {
       modalForm.classList.remove("is-open");
       body.classList.add("noscroll");
     }
-
   }
 
   handleWishClick(e) {
@@ -181,7 +194,7 @@ class ProductShow extends React.Component {
           </section>
         </section>
         <ProductDetails product={product} />
-        <AlsoLike product={product} />
+        <AlsoLike product={product} isWish={this.wishCheck.bind(this)}/>
       </section>
     );
   }

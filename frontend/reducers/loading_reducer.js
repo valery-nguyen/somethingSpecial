@@ -17,7 +17,8 @@ import {
 
 import { 
   RECEIVE_WISHES,
-  START_LOADING_WISHES
+  START_LOADING_WISHES,
+  START_LOADING_WISH
 } from '../actions/wishes_actions';
 
 const initialState = {
@@ -26,7 +27,8 @@ const initialState = {
   cartLoading: false,
   searchLoading: false,
   categoryLoading: false,
-  wishesLoading: false
+  wishesLoading: false,
+  wishLoading: false
 };
 
 const loadingReducer = (state = initialState, action) => {
@@ -50,9 +52,11 @@ const loadingReducer = (state = initialState, action) => {
     case START_LOADING_CATEGORY:
       return Object.assign({}, state, { categoryLoading: true });
     case RECEIVE_WISHES:
-      return Object.assign({}, state, { wishesLoading: false });
+      return Object.assign({}, state, { wishesLoading: false, wishLoading: false });
     case START_LOADING_WISHES:
       return Object.assign({}, state, { wishesLoading: true });
+    case START_LOADING_WISH:
+      return Object.assign({}, state, { wishLoading: true });  
     default:
       return state;
   }

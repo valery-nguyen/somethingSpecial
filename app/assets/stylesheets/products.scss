@@ -9,7 +9,16 @@
   box-sizing: border-box;
 }
 
-.products {
+#products-index-item-like {
+  padding-top: 5px;
+  font-style: normal;
+  color: #A8A098;
+  position: absolute;
+  top: 18px;
+  right: 20px;
+  z-index: 1;
+  font-size: 20px;
+  cursor: pointer;
 }
 
 .earth {
@@ -355,6 +364,7 @@
   padding-left: 15px;
   margin-bottom: 10px;
   width: calc(100% / 5);
+  position: relative;
 }
 
 @media all and (max-width: 1250px) {
