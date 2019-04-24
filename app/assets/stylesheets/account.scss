@@ -1,17 +1,21 @@
 @import "variables";
 
 .user-errors {
+  li {
+    list-style: square;
+    padding: 6px;
+    margin: auto;
+  }
   color: red;
-  font-style: italic;
   font-family: $open-sans;
-  font-size: 12px;
-  width: 300px;
+  font-size: 13px;
+  width: 520px;
   line-height: 1.5;
   display: flex;
   flex-direction: column;
   justify-content: center;
+  list-style: square;
   margin: auto;
-  list-style-type: square;
 }
 
 .account-info {

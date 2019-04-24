@@ -22,7 +22,7 @@ class Api::UsersController < ApplicationController
 
     if (user_params[:email] && user_params[:email] != @user.email)
       if (!@user.is_password?(params[:user][:old_password]))
-        errors.push('current password -required for email update- is incorrect ')
+        errors.push('Email cannot be updated. The current Password entered is incorrect')
       else 
         received_params[:email] = received_email
       end
@@ -30,7 +30,7 @@ class Api::UsersController < ApplicationController
 
     if (params[:user][:new_password] && params[:user][:new_password].length > 0)
       if (!@user.is_password?(params[:user][:old_password]))
-        errors.push('current password -required for password update- is incorrect ')
+        errors.push('Password cannot be updated. The current Password entered is incorrect')
       else
         received_params[:password] = params[:user][:new_password]
       end

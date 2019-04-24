@@ -42,8 +42,7 @@ class AccountInformations extends React.Component {
       state: document.getElementById("address-form-state").value,
       phone: document.getElementById("address-form-phone").value
     };
-    this.setState({ addressFormClosed: true });
-    this.props.updateUser(params);
+    this.props.updateUser(params).then(() => this.setState({ addressFormClosed: true }));
   }
 
   handleUserClick(e) {
@@ -62,8 +61,7 @@ class AccountInformations extends React.Component {
       old_password: document.getElementById("user-form-password").value || '',
       new_password: document.getElementById("user-form-newpassword").value || ''
     };
-    this.setState({ userFormClosed: true });
-    this.props.updateUser(params);
+    this.props.updateUser(params).then(() => this.setState({ userFormClosed: true }));
   }
 
   render() {
@@ -100,6 +98,7 @@ class AccountInformations extends React.Component {
             <label>New Password</label>
             <input id="user-form-newpassword" type="password"/>
         </div>
+        <ul className="user-errors">{this.props.errors.map((error, i) => <li key={i}>The {error}.</li>)}</ul>
         <button>save &amp; update</button>
         <a href="/" onClick={this.handleUserClick}>or cancel</a>
       </form>
@@ -156,7 +155,6 @@ class AccountInformations extends React.Component {
           <div><h2>Name</h2><span>{user.fname} {user.lname}</span></div>
           <div><h2>Email Address</h2><span>{user.email}</span></div>
           <div><h2>Password</h2><span>*******</span></div>
-          <ul className="user-errors">{this.props.errors.map((error,i) => <li key={i}>The {error.toLowerCase()}.</li>)}</ul>
           <span onClick={this.handleUserClick}><a href="/">edit</a></span>
         </div> : <div className="account-display">{UserForm}</div>
     )
