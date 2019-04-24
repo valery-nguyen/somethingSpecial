@@ -63,3 +63,25 @@ export const fetchCategoryProducts = (categoryName) => (
     url: `api/categories/${categoryName}`
   })
 );
+
+export const fetchWishes = () => (
+  $.ajax({
+    method: 'GET',
+    url: 'api/wishes'
+  })
+);
+
+export const addWish = (product_id) => (
+  $.ajax({
+    method: 'POST',
+    url: 'api/wishes',
+    data: { wish: { product_id } }
+  })
+);
+
+export const deleteWish = (productId) => (
+  $.ajax({
+    method: 'DELETE',
+    url: `api/wishes/${productId}`
+  })
+);

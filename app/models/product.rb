@@ -5,6 +5,7 @@ class Product < ApplicationRecord
   has_many :product_images
   has_many :cart_items
   has_many :categories
+  has_many :wishes
 
   def related_products
     # we are simulating related products by picking randomly from our database

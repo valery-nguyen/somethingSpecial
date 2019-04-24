@@ -10,6 +10,11 @@ class User < ApplicationRecord
   has_many :cart_items
   has_many :products, through: :cart_items
 
+  has_many :wishes
+  has_many :wished_products,
+    through: :wishes,
+    source: :product
+
   def self.find_by_credentials(email, password)
     user = User.find_by(email: email)
     return nil unless user

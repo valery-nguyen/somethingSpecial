@@ -196,7 +196,7 @@ class AccountInformations extends React.Component {
             <div className="account-links-wishes">
               <label>Wish Lists</label>
               <div><p>View items on your Wish Lists and items you</p><i className="icon-heart3"></i></div>
-              <a href="#">view wish lists</a>
+              <Link to="/wishes">view wish lists</Link>
             </div>
           </div>
           <div className="account-addresses">

@@ -15,12 +15,18 @@ import {
   START_LOADING_SEARCH_ITEMS
 } from '../actions/search_actions';
 
+import { 
+  RECEIVE_WISHES,
+  START_LOADING_WISHES
+} from '../actions/wishes_actions';
+
 const initialState = {
   indexLoading: false,
   detailLoading: false,
   cartLoading: false,
   searchLoading: false,
-  categoryLoading: false
+  categoryLoading: false,
+  wishesLoading: false
 };
 
 const loadingReducer = (state = initialState, action) => {
@@ -43,6 +49,10 @@ const loadingReducer = (state = initialState, action) => {
       return Object.assign({}, state, { searchLoading: true });
     case START_LOADING_CATEGORY:
       return Object.assign({}, state, { categoryLoading: true });
+    case RECEIVE_WISHES:
+      return Object.assign({}, state, { wishesLoading: false });
+    case START_LOADING_WISHES:
+      return Object.assign({}, state, { wishesLoading: true });
     default:
       return state;
   }

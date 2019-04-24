@@ -18,6 +18,7 @@ import ProductSearchContainer from './../components/products/product_search_cont
 import CategoryContainer from './../components/category/category_container';
 import OrderHistoryContainer from './../components/account/order_history_container';
 import AccountInformations from './../components/account/account_informations_container';
+import Wishes from './../components/wishes/wishes_container';
 import UnderConstruction from './../components/under_construction/under_construction';
 
 const App = () => (
@@ -31,8 +32,8 @@ const App = () => (
       <Route exact path="/category/:categoryName" component={CategoryContainer} />
       <Route exact path="/orders" component={OrderHistoryContainer} />
       <ProtectedRoute exact path="/account" component={AccountInformations} />
+      <ProtectedRoute exact path="/wishes" component={Wishes} />
       <Route exact path="/construction" component={UnderConstruction} />
-
       <Route exact path="/" component={ProductsIndexContainer} />
       <Redirect from='/' to='/' />
     </Switch>

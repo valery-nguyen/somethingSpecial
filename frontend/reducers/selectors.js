@@ -43,6 +43,9 @@ export const selectCategoryProducts = (products, categoryName) => {
   return results;
 }
 
+export const selectWishes = (wishes) => {
+  return Object.values(wishes);
+}
 
 export const selectRelatedProducts = (state, productTitle) => {
   // The code below is simulating related products by choosing 6 random

@@ -180,6 +180,18 @@
   margin-bottom: 10px;
 }
 
+.icon-heart2-full {
+  background-image: image-url('icons/full_heart_icon.png');
+  background-size: 100%;
+  display: inline-block;
+  background-repeat: no-repeat;
+  vertical-align: top;
+  overflow: hidden;
+  height: 18px;
+  width: 18px;
+  padding: 0px;
+}
+
 .icon-heart2 {
   background-image: image-url('icons/heart_icon2.png');
   background-size: 100%;

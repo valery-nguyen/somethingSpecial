@@ -158,7 +158,7 @@ class ProductDetail extends React.Component {
                 {(product['notes']) ? <p>{product.notes}</p> : ''}
                 {(product['item_id']) ? <h2>{'ITEM ID'}</h2> : ''}
                 {(product['item_id']) ? <p>{product.item_id}</p> : ''}
-              <p>Still haven't found the details you're looking for? Check out our a <a href="#">Product Q &amp; A</a>!</p>
+              <p>Still haven't found the details you're looking for? Check out our a <Link to="/construction">Product Q &amp; A</Link>!</p>
               </div>
             </div>
           </div>

@@ -12,7 +12,7 @@ class FeatureNav extends React.Component {
   handleWishClick(e) {
     e.preventDefault();
     if (this.props.currentUser) {
-      this.props.history.push('/construction');
+      this.props.history.push('/wishes');
     } else {
       const modalEl = document.getElementsByClassName("modal-screen")[0];
       const modalForm = document.getElementsByClassName("modal-form")[0];
@@ -65,7 +65,7 @@ class FeatureNav extends React.Component {
               <i className="icon-user"></i> {(currentUser) ? <div>Hi, {currentUser.fname || ''} {currentUser.lname || ''}</div> : <div>Sign In</div>}
             </a>
             
-            <a href="#" onClick={this.handleWishClick}><i className="icon-heart"></i> <span>Wish Lists</span></a>
+            <a href="/" onClick={this.handleWishClick}><i className="icon-heart"></i> <span>Wish Lists</span></a>
             <a href="/" onClick={this.handleShipClick}><i className="icon-flag"></i> <span>Ship To</span></a>
           </div >
         </section>

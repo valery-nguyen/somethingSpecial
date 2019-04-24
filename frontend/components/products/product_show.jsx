@@ -9,6 +9,7 @@ class ProductShow extends React.Component {
     this.handleWishClick = this.handleWishClick.bind(this);
     this.handleAddToCart = this.handleAddToCart.bind(this);
     this.handlePreviewClick = this.handlePreviewClick.bind(this);
+    this.toggleWishClick = this.toggleWishClick.bind(this);
   }
 
   componentDidMount() {
@@ -35,10 +36,34 @@ class ProductShow extends React.Component {
     }
   }
 
+  toggleWishClick(e) {
+    e.preventDefault();
+    if (this.props.currentUser) {
+      let isInWishList = false;
+      this.props.wishes.forEach(product => {
+        if (product.id === this.props.product.id) isInWishList = isInWishList || true;
+      });
+
+      if (isInWishList) {
+        this.props.deleteWish(this.props.product.id);
+      } else {
+        this.props.addWish(this.props.product.id);
+      }
+    } else {
+      const modalEl = document.getElementsByClassName("modal-screen")[0];
+      const modalForm = document.getElementsByClassName("modal-form")[0];
+      const body = document.getElementById("root");
+      modalEl.classList.remove("is-open");
+      modalForm.classList.remove("is-open");
+      body.classList.add("noscroll");
+    }
+
+  }
+
   handleWishClick(e) {
     e.preventDefault();
     if (this.props.currentUser) {
-      this.props.history.push('/construction');
+      this.props.history.push('/wishes');
     } else {
       const modalEl = document.getElementsByClassName("modal-screen")[0];
       const modalForm = document.getElementsByClassName("modal-form")[0];
@@ -93,7 +118,7 @@ class ProductShow extends React.Component {
   }
 
   render() {
-    const { product, loading } = this.props;
+    const { product, loading, currentUser } = this.props;
     
     if (!product || this.props.images.length === 0 || loading) return null;
 
@@ -108,6 +133,22 @@ class ProductShow extends React.Component {
     qtyOptions = qtyOptions.map((el, idx) => {
       return <option key={idx} value={String(el)}>{el}</option>
     })
+
+    let iconHeartClass = "";
+    if (currentUser) {
+      let isInWishList = false;
+      this.props.wishes.forEach(product => {
+        if (product.id === this.props.product.id) isInWishList = isInWishList || true;
+      });
+
+      if (isInWishList) {
+        iconHeartClass = "icon-heart2-full";
+      } else {
+        iconHeartClass = "icon-heart2";
+      }
+    } else {
+      iconHeartClass = "icon-heart2";
+    }
 
     return (
       <section className="product-show-page main-body">
@@ -127,8 +168,8 @@ class ProductShow extends React.Component {
               <button onClick={this.handleAddToCart}>add to cart</button>
             </div>
             <div className="show-product-wish">
-              <a href="#" onClick={this.handleWishClick}><i className="icon-heart2"></i></a>
-              <a href="#" onClick={this.handleWishClick}>wish list</a>
+              <a href="/" onClick={this.toggleWishClick}><i id="icon-heart2" className={iconHeartClass}></i></a>
+              <a href="/" onClick={this.handleWishClick}>wish list</a>
             </div>
             <div className="show-product-share">
               <ul>
