@@ -18,7 +18,7 @@ class ReviewForm extends React.Component {
     let ratingSum = 0;
     Array.from(document.getElementsByClassName("rating-radio")).forEach(el => {
       if (el.checked) ratingSum += parseInt(el.value);
-    })
+    });
     const review = {
       product_id: this.props.product.id,
       rating: ratingSum,
@@ -27,15 +27,16 @@ class ReviewForm extends React.Component {
     };
 
     const productUrl = this.props.history.location.pathname.slice(0, this.props.history.location.pathname.length - 7);
-    this.props.history.push(productUrl);
+    this.props.createReview(review).then(() => {
+      this.props.history.push(productUrl);
+    });
   }
 
   render() {
     if (!this.props.product || this.props.images.length === 0) return null;
-    const errors = ['headline cannot be empty headline cannot be empty', 
-      'headline cannot be empty'];
+    const errors = this.props.errors;
     const errorsLis = errors.map( (error, i) => (
-      <li key={i}>{error}</li>      
+      <li key={i}>{(error === "Rating is not included in the list") ? "The Rating isn't picked yet." : `The ${error}.` }</li>      
     ));
 
     return (
@@ -47,13 +48,13 @@ class ReviewForm extends React.Component {
         </div>
         <div className="review-form-body">
           <form onSubmit={this.handleSubmit}>
-            <label>overall rating  | 1 - 5 </label>
+            <label>overall rating</label>
             <div className="review-form-rating">
-              <input type="radio" name="rating" className="rating-radio" value="1" />
-              <input type="radio" name="rating" className="rating-radio" value="2" />
-              <input type="radio" name="rating" className="rating-radio" value="3" />
-              <input type="radio" name="rating" className="rating-radio" value="4" />
-              <input type="radio" name="rating" className="rating-radio" value="5" />
+              <label>1</label><input type="radio" name="rating" className="rating-radio" value="1" /> &nbsp; &nbsp;
+              <label>2</label><input type="radio" name="rating" className="rating-radio" value="2" /> &nbsp; &nbsp;
+              <label>3</label><input type="radio" name="rating" className="rating-radio" value="3" /> &nbsp; &nbsp;
+              <label>4</label><input type="radio" name="rating" className="rating-radio" value="4" /> &nbsp; &nbsp;
+              <label>5</label><input type="radio" name="rating" className="rating-radio" value="5" />
             </div>
             <label>add a headline</label>
             <input id="review-form-headline" type="text" placeholder="what's your experience like in a few words?"/>

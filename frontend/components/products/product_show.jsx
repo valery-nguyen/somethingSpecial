@@ -196,7 +196,7 @@ class ProductShow extends React.Component {
         </section>
         <ProductDetails product={product} />
         <AlsoLike product={product} isWish={this.wishCheck.bind(this)}/>
-        <Reviews />
+        <Reviews product={product} />
       </section>
     );
   }

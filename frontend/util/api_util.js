@@ -85,3 +85,18 @@ export const deleteWish = (productId) => (
     url: `api/wishes/${productId}`
   })
 );
+
+export const fetchReviews = (product_id) => (
+  $.ajax({
+    method: 'GET',
+    url: `api/reviews/${product_id}`
+  })
+);
+
+export const createReview = (review) => (
+  $.ajax({
+    method: 'POST',
+    url: `api/reviews`,
+    data: { review }
+  })
+);

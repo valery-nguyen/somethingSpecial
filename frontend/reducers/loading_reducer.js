@@ -21,6 +21,11 @@ import {
   START_LOADING_WISH
 } from '../actions/wishes_actions';
 
+import {
+  RECEIVE_REVIEWS,
+  START_LOADING_REVIEWS,
+} from '../actions/reviews_actions';
+
 const initialState = {
   indexLoading: false,
   detailLoading: false,
@@ -28,7 +33,8 @@ const initialState = {
   searchLoading: false,
   categoryLoading: false,
   wishesLoading: false,
-  wishLoading: false
+  wishLoading: false,
+  reviewsLoading: false
 };
 
 const loadingReducer = (state = initialState, action) => {
@@ -57,6 +63,10 @@ const loadingReducer = (state = initialState, action) => {
       return Object.assign({}, state, { wishesLoading: true });
     case START_LOADING_WISH:
       return Object.assign({}, state, { wishLoading: true });  
+    case RECEIVE_REVIEWS:
+      return Object.assign({}, state, { reviewsLoading: false });
+    case START_LOADING_REVIEWS:
+      return Object.assign({}, state, { reviewsLoading: true });
     default:
       return state;
   }

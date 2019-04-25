@@ -47,9 +47,14 @@
           -webkit-filter: brightness(90%);
       }
       .review-form-rating {
+        label {
+          font-family: $playfair-serif;
+          font-size: 14px;
+          margin: 5px 0;
+        }
         display: flex;
         flex-direction: row;
-        justify-content: space-between;
+        justify-content: left;
         align-items: center;
       }
       label {

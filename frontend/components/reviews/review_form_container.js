@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import ReviewForm from './review_form';
 import { selectProduct, selectImages } from '../../reducers/selectors';
 import { requestProduct } from '../../actions/products_actions';
-// import { createReview } from '../../actions/reviews_actions';
+import { createReview } from '../../actions/reviews_actions';
 
 const mapStateToProps = (state, ownProps) => {
   const productTitle = ownProps.match.params.productTitle;
@@ -12,20 +12,20 @@ const mapStateToProps = (state, ownProps) => {
   const session = state.session;
   const users = state.entities.users;
   const currentUser = users[session.currentUserId];
-  // const errors
+  const errors = state.errors.review;
   return {
     currentUser,
     product,
     productTitle,
     images,
-    // errors
+    errors
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
     requestProduct: productTitle => dispatch(requestProduct(productTitle)),
-    // createReview: (review) => dispatch(createReview(review))
+    createReview: (review) => dispatch(createReview(review))
   };
 };
 

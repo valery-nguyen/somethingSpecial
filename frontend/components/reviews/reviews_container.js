@@ -1,27 +1,23 @@
 import { connect } from 'react-redux';
 
 import Reviews from './reviews';
+import { fetchReviews } from '../../actions/reviews_actions';
+import { selectReviews } from '../../reducers/selectors';
 
-// import { requestWishes, addWish, deleteWish } from '../../actions/wishes_actions';
-// import { selectWishes } from '../../reducers/selectors';
-// import { addCartItem } from '../../actions/cart_actions';
-
-const mapStateToProps = ({ session, entities: { users, wishes }, ui: { loading } }) => {
-  // const loadingState = loading.wishesLoading;
+const mapStateToProps = ({ session, entities: { users, reviews }, ui: { loading } }, ownProps) => {
+  const loadingState = loading.reviewsLoading;
   return {
-    // currentUser: users[session.currentUserId],
-    // wishes: selectWishes(wishes),
-    // loading: loadingState,
+    currentUser: users[session.currentUserId],
+    product: ownProps.product,
+    reviews: selectReviews(reviews),
+    loading: loadingState,
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    // requestWishes: () => dispatch(requestWishes()),
-    // addWish: (productId) => dispatch(addWish(productId)),
-    // deleteWish: (productId) => dispatch(deleteWish(productId)),
-    // addCartItem: (cartItem) => dispatch(addCartItem(cartItem))
-  }
+    fetchReviews: (productId) => dispatch(fetchReviews(productId)),
+  };
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Reviews);

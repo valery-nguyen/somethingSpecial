@@ -1,6 +1,6 @@
 export const selectAllProducts = (state) => {
   return Object.values(state.entities.products);
-}
+};
 
 export const selectProduct = (state, productTitle) => {
   Object.freeze(state);
@@ -13,7 +13,7 @@ export const selectProduct = (state, productTitle) => {
     }
   });
   return result;
-}
+};
 
 export const selectImages = (state, productTitle) => {
   Object.freeze(state);
@@ -27,11 +27,11 @@ export const selectImages = (state, productTitle) => {
     }
   });
   return result;
-}
+};
 
 export const selectCartItems = (cartItems) => {
   return Object.values(cartItems);
-}
+};
 
 export const selectCategoryProducts = (products, categoryName) => {
   let results = [];
@@ -41,11 +41,15 @@ export const selectCategoryProducts = (products, categoryName) => {
     }
   });
   return results;
-}
+};
 
 export const selectWishes = (wishes) => {
   return Object.values(wishes);
-}
+};
+
+export const selectReviews = (reviews) => {
+  return Object.values(reviews);
+};
 
 export const selectRelatedProducts = (state, productTitle) => {
   // The code below is simulating related products by choosing 6 random
@@ -55,7 +59,7 @@ export const selectRelatedProducts = (state, productTitle) => {
   Object.values(state.entities.products).forEach(product => {
     if( product['image_urls'] ) allProducts.push(product);
   });
-  // allProducts.sort(() => { return 0.5 - Math.random() });
+  allProducts.sort(() => { return 0.5 - Math.random() });
   let selectedProducts = [];
   let numProducts = 6;
   if (allProducts.length < 6) numProducts = allProducts.length;
@@ -68,4 +72,4 @@ export const selectRelatedProducts = (state, productTitle) => {
     i = i + 1;
   }
   return selectedProducts;
-}
+};

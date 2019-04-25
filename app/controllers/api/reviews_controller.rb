@@ -10,7 +10,7 @@ class Api::ReviewsController < ApplicationController
     @review.user_id = current_user.id
 
     if @review.save
-      @product = Product.find(params[:id])
+      @product = Product.find(review_params[:product_id])
       @reviews = @product.reviews.includes(:user)
       render :show
     else

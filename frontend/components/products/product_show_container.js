@@ -5,20 +5,23 @@ import { selectProduct, selectImages } from '../../reducers/selectors';
 import { requestProduct } from '../../actions/products_actions';
 import { addCartItem } from '../../actions/cart_actions';
 import { addWish, deleteWish, requestWishes } from '../../actions/wishes_actions';
-import { selectWishes } from '../../reducers/selectors';
+import { selectWishes, selectReviews } from '../../reducers/selectors';
+// import { fetchReviews } from '../../actions/reviews_actions';
 
 const mapStateToProps = (state, ownProps) => {
   const products = state.entities.products;
   const productTitle = ownProps.match.params.productTitle;
   const product = selectProduct(state, productTitle);
   const images = selectImages(state, productTitle);
-  const loading = state.ui.loading.detailLoading ||
+  const loading = 
+    state.ui.loading.detailLoading ||
     state.ui.loading.cartLoading ||
     state.ui.loading.wishesLoading;
   const session = state.session;
   const users = state.entities.users;
   const currentUser = users[session.currentUserId];
   const wishes = selectWishes(state.entities.wishes);
+  // const reviews = selectReviews(state.entities.reviews);
 
   return {
     currentUser,
@@ -27,6 +30,7 @@ const mapStateToProps = (state, ownProps) => {
     product,
     images,
     wishes,
+    // reviews,
     loading,
   };
 };
@@ -37,7 +41,8 @@ const mapDispatchToProps = dispatch => {
     addCartItem: (cartItem) => dispatch(addCartItem(cartItem)),
     requestWishes: () => dispatch(requestWishes()),
     addWish: (productId) => dispatch(addWish(productId)),
-    deleteWish: (productId) => dispatch(deleteWish(productId))
+    deleteWish: (productId) => dispatch(deleteWish(productId)),
+    // fetchReviews: (productId) => dispatch(fetchReviews(productId))
   };
 };
 

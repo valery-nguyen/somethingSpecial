@@ -1,0 +1,243 @@
+@import "variables";
+.reviews-header-empty {
+  h2 {
+    margin-top: 30px;
+    margin-bottom: 30px;
+    display: flex;
+    justify-content: center;
+    font-family: $playfair-serif;
+    font-size: 16px;
+  }
+  a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 46px;
+    color: white;
+    font-size: 16px;
+    background-color: $darkest-green;
+    font-family: $playfair-serif;
+    border-radius: 4px;
+    padding: 10px;
+    text-decoration: none;
+    box-sizing: border-box;
+    margin-top: 30px;
+    margin-bottom: 40px;
+    margin-left: auto;
+    margin-right: auto;
+    cursor: pointer;
+    width: calc(100% * 2 / 3);
+  }
+
+  a:hover {
+    color: $black;
+    background-color: $sea-green;
+    transition-duration: 0.2s;
+  }
+}
+
+.reviews {
+  .reviews-outer {
+    // .reviews-header-empty {
+    //   h2 {
+    //     margin-top: 30px;
+    //     margin-bottom: 30px;
+    //     display: flex;
+    //     justify-content: center;
+    //     font-family: $playfair-serif;
+    //     font-size: 16px;
+    //   }
+    //   a {
+    //     display: flex;
+    //     align-items: center;
+    //     justify-content: center;
+    //     height: 46px;
+    //     color: white;
+    //     font-size: 16px;
+    //     background-color: $darkest-green;
+    //     font-family: $playfair-serif;
+    //     border-radius: 4px;
+    //     padding: 10px;
+    //     text-decoration: none;
+    //     box-sizing: border-box;
+    //     margin-top: 30px;
+    //     margin-bottom: 40px;
+    //     margin-left: auto;
+    //     margin-right: auto;
+    //     cursor: pointer;
+    //     width: calc(100% * 2 / 3);
+    //   }
+
+    //   a:hover {
+    //     color: $black;
+    //     background-color: $sea-green;
+    //     transition-duration: 0.2s;
+    //   }
+    // }
+    .reviews-header {
+      h1 {
+        display: flex;
+        justify-content: center;
+        font-family: $playfair-serif;
+        font-size: 24px;
+        margin-top: 10px;
+        margin-bottom: 10px;
+        color: $darkest-green;
+      }
+      border-bottom: 1px solid $medium-green;
+    }
+    .reviews-snapshot {
+      .reviews-snapshot-details {
+        div {
+          h2 {
+            display: flex;
+            justify-content: center;
+            font-family: $open-sans;
+            font-size: 22px;
+          }
+          h3 {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: $playfair-serif;
+            font-size: 50px;
+            padding: 20px 0;
+          }
+          p {
+            display: flex;
+            justify-content: center;
+            font-family: $open-sans;
+            font-size: 14px;
+            margin-top: 20px;
+          }
+          a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 46px;
+            color: white;
+            font-size: 16px;
+            background-color: $darkest-green;
+            font-family: $playfair-serif;
+            border-radius: 4px;
+            padding: 10px;
+            text-decoration: none;
+            box-sizing: border-box;
+            margin-top: 15px;
+            margin-bottom: 10px;
+            margin-left: auto;
+            margin-right: auto;
+            cursor: pointer;
+            width: calc(100% * 2 / 3);
+          }
+
+          a:hover {
+            color: $black;
+            background-color: $sea-green;
+            transition-duration: 0.2s;
+          }
+        }
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        width: calc(100% * 1 / 3);
+        padding: 20px 10px;
+        box-sizing: border-box;
+      }
+      .reviews-details {
+        ul {
+          .reviews-details-outer {
+            .reviews-details-header {
+              .review-details-header-inner {
+                div {
+                  h1 {
+                    font-size: 20px;
+                    font-family: $playfair-serif;
+                    padding-bottom: 10px;
+                    padding-right: 20px;
+                  }
+                  display: flex;
+                  flex-direction: row;
+                }
+                h2 {
+                  font-size: 14px;
+                  font-family: $open-sans;
+                  color: $dark-gray;
+                }
+                h3 {
+                  font-size: 14px;
+                  font-family: $open-sans;
+                  padding: 5px 0;
+                  color: $dark-gray;
+                }
+              }
+            }
+            .reviews-details-comment {
+              p {
+                padding: 5px 0;
+                font-size: 14px;
+                font-family: $open-sans;
+                width: 100%;
+                word-wrap: break-word;
+                line-height: 1.3;
+                color: $black;
+              }
+            }
+            display: flex;
+            flex-direction: column;
+            padding: 15px 10px;
+            border-top: none;
+          }
+        }
+        margin-top: 20px;
+        margin-bottom: 20px;
+        width: calc(100% * 2 / 3);
+        border-left: 1px solid $beige;
+        padding: 0 20px 0px 20px;
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+      display: flex;
+      flex-direction: row;
+    }
+    width: 1000px;
+    margin: 0 auto;
+  }
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+@media all and (max-width: 1050px) {
+  .reviews {
+    .reviews-outer {
+      width: 100%;
+    }
+  }
+}
+
+@media all and (max-width: 640px) {
+  .reviews {
+    .reviews-outer {
+      .reviews-snapshot {
+        .reviews-snapshot-details {
+          width: 100%;
+        }
+        .reviews-details {
+          ul {
+            .reviews-details-outer {
+              border-top: 1px solid $beige;
+            }
+          }
+          width: 100%;
+          border-left: none;
+          margin-top: 0;
+          margin-bottom: 0;
+        }
+        flex-direction: column;
+      }
+    }
+  }
+}

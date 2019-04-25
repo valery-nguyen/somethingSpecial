@@ -1,16 +1,17 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 
-const ProductsIndexItem = ({ product, isWish, addWish, deleteWish, currentUser }) => {
+const ProductsIndexItem = ({ product, isWish, addWish, deleteWish, currentUser, history }) => {
   const productExtension = product.title.toLowerCase().split(' ').join('-');
   const imagesArr = Object.values(product.image_urls);
   return <li className="products-index-item">
-    <i 
-      id="products-index-item-like" 
-      onClick=
-      {(!currentUser) ? openLoginPanel : ((isWish) ? deleteWish : addWish)}>
-        {(isWish) ? `♥️` : `♡`}
-    </i>
+    {(history.location.pathname.slice(0,9) !== '/product/') ? 
+      <i 
+        id="products-index-item-like" 
+        onClick=
+        {(!currentUser) ? openLoginPanel : ((isWish) ? deleteWish : addWish)}>
+          {(isWish) ? `♥️` : `♡`}
+      </i> : '' }
     <Link to={`/product/${productExtension}`}>
       <img src={imagesArr[0].image_url} alt={product.title}></img>
       <h2>{product.title}</h2>
@@ -28,4 +29,4 @@ const openLoginPanel = () => {
   body.classList.add("noscroll");
 };
 
-export default ProductsIndexItem;
+export default withRouter(ProductsIndexItem);
