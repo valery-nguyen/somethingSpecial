@@ -1,6 +1,7 @@
 import React from 'react';
 import AlsoLike from './also_like_container';
 import ProductDetails from './product_details';
+import Reviews from '../reviews/reviews_container';
 
 class ProductShow extends React.Component {
   constructor(props) {
@@ -195,6 +196,7 @@ class ProductShow extends React.Component {
         </section>
         <ProductDetails product={product} />
         <AlsoLike product={product} isWish={this.wishCheck.bind(this)}/>
+        <Reviews />
       </section>
     );
   }

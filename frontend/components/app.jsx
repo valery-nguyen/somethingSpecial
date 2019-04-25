@@ -19,6 +19,7 @@ import CategoryContainer from './../components/category/category_container';
 import OrderHistoryContainer from './../components/account/order_history_container';
 import AccountInformations from './../components/account/account_informations_container';
 import Wishes from './../components/wishes/wishes_container';
+import ReviewForm from './../components/reviews/review_form_container';
 import UnderConstruction from './../components/under_construction/under_construction';
 
 const App = () => (
@@ -33,6 +34,7 @@ const App = () => (
       <Route exact path="/orders" component={OrderHistoryContainer} />
       <ProtectedRoute exact path="/account" component={AccountInformations} />
       <ProtectedRoute exact path="/wishes" component={Wishes} />
+      <ProtectedRoute exact path="/product/:productTitle/review" component={ReviewForm} />
       <Route exact path="/construction" component={UnderConstruction} />
       <Route exact path="/" component={ProductsIndexContainer} />
       <Redirect from='/' to='/' />
