@@ -10,13 +10,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_04_24_223550) do
+ActiveRecord::Schema.define(version: 2019_04_26_171502) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "cart_items", force: :cascade do |t|
-    t.string "user_id", null: false
+    t.integer "user_id", null: false
     t.integer "product_id", null: false
     t.integer "quantity", null: false
     t.datetime "created_at", null: false
@@ -84,7 +84,7 @@ ActiveRecord::Schema.define(version: 2019_04_24_223550) do
   end
 
   create_table "wishes", force: :cascade do |t|
-    t.string "user_id", null: false
+    t.integer "user_id", null: false
     t.integer "product_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
