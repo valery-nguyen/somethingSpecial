@@ -2,14 +2,20 @@ import React from 'react';
 import { withRouter } from 'react-router';
 import { Link } from 'react-router-dom';
 
-class CartPanel extends React.Component {
+class Cart extends React.Component {
   constructor(props) {
     super(props);
 
     this.handleCheckoutClick = this.handleCheckoutClick.bind(this);
   }
+  
+  componentDidMount() {
+    window.scrollTo(0, 0);
+  }
 
-  handleCheckoutClick () {
+  handleCheckoutClick (e) {
+    e.preventDefault();
+    this.props.history.push('/construction');
   }
 
   handleQtyChange(id) {
@@ -130,4 +136,4 @@ class CartPanel extends React.Component {
   }
 }
 
-export default withRouter(CartPanel);
+export default withRouter(Cart);
