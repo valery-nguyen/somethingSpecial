@@ -7,7 +7,7 @@ import { selectWishes } from '../../reducers/selectors';
 import { addCartItem } from '../../actions/cart_actions';
 
 const mapStateToProps = ({ session, entities: { users, wishes }, ui: { loading } }) => {
-  const loadingState = loading.wishesLoading;
+  const loadingState = loading.wishesLoading || loading.cartLoading;
   return {
     currentUser: users[session.currentUserId],
     wishes: selectWishes(wishes),
