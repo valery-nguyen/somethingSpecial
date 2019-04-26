@@ -35,5 +35,4 @@ class ProductsIndex extends React.Component {
   }
 }
 
-
 export default ProductsIndex;

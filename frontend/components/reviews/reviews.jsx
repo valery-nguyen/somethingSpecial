@@ -85,9 +85,13 @@ class Reviews extends React.Component {
 
     const numReviews = reviews.length;
     const overallRating = String(cumulativeRating / numReviews);
+    const showPageRatingEl = document.getElementById("show-product-rating");
+    if (showPageRatingEl && (cumulativeRating / numReviews) > 0) {
+      showPageRatingEl.innerHTML = `${overallRating} / 5 (${numReviews} ${(numReviews > 1) ? 'reviews)' : 'review)'}`;
+    }
 
     return (
-      <div className="reviews">
+      <div id="reviews" className="reviews">
         <div className="reviews-outer">
           <div className="reviews-header">
             <h1>Reviews</h1>

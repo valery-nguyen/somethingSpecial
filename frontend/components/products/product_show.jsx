@@ -12,6 +12,7 @@ class ProductShow extends React.Component {
     this.handlePreviewClick = this.handlePreviewClick.bind(this);
     this.toggleWishClick = this.toggleWishClick.bind(this);
     this.wishCheck = this.wishCheck.bind(this);
+    this.handleReviewsClick = this.handleReviewsClick.bind(this);
   }
 
   componentDidMount() {
@@ -39,6 +40,12 @@ class ProductShow extends React.Component {
         (idx === 0) ? li.children[0].className = 'visible' : li.children[0].className = 'blurred';
       });
     }
+  }
+
+  handleReviewsClick(e) {
+    e.preventDefault();
+    const reviewsEl = document.getElementById("reviews");
+    window.scrollTo({ top: reviewsEl.offsetTop, behavior: 'smooth'});
   }
 
   wishCheck(product) {
@@ -175,6 +182,7 @@ class ProductShow extends React.Component {
             <h1>{product.title}</h1>
             <p className="show-product-description">{product.description}</p>
             <p className="show-product-price">${product.price}</p>
+            <p onClick={this.handleReviewsClick}className="show-product-rating" id="show-product-rating"></p>
             <div>
               <select id="show-product-qty" defaultValue="1">
                 {qtyOptions}
@@ -185,6 +193,7 @@ class ProductShow extends React.Component {
               <a href="/" onClick={this.toggleWishClick}><i id="icon-heart2" className={iconHeartClass}></i></a>
               <a href="/" onClick={this.handleWishClick}>wish list</a>
             </div>
+            
             <div className="show-product-share">
               <ul>
                 <li><a href="mailto:"><i className="icon-email2"></i></a></li>

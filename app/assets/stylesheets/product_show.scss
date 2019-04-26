@@ -73,9 +73,26 @@
     font-family: $open-sans;
     font-size: 18px;
     padding: 5px;
+    display: flex;
+    justify-content: center;
+  }
+
+  #show-product-rating{
+    font-family: $open-sans;
+    font-size: 14px;
+    padding: 5px;
     margin-bottom: 10px;
     display: flex;
     justify-content: center;
+    margin-left: auto;
+    margin-right: auto;
+    align-items: center;
+    cursor: pointer;
+  }
+
+  #show-product-rating:hover {
+    text-decoration: underline;
+    text-decoration-color: $medium-green;
   }
 
   div {
@@ -619,8 +636,13 @@
       padding: 5px;
     }
 
-    .show-product-price{
+    .show-product-price {
       font-size: 14px;
+      padding: 5px;
+    }
+
+    #show-product-rating {
+      font-size: 12px;
       padding: 5px;
     }
   }
@@ -702,6 +724,11 @@
       }
 
       .show-product-price {
+        padding: 10px;
+        font-size: 20px;
+      }
+
+      #show-product-rating {
         padding: 10px;
         font-size: 20px;
       }
