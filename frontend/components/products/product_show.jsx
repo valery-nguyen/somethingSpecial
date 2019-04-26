@@ -197,8 +197,8 @@ class ProductShow extends React.Component {
             <div className="show-product-share">
               <ul>
                 <li><a href="mailto:"><i className="icon-email2"></i></a></li>
-                <li><a href="https://www.facebook.com/"><i className="icon-facebook2"></i></a></li>
-                <li><a href="https://www.pinterest.com/"><i className="icon-pinterest2"></i></a></li>
+                <li><a href="https://www.facebook.com/" target="_blank"><i className="icon-facebook2"></i></a></li>
+                <li><a href="https://www.pinterest.com/" target="_blank"><i className="icon-pinterest2"></i></a></li>
               </ul>
             </div>
           </section>

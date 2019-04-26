@@ -54,7 +54,7 @@ class OrderHistory extends React.Component {
               </div>
               <button>look up order</button>
             </form>
-            <p>Was this order shipped outside the U.S.? Look up your order on the &nbsp;<a href="https://www.borderfree.com/order-status/">Borderfree website</a>.</p>
+            <p>Was this order shipped outside the U.S.? Look up your order on the &nbsp;<a href="https://www.borderfree.com/order-status/" target="_blank">Borderfree website</a>.</p>
           </div>
 
           <div className="order-help">

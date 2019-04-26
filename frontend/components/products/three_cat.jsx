@@ -43,27 +43,27 @@ export const BottomThreeCategories = () => (
       </div>
     </div>
     <div>
-      <a href="https://www.uncommongoods.com/blog/2019/video-juju-maker-story">
+      <a href="https://www.uncommongoods.com/blog/2019/video-juju-maker-story" target="_blank">
         <img src={window.fifthCatImgURL} />
       </a>
       <div>
-        <a href="https://www.uncommongoods.com/blog/2019/video-juju-maker-story">
+        <a href="https://www.uncommongoods.com/blog/2019/video-juju-maker-story" target="_blank">
           <h2>Mother of Charms</h2>
         </a>
-        <a href="https://www.uncommongoods.com/blog/2019/video-juju-maker-story">
+        <a href="https://www.uncommongoods.com/blog/2019/video-juju-maker-story" target="_blank">
           <h3>video: meet casey benjamin</h3>
         </a>
       </div>
     </div>
     <div>
-      <a href="https://www.uncommongoods.com/blog/category/gift-guides/">
+      <a href="https://www.uncommongoods.com/blog/category/gift-guides/" target="_blank">
         <img src={window.sixthCatImgURL} />
       </a>
       <div>
-        <a href="https://www.uncommongoods.com/blog/category/gift-guides/">
+        <a href="https://www.uncommongoods.com/blog/category/gift-guides/" target="_blank">
           <h2>Gift Guide</h2>
         </a>
-        <a href="https://www.uncommongoods.com/blog/category/gift-guides/">
+        <a href="https://www.uncommongoods.com/blog/category/gift-guides/" target="_blank">
           <h3>feel inspired</h3>
         </a>
       </div>

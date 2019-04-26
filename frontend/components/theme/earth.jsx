@@ -9,10 +9,10 @@ const Earth = () => {
           </video>
         </div>
         <div className="earth-links">
-        <a href="https://www.uncommongoods.com/blog/2018/video-5-incredible-products-that-help-people-the-planet/">
+        <a href="https://www.uncommongoods.com/blog/2018/video-5-incredible-products-that-help-people-the-planet/" target="_blank">
           <h1>For Earth: 5 Products That Help People &amp; the Planet</h1>
         </a>
-        <form action="https://www.uncommongoods.com/blog/2018/video-5-incredible-products-that-help-people-the-planet/">
+        <form action="https://www.uncommongoods.com/blog/2018/video-5-incredible-products-that-help-people-the-planet/" target="_blank">
           <button>watch the video</button>
         </form>
         

@@ -17,7 +17,7 @@ const FooterLinks = () => {
       <label>support</label>
       <ul>
         <li><Link to="/orders">check order status</Link></li>
-        <li><a href="https://ugoods.zendesk.com/forums/20813852-shipping-options-pricing">shipping &amp; returns</a></li>
+        <li><a href="https://ugoods.zendesk.com/forums/20813852-shipping-options-pricing" target="_blank">shipping &amp; returns</a></li>
         <li><Link to="/construction">corporate orders</Link></li>
         <li><Link to="/construction">email unsubscribe</Link></li>
         <li><Link to="/construction">submit feedback</Link></li>

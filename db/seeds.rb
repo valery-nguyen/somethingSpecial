@@ -10,12 +10,93 @@ Product.destroy_all
 ProductImage.destroy_all
 User.destroy_all
 Category.destroy_all
+CartItem.destroy_all
+Wish.destroy_all
+Review.destroy_all
 
+#demo_user
 user1 = User.create({
   fname: 'Valery',
   lname: 'Nguyen',
-  email: 'admin@gmail.com',
+  email: 'valery.nguyen@ucla.edu',
   password: 'california'
+})
+
+user2 = User.create({
+  fname: 'Esha',
+  lname: 'Menon',
+  email: 'esha@somethingspecial.io',
+  password: 'cupertino'
+})
+
+user3 = User.create({
+  fname: 'Karthi',
+  lname: 'Kumar',
+  email: 'karthi@somethingspecial.io',
+  password: 'sandiego'
+})
+
+user4 = User.create({
+  fname: 'Jonathan',
+  lname: 'Park',
+  email: 'jp@somethingspecial.io',
+  password: 'sunnyvale'
+})
+
+user5 = User.create({
+  fname: 'Bryant',
+  lname: 'Bao',
+  email: 'bb@somethingspecial.io',
+  password: 'sanjose8'
+})
+
+user6 = User.create({
+  fname: 'Sarim',
+  lname: 'Lim',
+  email: 'sarim@somethingspecial.io',
+  password: 'losgatos'
+})
+
+user7 = User.create({
+  fname: 'Anita',
+  lname: 'Menon',
+  email: 'anita@somethingspecial.io',
+  password: 'cupertino'
+})
+
+user8 = User.create({
+  fname: 'Anil',
+  lname: 'Kumar',
+  email: 'anil@somethingspecial.io',
+  password: 'cupertino'
+})
+
+user9 = User.create({
+  fname: 'Maya',
+  lname: 'Sugihara',
+  email: 'maya@somethingspecial.io',
+  password: 'seattle8'
+})
+
+user10 = User.create({
+  fname: 'Terell',
+  lname: 'Sterling',
+  email: 'terell@somethingspecial.io',
+  password: 'saratoga'
+})
+
+user11 = User.create({
+  fname: 'Avi',
+  lname: 'Ananth',
+  email: 'avi@somethingspecial.io',
+  password: 'sanfrancisco'
+})
+
+user12 = User.create({
+  fname: 'Julien',
+  lname: 'Nguyen',
+  email: 'julien@somethingspecial.io',
+  password: 'valdoise'
 })
 
 product1 = Product.create({ 
@@ -4378,4 +4459,931 @@ categories = Category.create([
       product_id: product100.id, 
       name: 'women'
     }
+])
+
+wish_list = Wish.create([
+  { 
+    user_id: user1.id, 
+    product_id: product20.id,
+  },
+  { 
+    user_id: user1.id, 
+    product_id: product35.id,
+  },
+  { 
+      user_id: user1.id, 
+    product_id: product45.id,
+  },
+  { 
+    user_id: user1.id, 
+    product_id: product52.id,
+  },
+  { 
+    user_id: user1.id, 
+    product_id: product67.id,
+  },
+  { 
+    user_id: user1.id, 
+    product_id: product88.id,
+  }
+])
+
+cart_list = CartItem.create([
+  { 
+    user_id: user1.id, 
+    product_id: product17.id,
+    quantity: 1,
+  },
+  { 
+    user_id: user1.id, 
+    product_id: product42.id,
+    quantity: 2,
+  },
+  { 
+      user_id: user1.id, 
+    product_id: product53.id,
+    quantity: 3,
+  },
+  { 
+    user_id: user1.id, 
+    product_id: product59.id,
+    quantity: 1,
+  },
+  { 
+    user_id: user1.id, 
+    product_id: product74.id,
+    quantity: 4,
+  },
+  { 
+    user_id: user1.id, 
+    product_id: product95.id,
+    quantity: 1,
+  }
+])
+
+reviews_list = Review.create([
+   { 
+    user_id: user10.id, 
+    product_id: product1.id,
+    rating: 5,
+    headline: "Product may not exist!",
+    comment: "I'm loving this product so much!! Awesome!!",
+    created_at: Time.now - 864000
+   },
+   { 
+    user_id: user2.id, 
+    product_id: product7.id,
+    rating: 5,
+    headline: "Essential product",
+    comment: "I'm loving this product so so so much!!",
+    created_at: Time.now - 2332800
+   },
+   { 
+    user_id: user9.id, 
+    product_id: product7.id,
+    rating: 5,
+    headline: "Your key to success: product",
+    comment: "This is awesome!",
+    created_at: Time.now - 1728000
+   },
+   { 
+    user_id: user10.id, 
+    product_id: product9.id,
+    rating: 5,
+    headline: "You can have your cake and purchase, too",
+    comment: "I'm loving this product so much!! Awesome!",
+    created_at: Time.now - 2246400
+   },
+   { 
+    user_id: user8.id, 
+    product_id: product18.id,
+    rating: 5,
+    headline: "14 days to a better product",
+    comment: "I'm loving this product so much!! Awesome!!",
+    created_at: Time.now - 3715200
+   },
+   { 
+    user_id: user4.id, 
+    product_id: product25.id,
+    rating: 5,
+    headline: "This Article Will Make Your Buy Amazing: Read Or Miss Out",
+    comment: "I'm loving this product so much!! GREAT USE!!",
+    created_at: Time.now - 2332800
+   },
+   { 
+    user_id: user7.id, 
+    product_id: product30.id,
+    rating: 5,
+    headline: "Boost your purchase with these tips",
+    comment: "This is a beautifully crafted item!",
+    created_at: Time.now - 86400
+   },
+   { 
+    user_id: user3.id, 
+    product_id: product31.id,
+    rating: 5,
+    headline: "Believe In Your Buy Skills But Never Stop Improving",
+    comment: "Super AWESOME PURCHASE!!! BUY IT!",
+    created_at: Time.now - 2332800
+   },
+   { 
+    user_id: user11.id, 
+    product_id: product35.id,
+    rating: 5,
+    headline: "Make your purchase a reality",
+    comment: "REALLY LOVING THIS PRODUCT!",
+    created_at: Time.now - 3628800
+   },
+   { 
+    user_id: user3.id, 
+    product_id: product45.id,
+    rating: 5,
+    headline: "Warning: product",
+    comment: "Actually not! I'm loving this beautiful product!",
+    created_at: Time.now - 1123200
+   },
+   { 
+    user_id: user6.id, 
+    product_id: product47.id,
+    rating: 5,
+    headline: "Boost your product with these tips",
+    comment: "I'm loving this product so so much!",
+    created_at: Time.now - 432000
+   },
+   { 
+    user_id: user10.id, 
+    product_id: product58.id,
+    rating: 5,
+    headline: "Remarkable website - product will help you get there",
+    comment: "I'm loving this product so much!! So Awesome!!",
+    created_at: Time.now - 4320000
+   },
+   { 
+    user_id: user3.id, 
+    product_id: product66.id,
+    rating: 5,
+    headline: "Don't just sit there! start getting more product",
+    comment: "This purchase was great! ",
+    created_at: Time.now - 1382400
+   },
+   { 
+    user_id: user12.id, 
+    product_id: product75.id,
+    rating: 5,
+    headline: "Easy Ways You Can Turn Buy Into Success",
+    comment: "Just spend little money for beautiful product!",
+    created_at: Time.now - 3888000
+   },
+   { 
+    user_id: user12.id, 
+    product_id: product82.id,
+    rating: 5,
+    headline: "How to make your product look like a million bucks",
+    comment: "No regret I promise! Buy it! It's great!",
+    created_at: Time.now - 3974400
+   },
+   { 
+    user_id: user7.id, 
+    product_id: product84.id,
+    rating: 5,
+    headline: "Purchase is essential for your success. read this to find out why",
+    comment: "This was an awesome purchase experience!",
+    created_at: Time.now - 2592000
+   },
+   { 
+    user_id: user8.id, 
+    product_id: product85.id,
+    rating: 5,
+    headline: "Believe in your purchase skills but never stop improving",
+    comment: "This site is super cool!",
+    created_at: Time.now - 2592000
+   },
+   { 
+    user_id: user11.id, 
+    product_id: product86.id,
+    rating: 5,
+    headline: "Purchase may not exist!",
+    comment: "I hesitated but in the end very happy!",
+    created_at: Time.now - 3888000
+   },
+   { 
+    user_id: user6.id, 
+    product_id: product87.id,
+    rating: 5,
+    headline: "Buy Adventures",
+    comment: "Great! Simple Great!",
+    created_at: Time.now - 2073600
+   },
+   { 
+    user_id: user9.id, 
+    product_id: product87.id,
+    rating: 5,
+    headline: "Fear? not if you use purchase the right way!",
+    comment: "Extremely happy with my purchase!",
+    created_at: Time.now - 2332800
+   },
+   { 
+    user_id: user5.id, 
+    product_id: product89.id,
+    rating: 5,
+    headline: "Little known facts about product - and why they matter",
+    comment: "I'm loving this product so much!!",
+    created_at: Time.now - 86400
+   },
+   { 
+    user_id: user6.id, 
+    product_id: product91.id,
+    rating: 5,
+    headline: "Purchase adventures",
+    comment: "Just spend little money for this great product!",
+    created_at: Time.now - 3110400
+   },
+   { 
+    user_id: user12.id, 
+    product_id: product10.id,
+    rating: 4,
+    headline: "Have you heard? purchase is your best bet to grow",
+    comment: "I rarely buy, but have no regret!",
+    created_at: Time.now - 4320000
+   },
+   { 
+    user_id: user12.id, 
+    product_id: product3.id,
+    rating: 4,
+    headline: "You can have your cake and product, too",
+    comment: "I buy all my gifts here! Loving this website!",
+    created_at: Time.now - 4233600
+   },
+   { 
+    user_id: user6.id, 
+    product_id: product11.id,
+    rating: 4,
+    headline: "If you want to be a winner, change your purchase philosophy now!",
+    comment: "Change the way you decorate with this amazing purchase!",
+    created_at: Time.now - 3974400
+   },
+   { 
+    user_id: user11.id, 
+    product_id: product5.id,
+    rating: 4,
+    headline: "Create A Buy Your Parents Would Be Proud Of",
+    comment: "Four stars because of lower quality..",
+    created_at: Time.now - 259200
+   },
+   { 
+    user_id: user2.id, 
+    product_id: product6.id,
+    rating: 4,
+    headline: "Famous quotes on product",
+    comment: "Great buy for little price!!",
+    created_at: Time.now - 2592000
+   },
+   { 
+    user_id: user2.id, 
+    product_id: product16.id,
+    rating: 4,
+    headline: "Purchase guide to communicating value",
+    comment: "slow shipping but it was awesome to wait for this!",
+    created_at: Time.now - 3542400
+   },
+   { 
+    user_id: user8.id, 
+    product_id: product16.id,
+    rating: 4,
+    headline: "Your Key To Success: Buy",
+    comment: "This is what I expected! Amazing!",
+    created_at: Time.now - 86400
+   },
+   { 
+    user_id: user5.id, 
+    product_id: product19.id,
+    rating: 4,
+    headline: "Get better purchase results by following 3 simple steps",
+    comment: "Not what was shown on photos",
+    created_at: Time.now - 3024000
+   },
+   { 
+    user_id: user2.id, 
+    product_id: product7.id,
+    rating: 4,
+    headline: "Essential Buy Smartphone Apps",
+    comment: "This is a four-stars review because it came it late..",
+    created_at: Time.now - 4320000
+   },
+   { 
+    user_id: user4.id, 
+    product_id: product27.id,
+    rating: 4,
+    headline: "How To Make Your Buy Look Like A Million Bucks",
+    comment: "This is a gem! Can't wait to get more products from here!",
+    created_at: Time.now - 3369600
+   },
+   { 
+    user_id: user6.id, 
+    product_id: product27.id,
+    rating: 4,
+    headline: "The philosophy of product",
+    comment: "Loving purchase experience on this website!",
+    created_at: Time.now - 4320000
+   },
+   { 
+    user_id: user11.id, 
+    product_id: product28.id,
+    rating: 4,
+    headline: "Build A Buy Anyone Would Be Proud Of",
+    comment: "Love it!",
+    created_at: Time.now - 1814400
+   },
+   { 
+    user_id: user5.id, 
+    product_id: product31.id,
+    rating: 4,
+    headline: "Who Else Wants Buy?",
+    comment: "It's missing more vivid colors",
+    created_at: Time.now - 172800
+   },
+   { 
+    user_id: user8.id, 
+    product_id: product35.id,
+    rating: 4,
+    headline: "Have You Heard? Buy Is Your Best Bet To Grow",
+    comment: "finally got it!! Not disappointed!",
+    created_at: Time.now - 864000
+   },
+   { 
+    user_id: user12.id, 
+    product_id: product36.id,
+    rating: 4,
+    headline: "The Philosophy Of Buy",
+    comment: "Think about this product before you buy, but you won't regret it!",
+    created_at: Time.now - 604800
+   },
+   { 
+    user_id: user2.id, 
+    product_id: product36.id,
+    rating: 4,
+    headline: "Picture Your Buy On Top. Read This And Make It So",
+    comment: "Feeling cheap but great price",
+    created_at: Time.now - 1036800
+   },
+   { 
+    user_id: user3.id, 
+    product_id: product37.id,
+    rating: 4,
+    headline: "Don't just sit there! start getting more purchase",
+    comment: "Share with people around you! This is a source of amazing gifts!",
+    created_at: Time.now - 1641600
+   },
+   { 
+    user_id: user4.id, 
+    product_id: product42.id,
+    rating: 4,
+    headline: "Revolutionize your purchase with these easy-peasy tips",
+    comment: "Great packaging as it was for my brother's bday!",
+    created_at: Time.now - 3888000
+   },
+   { 
+    user_id: user5.id, 
+    product_id: product47.id,
+    rating: 4,
+    headline: "Revolutionize Your Buy With These Easy-peasy Tips",
+    comment: "this is a great buy! Recommending to all!",
+    created_at: Time.now - 4320000
+   },
+   { 
+    user_id: user6.id, 
+    product_id: product53.id,
+    rating: 4,
+    headline: "14 Days To A Better Buy",
+    comment: "I should have thought more carefully as it feels cheap",
+    created_at: Time.now - 950400
+   },
+   { 
+    user_id: user6.id, 
+    product_id: product83.id,
+    rating: 4,
+    headline: "Make Your Buy A Reality",
+    comment: "slow shipping but it was worth waiting!",
+    created_at: Time.now - 2419200
+   },
+   { 
+    user_id: user10.id, 
+    product_id: product85.id,
+    rating: 4,
+    headline: "You Can Have Your Cake And Buy, Too",
+    comment: "Great Price and product!",
+    created_at: Time.now - 3801600
+   },
+   { 
+    user_id: user7.id, 
+    product_id: product85.id,
+    rating: 4,
+    headline: "Famous quotes on purchase",
+    comment: "4 STARS because of the slow shipping",
+    created_at: Time.now - 3369600
+   },
+   { 
+    user_id: user12.id, 
+    product_id: product88.id,
+    rating: 4,
+    headline: "Interesting Factoids I Bet You Never Knew About Buy",
+    comment: "it's a great buy! Recommending to all!",
+    created_at: Time.now - 2678400
+   },
+   { 
+    user_id: user9.id, 
+    product_id: product92.id,
+    rating: 4,
+    headline: "Attention: product",
+    comment: "backlogged but I finally got it! It's great!",
+    created_at: Time.now - 1555200
+   },
+   { 
+    user_id: user4.id, 
+    product_id: product94.id,
+    rating: 4,
+    headline: "Boost Your Buy With These Tips",
+    comment: "My first review, as this is awesome!!",
+    created_at: Time.now - 3110400
+   },
+   { 
+    user_id: user5.id, 
+    product_id: product5.id,
+    rating: 3,
+    headline: "Get better product results by following 3 simple steps",
+    comment: "I liked it. Userful if you  take care of it!",
+    created_at: Time.now - 2678400
+   },
+   { 
+    user_id: user2.id, 
+    product_id: product6.id,
+    rating: 3,
+    headline: "The philosophy of purchase",
+    comment: "Great product! Great maker!!",
+    created_at: Time.now - 1555200
+   },
+   { 
+    user_id: user6.id, 
+    product_id: product8.id,
+    rating: 3,
+    headline: "Attention: purchase",
+    comment: "This purchase was so so..",
+    created_at: Time.now - 518400
+   },
+   { 
+    user_id: user10.id, 
+    product_id: product3.id,
+    rating: 3,
+    headline: "Who else wants product?",
+    comment: "Does what is expected. Nothing more",
+    created_at: Time.now - 3110400
+   },
+   { 
+    user_id: user8.id, 
+    product_id: product14.id,
+    rating: 3,
+    headline: "Purchase expert interview",
+    comment: "Ask me anything! This is a good product",
+    created_at: Time.now - 691200
+   },
+   { 
+    user_id: user9.id, 
+    product_id: product18.id,
+    rating: 3,
+    headline: "Fear? Not If You Use Buy The Right Way!",
+    comment: "I love this website products and how it's eco-friendly!",
+    created_at: Time.now - 1036800
+   },
+   { 
+    user_id: user3.id, 
+    product_id: product22.id,
+    rating: 3,
+    headline: "Buy Guide To Communicating Value",
+    comment: "Just what I wanted in this product",
+    created_at: Time.now - 3542400
+   },
+   { 
+    user_id: user12.id, 
+    product_id: product25.id,
+    rating: 3,
+    headline: "Essential purchase smartphone apps",
+    comment: "Loving this item! ",
+    created_at: Time.now - 6566400
+   },
+   { 
+    user_id: user10.id, 
+    product_id: product29.id,
+    rating: 3,
+    headline: "If you want to be a winner, change your product philosophy now!",
+    comment: "I'm usually singing along as I use this item.",
+    created_at: Time.now - 4924800
+   },
+   { 
+    user_id: user2.id, 
+    product_id: product30.id,
+    rating: 3,
+    headline: "Turn Your Buy Into A High Performing Machine",
+    comment: "This is not what I expected, but it was a great present",
+    created_at: Time.now - 8380800
+   },
+   { 
+    user_id: user11.id, 
+    product_id: product31.id,
+    rating: 3,
+    headline: "Buy May Not Exist!",
+    comment: "Crafted and beautiful!",
+    created_at: Time.now - 4233600
+   },
+   { 
+    user_id: user8.id, 
+    product_id: product32.id,
+    rating: 3,
+    headline: "This article will make your purchase amazing: read or miss out",
+    comment: "It is as advertised, but actually of lower quality.",
+    created_at: Time.now - 5616000
+   },
+   { 
+    user_id: user12.id, 
+    product_id: product33.id,
+    rating: 3,
+    headline: "Don't Just Sit There! Start Getting More Buy",
+    comment: "It's a quality item. You get what you spend for!",
+    created_at: Time.now - 2851200
+   },
+   { 
+    user_id: user5.id, 
+    product_id: product33.id,
+    rating: 3,
+    headline: "Easy ways you can turn product into success",
+    comment: "Good product but the crafting feels cheap",
+    created_at: Time.now - 2160000
+   },
+   { 
+    user_id: user7.id, 
+    product_id: product34.id,
+    rating: 3,
+    headline: "Easy ways you can turn purchase into success",
+    comment: "That item doesn't look like what was on the photos",
+    created_at: Time.now - 864000
+   },
+   { 
+    user_id: user4.id, 
+    product_id: product39.id,
+    rating: 3,
+    headline: "Fear? not if you use product the right way!",
+    comment: "Crafted items are best!",
+    created_at: Time.now - 8380800
+   },
+   { 
+    user_id: user5.id, 
+    product_id: product43.id,
+    rating: 3,
+    headline: "Believe in your product skills but never stop improving",
+    comment: "I liked it at first, then less later.",
+    created_at: Time.now - 1900800
+   },
+   { 
+    user_id: user6.id, 
+    product_id: product48.id,
+    rating: 3,
+    headline: "Buy this~!",
+    comment: "It doesn't feel like",
+    created_at: Time.now - 4060800
+   },
+   { 
+    user_id: user8.id, 
+    product_id: product49.id,
+    rating: 3,
+    headline: "Warning: Buy",
+    comment: "Great Product! Great colors the first couple months..",
+    created_at: Time.now - 4320000
+   },
+   { 
+    user_id: user7.id, 
+    product_id: product52.id,
+    rating: 3,
+    headline: "Build a product anyone would be proud of",
+    comment: "Average product. But fulfill its promises!",
+    created_at: Time.now - 5961600
+   },
+   { 
+    user_id: user5.id, 
+    product_id: product53.id,
+    rating: 3,
+    headline: "Product guide to communicating value",
+    comment: "As long as you are careful with it, it is great!",
+    created_at: Time.now - 1900800
+   },
+   { 
+    user_id: user6.id, 
+    product_id: product55.id,
+    rating: 3,
+    headline: "Attention: Buy",
+    comment: "Average average ..",
+    created_at: Time.now - 4752000
+   },
+   { 
+    user_id: user8.id, 
+    product_id: product56.id,
+    rating: 3,
+    headline: "Create a product you can be proud of",
+    comment: "Great gift!",
+    created_at: Time.now - 5529600
+   },
+   { 
+    user_id: user4.id, 
+    product_id: product65.id,
+    rating: 3,
+    headline: "Want more money? get purchase",
+    comment: "Save your money on another gift",
+    created_at: Time.now - 2851200
+   },
+   { 
+    user_id: user11.id, 
+    product_id: product70.id,
+    rating: 3,
+    headline: "This article will make your product amazing: read or miss out",
+    comment: "it was an okay product. Not the best",
+    created_at: Time.now - 4233600
+   },
+   { 
+    user_id: user3.id, 
+    product_id: product73.id,
+    rating: 3,
+    headline: "Revolutionize your product with these easy-peasy tips",
+    comment: "Great packaging as it was for my mom's bday!",
+    created_at: Time.now - 2678400
+   },
+   { 
+    user_id: user11.id, 
+    product_id: product76.id,
+    rating: 3,
+    headline: "Buy Is Essential For Your Success. Read This To Find Out Why",
+    comment: "it was great to buy this!",
+    created_at: Time.now - 2246400
+   },
+   { 
+    user_id: user8.id, 
+    product_id: product77.id,
+    rating: 3,
+    headline: "Interesting factoids i bet you never knew about purchase",
+    comment: "I waited this for so long as it was backlogged",
+    created_at: Time.now - 7862400
+   },
+   { 
+    user_id: user5.id, 
+    product_id: product86.id,
+    rating: 3,
+    headline: "How to make your purchase look like a million bucks",
+    comment: "It looks even better after decorating it",
+    created_at: Time.now - 777600
+   },
+   { 
+    user_id: user4.id, 
+    product_id: product88.id,
+    rating: 3,
+    headline: "Product is essential for your success. read this to find out why",
+    comment: "I wish I had thought about it twice",
+    created_at: Time.now - 8640000
+   },
+   { 
+    user_id: user8.id, 
+    product_id: product89.id,
+    rating: 3,
+    headline: "Little known facts about purchase - and why they matter",
+    comment: "Satisfying product",
+    created_at: Time.now - 6480000
+   },
+   { 
+    user_id: user8.id, 
+    product_id: product89.id,
+    rating: 3,
+    headline: "Purchase this!",
+    comment: "fast shipping, good gift",
+    created_at: Time.now - 2851200
+   },
+   { 
+    user_id: user3.id, 
+    product_id: product92.id,
+    rating: 3,
+    headline: "Picture your product on top. read this and make it so",
+    comment: "crafted items are best here!",
+    created_at: Time.now - 518400
+   },
+   { 
+    user_id: user3.id, 
+    product_id: product1.id,
+    rating: 2,
+    headline: "Want More Money? Get this..",
+    comment: "Don't do it. It's rated low for a reason",
+    created_at: Time.now - 3110400
+   },
+   { 
+    user_id: user4.id, 
+    product_id: product3.id,
+    rating: 2,
+    headline: "Buy Expert Interview",
+    comment: "This is an okay product",
+    created_at: Time.now - 7603200
+   },
+   { 
+    user_id: user5.id, 
+    product_id: product20.id,
+    rating: 2,
+    headline: "Turn your product into a high performing machine",
+    comment: "lost package, slow shipping",
+    created_at: Time.now - 7776000
+   },
+   { 
+    user_id: user10.id, 
+    product_id: product22.id,
+    rating: 2,
+    headline: "Get Better Buy Results By Following 3 Simple Steps",
+    comment: "got a replacement after the first one broke",
+    created_at: Time.now - 6652800
+   },
+   { 
+    user_id: user9.id, 
+    product_id: product25.id,
+    rating: 2,
+    headline: "Want more money? get product",
+    comment: "I should have thought more careful",
+    created_at: Time.now - 4147200
+   },
+   { 
+    user_id: user8.id, 
+    product_id: product26.id,
+    rating: 2,
+    headline: "Interesting factoids i bet you never knew about product",
+    comment: "not my cup of tea. It wasn't a great purchase",
+    created_at: Time.now - 86400
+   },
+   { 
+    user_id: user8.id, 
+    product_id: product33.id,
+    rating: 2,
+    headline: "Remarkable website - purchase will help you get there",
+    comment: "negative comments, hopefully not the first one",
+    created_at: Time.now - 2764800
+   },
+   { 
+    user_id: user2.id, 
+    product_id: product33.id,
+    rating: 2,
+    headline: "Warning: purchase",
+    comment: "it didn't really last long",
+    created_at: Time.now - 950400
+   },
+   { 
+    user_id: user10.id, 
+    product_id: product49.id,
+    rating: 2,
+    headline: "Have you heard? product is your best bet to grow",
+    comment: "Lower quality buy. That's all",
+    created_at: Time.now - 3628800
+   },
+   { 
+    user_id: user5.id, 
+    product_id: product52.id,
+    rating: 2,
+    headline: "Who else wants purchase?",
+    comment: "No inspiration. I just didn't like it",
+    created_at: Time.now - 7776000
+   },
+   { 
+    user_id: user10.id, 
+    product_id: product55.id,
+    rating: 2,
+    headline: "Make your product a reality",
+    comment: "disappointing purchase",
+    created_at: Time.now - 7516800
+   },
+   { 
+    user_id: user12.id, 
+    product_id: product57.id,
+    rating: 2,
+    headline: "Create a product your parents would be proud of",
+    comment: "good customer service, but it was a lower quality product",
+    created_at: Time.now - 7516800
+   },
+   { 
+    user_id: user10.id, 
+    product_id: product59.id,
+    rating: 2,
+    headline: "Famous Quotes On Buy",
+    comment: "I liked it, but not what was expected",
+    created_at: Time.now - 20390400
+   },
+   { 
+    user_id: user5.id, 
+    product_id: product71.id,
+    rating: 2,
+    headline: "Create a purchase you can be proud of",
+    comment: "I just didn't like the colors",
+    created_at: Time.now - 22896000
+   },
+   { 
+    user_id: user2.id, 
+    product_id: product72.id,
+    rating: 2,
+    headline: "If You Want To Be A Winner, Change Your Buy Philosophy Now!",
+    comment: "Don't buy!",
+    created_at: Time.now - 29030400
+   },
+   { 
+    user_id: user8.id, 
+    product_id: product72.id,
+    rating: 2,
+    headline: "14 days to a better purchase",
+    comment: "I could return it within 14 days! Great service!",
+    created_at: Time.now - 32400000
+   },
+   { 
+    user_id: user5.id, 
+    product_id: product79.id,
+    rating: 2,
+    headline: "Little Known Facts About Buy - And Why They Matter",
+    comment: "it was lower than average purchase than other products here",
+    created_at: Time.now - 30153600
+   },
+   { 
+    user_id: user9.id, 
+    product_id: product87.id,
+    rating: 2,
+    headline: "Amazing thing!",
+    comment: "It is what I believed at first!",
+    created_at: Time.now - 29721600
+   },
+   { 
+    user_id: user6.id, 
+    product_id: product94.id,
+    rating: 2,
+    headline: "Picture your purchase on top. read this and make it so",
+    comment: "It was okay. Not much else to add",
+    created_at: Time.now - 21168000
+   },
+   { 
+    user_id: user3.id, 
+    product_id: product8.id,
+    rating: 1,
+    headline: "Create a purchase your parents would be proud of",
+    comment: "Lower quality product",
+    created_at: Time.now - 22896000
+   },
+   { 
+    user_id: user7.id, 
+    product_id: product15.id,
+    rating: 1,
+    headline: "Remarkable Website - Buy Will Help You Get There",
+    comment: "I didn't really like this product",
+    created_at: Time.now - 17280000
+   },
+   { 
+    user_id: user2.id, 
+    product_id: product27.id,
+    rating: 1,
+    headline: "Turn your purchase into a high performing machine",
+    comment: "I thought it could be useful.. Big mistake",
+    created_at: Time.now - 15292800
+   },
+   { 
+    user_id: user5.id, 
+    product_id: product29.id,
+    rating: 1,
+    headline: "Build a purchase anyone would be proud of",
+    comment: "It wasn't good at all..",
+    created_at: Time.now - 32572800
+   },
+   { 
+    user_id: user11.id, 
+    product_id: product47.id,
+    rating: 1,
+    headline: "Create A Buy You Can Be Proud Of",
+    comment: "Don’t touch, don't buy",
+    created_at: Time.now - 18316800
+   },
+   { 
+    user_id: user2.id, 
+    product_id: product49.id,
+    rating: 1,
+    headline: "Your key to success: purchase",
+    comment: "I wish I didn't buy it",
+    created_at: Time.now - 28252800
+   },
+   { 
+    user_id: user5.id, 
+    product_id: product52.id,
+    rating: 1,
+    headline: "Product expert interview",
+    comment: "1 Start, obviously not satisfied",
+    created_at: Time.now - 30844800
+   },
+   { 
+    user_id: user5.id, 
+    product_id: product56.id,
+    rating: 1,
+    headline: "Product adventures",
+    comment: "slow shipping",
+    created_at: Time.now - 27820800
+   },
 ])

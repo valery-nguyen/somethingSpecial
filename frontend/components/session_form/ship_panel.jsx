@@ -427,7 +427,7 @@ class ShipPanel extends React.Component {
               
               <button onClick={this.handleSubmit}>save &amp; continue</button>
 
-              <a href="https://ugoods.zendesk.com/forums/20812805-International-ordering-and-shipping">Learn more about International Shipping</a>
+              <a href="https://ugoods.zendesk.com/forums/20812805-International-ordering-and-shipping" target="_blank">Learn more about International Shipping</a>
             </div>
           </div>
         </section>

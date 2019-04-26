@@ -25,7 +25,7 @@ class SessionPanel extends React.Component {
     const logoutMsg = document.getElementsByClassName("logout-message")[0];
     logoutMsg.classList.add("hidden");
     const demoUser = {
-      email: 'admin@gmail.com',
+      email: 'valery.nguyen@ucla.edu',
       password: 'california'
     };
     this.props.login(demoUser).then(this.closePanel);

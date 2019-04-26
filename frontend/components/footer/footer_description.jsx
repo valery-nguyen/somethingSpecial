@@ -8,7 +8,7 @@ const FooterDescription = () => {
       <li><Link to="/construction">site map</Link></li>
       <li><Link to="/construction">terms &amp; conditions</Link></li>
       <li><Link to="/construction">privacy policy</Link></li>
-      <li><a href="https://nytm.org/made">made in NYC</a></li>
+      <li><a href="https://nytm.org/made" target="_blank">made in NYC</a></li>
     </ul>
     <p>©2019 Valery's duplicate website of UncommonGoods.com</p>
   </section>
