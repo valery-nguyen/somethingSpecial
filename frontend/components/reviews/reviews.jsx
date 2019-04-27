@@ -84,7 +84,7 @@ class Reviews extends React.Component {
     })
 
     const numReviews = reviews.length;
-    const overallRating = String(cumulativeRating / numReviews);
+    const overallRating = String(Math.round((cumulativeRating / numReviews) * 10) / 10);
     const showPageRatingEl = document.getElementById("show-product-rating");
     if (showPageRatingEl && (cumulativeRating / numReviews) > 0) {
       showPageRatingEl.innerHTML = `${overallRating} / 5 (${numReviews} ${(numReviews > 1) ? 'reviews)' : 'review)'}`;
