@@ -1,24 +1,33 @@
-# README
+[somethingSpecial is LIVE!]
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+# Project Title
 
-Things you may want to cover:
+somethingSpecial, an UncommonGoods.com clone, is an application providing a wide range of unique gifts ideas for the users to choose and order from.
 
-* Ruby version
+## Getting Started
 
-* System dependencies
+Check out the [wiki] for development details!
 
-* Configuration
+## Deployment
 
-* Database creation
+* [Hosted on Heroku](https://www.heroku.com/)
 
-* Database initialization
+## Built With
 
-* How to run the test suite
+* [React](https://reactjs.org)
+* [Redux](https://redux.js.org)
+* [Ruby on Rails](https://guides.rubyonrails.org)
+* [PostgreSQL](https://www.postgresql.org)
 
-* Services (job queues, cache servers, search engines, etc.)
+## Authors
 
-* Deployment instructions
+* **Valery Nguyen**
 
-* ...
+## Acknowledgments
+
+* Thanks to Esha Menon for helping me pick the website idea and for giving me user feedback throughout the project development!
+* Credits to App Academy for the giving me the technical knowledge to put together this app.
+
+[//]: # (reference links are listed below)
+[somethingSpecial is LIVE!]: <https://www.somethingspecial.io/>
+[wiki!]: <https://github.com/valery-nguyen/somethingSpecial/wiki/>
