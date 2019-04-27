@@ -30,4 +30,4 @@ Check out the [wiki] for development details!
 
 [//]: # (reference links are listed below)
 [somethingSpecial is LIVE!]: <https://www.somethingspecial.io/>
-[wiki!]: <https://github.com/valery-nguyen/somethingSpecial/wiki/>
+[wiki]: <https://github.com/valery-nguyen/somethingSpecial/wiki/>
