@@ -34,9 +34,11 @@ class ProductShow extends React.Component {
     { 
       window.scrollTo(0, 0);
       this.props.requestProduct(this.props.productTitle);
-      Array.from(document.getElementById("product-show-img-ul").children).forEach((li, idx) => {
-        (idx === 0) ? li.children[0].className = 'visible' : li.children[0].className = 'blurred';
-      });
+      if (document.getElementById("product-show-img-ul")) {
+        Array.from(document.getElementById("product-show-img-ul").children).forEach((li, idx) => {
+          (idx === 0) ? li.children[0].className = 'visible' : li.children[0].className = 'blurred';
+        });
+      }
     }
   }
 
