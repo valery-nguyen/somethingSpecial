@@ -120,7 +120,7 @@ class SessionForm extends React.Component {
               </div>
               {(this.props.formType === 'create account') ? <p className="login-form-notes">8 to 16 characters</p> : ''}
               <input className="session-submit" type="submit" value={this.props.formType} />
-              {(this.props.formType === 'sign in') ? <Link onClick={this.closePanel} to="/construction">Forgot your password?</Link> : ''}
+              {(this.props.formType === 'sign in') ? <Link className="hidden" onClick={this.closePanel} to="/construction">Forgot your password?</Link> : ''}
               {(this.props.formType === 'create account') ? <p className="login-form-notes">We will not sell, rent, or share your address</p> : ''}
             </div>
           </form>

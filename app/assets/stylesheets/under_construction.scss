@@ -44,13 +44,14 @@
   }
   
   box-sizing: border-box;
-  height: 425px;
+  height: 650px;
   width: 100%;
   
   background-image: image-url('perks.gif');
   background-repeat: no-repeat;
   background-position: 0px 100px;
   background-position-x: center;
+  background-position-y: bottom;
 }
 
 @media all and (max-width: 640px) {

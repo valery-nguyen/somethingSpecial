@@ -113,8 +113,8 @@ class Cart extends React.Component {
               <h2>Need help?</h2>
               <ul>
                 <span><i className="cart-icon-phone"></i><a href="tel:4088868447">408.886.8447</a></span>
-                <span><i className="cart-icon-chat"></i><Link to="/construction">live chat</Link></span>
-                <span><i className="cart-icon-email"></i><a href="mailto:valery.nguyen@ucla.edu">help@somethingspecial.com</a></span>
+                <div className="hidden"><span><i className="cart-icon-chat"></i><Link to="/construction">live chat</Link></span></div>
+                <span><i className="cart-icon-email"></i><a href="mailto:valery.nguyen@ucla.edu">valery.nguyen@ucla.edu</a></span>
               </ul>
             </section>
           </section>

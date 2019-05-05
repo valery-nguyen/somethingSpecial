@@ -63,7 +63,7 @@ class OrderHistory extends React.Component {
 
           <div className="order-help">
             <p>Need Help?</p>
-            <p>Call &nbsp;<a href="tel:+14088868447">408.886.8447</a>, use our &nbsp;<Link to="/construction">live chat</Link>, or email &nbsp;<a href="mailto:valery.nguyen@ucla.edu">valery.nguyen@ucla.edu</a>.</p>
+            <p>Call &nbsp;<a href="tel:+14088868447">408.886.8447</a>&nbsp;or email &nbsp;<a href="mailto:valery.nguyen@ucla.edu">valery.nguyen@ucla.edu</a>.</p>
           </div>
         </div>
       </div>

@@ -206,8 +206,9 @@
       border-right: 1px solid $black;
     }
 
-    display: flex;
-    padding: 20px 10px;
+    // display: flex;
+    // padding: 20px 10px;
+    display: none;
   }
 
   .footer-description-details {
@@ -386,8 +387,9 @@
         display: flex;
         justify-content: center;
       }
-      display: flex;
-      justify-content: center;
+      // display: flex;
+      // justify-content: center;
+      display: none;
     }
     margin-top: 20px;
     border-top: 1px solid $beige;
