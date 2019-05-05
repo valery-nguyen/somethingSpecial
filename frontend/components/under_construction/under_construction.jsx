@@ -16,7 +16,7 @@ class UnderConstruction extends React.Component {
             </p>
             <p>SomethingSpecial was built over a period of 2.5 weeks, implementing 
               react &amp; redux frontend technologies and ruby on rails in the backend.
-              I would like to invite you to sign in and try liking some cool products and adding them to the cart!
+              I would like to invite you to sign in, try liking some cool products, add them to the cart, and leave a review!
             </p>
             <p>
               Informations regarding UncommonGoods Perks &amp; Free Shipping benefits can be found on UncommonGoods.com.
