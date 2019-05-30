@@ -19,11 +19,13 @@ npm install
 ## Run
 
 * Start the server
+
 ```
 bundle exec rails s
 ```
 
 * Start the client
+
 ```
 npm start
 ```
