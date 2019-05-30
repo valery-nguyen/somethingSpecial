@@ -30,7 +30,7 @@ npm start
 
 ## Deployment
 
-* [Hosted on Heroku](https://www.heroku.com/)
+* Hosted on [Heroku](https://www.heroku.com/)
 
 ## Built With
 
