@@ -36,8 +36,8 @@ npm start
 
 ## Built With
 
-* [React](https://reactjs.org)
-* [Redux](https://redux.js.org)
+* [React.js](https://reactjs.org)
+* [Redux.js](https://redux.js.org)
 * [Ruby on Rails](https://guides.rubyonrails.org)
 * [PostgreSQL](https://www.postgresql.org)
 
