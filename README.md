@@ -43,6 +43,36 @@ npm start
 * [Ruby on Rails](https://guides.rubyonrails.org)
 * [PostgreSQL](https://www.postgresql.org)
 
+## Technical Implementation Details
+
+* Responsive design by combining media queries, flexbox layout, and the usage of multiple margin, padding, and font sizes.
+
+```
+// app/assets/stylesheets/product_show.scss
+
+@media all and (max-width: 640px) {
+  .product-show {
+    .show-product-summary {
+      h1 {
+        margin-top: 0px;
+        padding: 10px;
+        font-size: 28px;
+      }
+      .show-product-price {
+        padding: 10px;
+        font-size: 20px;
+      }
+      padding: 0px;
+    }
+    display: flex;
+    flex-direction: column;
+  }
+}
+```
+
+![screeshot2](https://user-images.githubusercontent.com/13773733/58669375-02b77580-830a-11e9-9511-a10dac7c8413.png)
+![screenshot3](https://user-images.githubusercontent.com/13773733/58669762-0b5c7b80-830b-11e9-834e-ae4ba1d3291f.png)
+
 ## Authors
 
 * **Valery Nguyen**
