@@ -47,7 +47,7 @@ npm start
 
 * Responsive design by combining media queries, flexbox layout, and the usage of multiple margin, padding, and font sizes.
 
-```
+```scss
 // app/assets/stylesheets/product_show.scss
 
 @media all and (max-width: 640px) {
