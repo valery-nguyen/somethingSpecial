@@ -48,7 +48,6 @@ npm start
 ## Acknowledgments
 
 * Thanks to Esha Menon for helping me pick the website idea and for giving me user feedback throughout the project development!
-* Credits to App Academy for the giving me the technical knowledge to put together this app.
 
 [//]: # (reference links are listed below)
 [somethingSpecial]: <https://www.somethingspecial.io/>
