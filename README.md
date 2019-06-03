@@ -4,6 +4,17 @@ somethingSpecial, an UncommonGoods.com clone, is an application providing a wide
 
 ![screenshot](https://user-images.githubusercontent.com/13773733/58668533-2f1dc280-8307-11e9-8cb6-c71abdb53804.jpg)
 
+## Built With
+
+* [React.js](https://reactjs.org)
+* [Redux.js](https://redux.js.org)
+* [Ruby on Rails](https://guides.rubyonrails.org)
+* [PostgreSQL](https://www.postgresql.org)
+
+## Deployment
+
+* Hosted on [Heroku](https://www.heroku.com/)
+
 ## Getting Started
 
 Check out the [wiki] for development details!
@@ -31,17 +42,6 @@ bundle exec rails s
 ```
 npm start
 ```
-
-## Deployment
-
-* Hosted on [Heroku](https://www.heroku.com/)
-
-## Built With
-
-* [React.js](https://reactjs.org)
-* [Redux.js](https://redux.js.org)
-* [Ruby on Rails](https://guides.rubyonrails.org)
-* [PostgreSQL](https://www.postgresql.org)
 
 ## Technical Implementation Details
 
