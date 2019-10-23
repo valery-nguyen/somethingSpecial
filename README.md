@@ -25,8 +25,12 @@ Check out the [wiki] for development details!
 git clone https://github.com/valery-nguyen/somethingSpecial.git
 cd somethingSpecial
 bundle install
-cd frontend
 npm install
+```
+
+```
+rails db:create
+rails db:setup
 ```
 
 ## Run
