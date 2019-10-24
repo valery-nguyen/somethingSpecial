@@ -1,0 +1,7 @@
+apiVersion: v1
+name: somethingspecial
+version: 1.0.0
+description: somethingspecial with helm
+maintainers:
+  - name: Valery Nguyen
+    email: valery.nguyen@ucla.edu

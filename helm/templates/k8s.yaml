@@ -1,0 +1,40 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: somethingspecial-deployment
+spec:
+  selector:
+    matchLabels:
+      app: somethingspecial
+  replicas: {{.Values.scale}}
+  template:
+    metadata:
+      labels:
+        app: somethingspecial
+    spec:
+      containers:
+      - name: somethingspecial
+        image: gcr.io/somethingspecial-256820/somethingspecial@sha256:4b1c566472de5d83ad778726db897ec154239f57394a2cc4ae1e16e8fbb35746
+        env:
+        - name: GOOGLE_APPLICATION_CREDENTIALS
+          value: /var/secrets/google/key.json
+        ports:
+        - name: http
+          containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: somethingspecial-service
+  labels:
+    app: somethingspecial-service
+    service: somethingspecial-service
+spec:
+  selector:
+    app: somethingspecial
+  ports:
+    - protocol: TCP
+      name: http
+      port: 3000
+      targetPort: 3000
+  type: ClusterIP

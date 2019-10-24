@@ -28,8 +28,9 @@ bundle install
 npm install
 ```
 
+* Optional: Set up and seed the database locally
+
 ```
-rails db:create
 rails db:setup
 ```
 
@@ -46,6 +47,50 @@ bundle exec rails s
 ```
 npm start
 ```
+
+## Migrate local PostgreSQL Database to Google Cloud SQL
+
+* Update database.yml by adding the database connection URL (with the database IP address), username, and password
+
+## Steps to CICD pipeline using Google Cloud Platform
+
+* Build the Docker image and tag
+
+```
+docker build -t gcr.io/somethingspecial-256820/somethingspecial:1.0 .
+```
+
+* Test run locally before pushing to the Cloud
+
+```
+docker run -p 3000:3000 -d gcr.io/somethingspecial-256820/somethingspecial:1.0
+```
+
+* Push the Docker image to Google Container Registry
+
+```
+docker push gcr.io/somethingspecial-256820/somethingspecial:1.0
+```
+
+* Optional: Pull the Docker image from Google Container Registry
+
+```
+docker pull gcr.io/somethingspecial-256820/somethingspecial:1.0
+```
+
+* Set up a Google Kubernetes Engine's cluster
+
+* Set up Kubernetes k8s.yaml and ingress.yaml files
+
+* Set up Helm files (Chart.yaml and values.yaml) and put Kubernetes .yaml files under the templates directory
+
+* Create a Service Account key in Credentials section of Google CLoud APIs & Services
+
+* =>>>>>>>Install the secret key into Kubernetes OR RBAC .yaml for service account
+
+* ?? Install Helm on the Google Kubernetes Engine's cluster
+
+* ?? run Helm install .
 
 ## Technical Implementation Details
 

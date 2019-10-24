@@ -1,0 +1,15 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: basic-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/use-regex: "true"
+
+spec:
+  rules:
+  - http:
+      paths:
+      - path: /*
+        backend:
+          serviceName: somethingspecial-service
+          servicePort: 3000
