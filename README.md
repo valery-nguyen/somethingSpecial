@@ -110,17 +110,28 @@ kubectl create clusterrolebinding tiller-cluster-rule --clusterrole=cluster-admi
 helm init --service-account tiller --upgrade
 ```
 
-* Optional: Set up Helm charts files to be stored on Git repo
+* Set up Helm charts files to be stored on Git repo
 
-  ```
-  helm package .
-  helm repo index .
-  ```
+```
+helm package .
+helm repo index .
+```
+
+* Add helm repo to use Github's repo (using Github's raw usercontent url)
+
+```
+helm repo add --username **** --password **** ss-helm 'https://raw.githubusercontent.com/valery-nguyen/somethingSpecial/master/ss-helm/'
+```
 
 * Deploy Helm charts
 
 ```
-helm install .
+helm repo list
+helm repo update
+
+helm search somethingspecial
+
+helm install ss-helm/ss-helm
 helm list
 ```
 
