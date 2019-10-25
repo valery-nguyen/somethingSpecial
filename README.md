@@ -82,31 +82,27 @@ docker pull gcr.io/somethingspecial-256820/somethingspecial:1.0
 
 ```
 gcloud container clusters create "somethingspecial-cluster-1" --zone "us-west1-a" --cluster-version "1.13.11-gke.9" --machine-type "g1-small" --num-nodes "1"
-gcloud container clusters get-credentials somethingspecial-cluster-1
 ```
 
-* Set up Kubernetes k8s.yaml and ingress.yaml files
+* Set up Google Cloud SQL to accept connection requests from GKE cluster's external IP address
 
+* Set up Kubernetes files: k8s.yaml and ingress.yaml
+  * refer to code
 * Set up Helm files (Chart.yaml and values.yaml) and put Kubernetes .yaml files under the templates directory
+  * refer to code
 
 * Configure cluster access for kubectl
-
-  * Generating a kubeconfig entry
-```
-gcloud container clusters get-credentials somethingspecial-cluster-1
-```
-
   * Set a default cluster for Kubectl commands
-```
-gcloud container clusters get-credentials somethingspecial-cluster-1
-```
+  ```
+  gcloud container clusters get-credentials somethingspecial-cluster-1
+  ```
 
   * Check Kubectl context
-```
-kubectl config current-context
-```
+  ```
+  kubectl config current-context
+  ```
 
-* Setup and configure Tiller using the service account
+* Setup and configure Helm and Tiller (Helm server) using the service account
 
 ```
 kubectl create serviceaccount --namespace kube-system tiller
@@ -114,24 +110,20 @@ kubectl create clusterrolebinding tiller-cluster-rule --clusterrole=cluster-admi
 helm init --service-account tiller --upgrade
 ```
 
-* Create Kubectl service account for tiller
+* Optional: Set up Helm charts files to be stored on Git repo
+
+  ```
+  helm package .
+  helm repo index .
+  ```
+
+* Deploy Helm charts
 
 ```
-kubectl apply -f - <<EOF
-apiVersion: v1
-kind: ServiceAccount
-metadata:
-  name: tiller
-EOF
+helm install .
+helm list
 ```
 
-* Deploy using Helm??
-
-```
-helm init --client-only
-helm list -a
-helm upgrade --install --namespace $NAMESPACE $APP_LABEL .
-```
 <<<<<<<<<<<<<<<<<<< DELETE BELOW? >>>>>>>>>>>>>>>>>>>
 * Set up Terraform-GKE environment:
   * Create a Service Account key in Credentials section of Google Cloud APIs & Services with necessary roles for the service account. Then, get the keyfile.
@@ -206,13 +198,6 @@ gcloud container clusters get-credentials gke-cluster
 ```
 
 <<<<<<<<<<<<<<<<<<<<<<< DELETE ABOVE? >>>>>>>>>>>>>>>>>>>>>>>
-
-
-* =>>>>>>>Install the secret key into Kubernetes OR RBAC .yaml for service account
-
-* ?? Install Helm on the Google Kubernetes Engine's cluster
-
-* ?? run Helm install .
 
 ## Technical Implementation Details
 
