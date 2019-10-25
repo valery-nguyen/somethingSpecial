@@ -1,0 +1,11 @@
+credentials        = "./terraform-gke-keyfile.json"
+project_id         = "somethingspecial-256820"
+region             = "us-west1"
+zones              = ["us-west1-a", "us-west1-b", "us-west1-c"]
+name               = "gke-cluster"
+machine_type       = "g1-small"
+min_count          = 1
+max_count          = 3
+disk_size_gb       = 10
+service_account    = "terraform-gke@somethingspecial-256820.iam.gserviceaccount.com"
+initial_node_count = 3

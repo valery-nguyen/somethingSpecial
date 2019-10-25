@@ -80,11 +80,133 @@ docker pull gcr.io/somethingspecial-256820/somethingspecial:1.0
 
 * Set up a Google Kubernetes Engine's cluster
 
+```
+gcloud container clusters create "somethingspecial-cluster-1" --zone "us-west1-a" --cluster-version "1.13.11-gke.9" --machine-type "g1-small" --num-nodes "1"
+gcloud container clusters get-credentials somethingspecial-cluster-1
+```
+
 * Set up Kubernetes k8s.yaml and ingress.yaml files
 
 * Set up Helm files (Chart.yaml and values.yaml) and put Kubernetes .yaml files under the templates directory
 
-* Create a Service Account key in Credentials section of Google CLoud APIs & Services
+* Configure cluster access for kubectl
+
+  * Generating a kubeconfig entry
+```
+gcloud container clusters get-credentials somethingspecial-cluster-1
+```
+
+  * Set a default cluster for Kubectl commands
+```
+gcloud container clusters get-credentials somethingspecial-cluster-1
+```
+
+  * Check Kubectl context
+```
+kubectl config current-context
+```
+
+* Setup and configure Tiller using the service account
+
+```
+kubectl create serviceaccount --namespace kube-system tiller
+kubectl create clusterrolebinding tiller-cluster-rule --clusterrole=cluster-admin --serviceaccount=kube-system:tiller
+helm init --service-account tiller --upgrade
+```
+
+* Create Kubectl service account for tiller
+
+```
+kubectl apply -f - <<EOF
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: tiller
+EOF
+```
+
+* Deploy using Helm??
+
+```
+helm init --client-only
+helm list -a
+helm upgrade --install --namespace $NAMESPACE $APP_LABEL .
+```
+<<<<<<<<<<<<<<<<<<< DELETE BELOW? >>>>>>>>>>>>>>>>>>>
+* Set up Terraform-GKE environment:
+  * Create a Service Account key in Credentials section of Google Cloud APIs & Services with necessary roles for the service account. Then, get the keyfile.
+
+```
+gcloud iam service-accounts create terraform-gke
+gcloud projects add-iam-policy-binding somethingspecial-256820 --member serviceAccount:terraform-gke@somethingspecial-256820.iam.gserviceaccount.com --role roles/container.admin
+gcloud projects add-iam-policy-binding somethingspecial-256820 --member serviceAccount:terraform-gke@somethingspecial-256820.iam.gserviceaccount.com --role roles/compute.admin
+gcloud projects add-iam-policy-binding somethingspecial-256820 --member serviceAccount:terraform-gke@somethingspecial-256820.iam.gserviceaccount.com --role roles/iam.serviceAccountUser
+gcloud projects add-iam-policy-binding somethingspecial-256820 --member serviceAccount:terraform-gke@somethingspecial-256820.iam.gserviceaccount.com --role roles/resourcemanager.projectIamAdmin
+gcloud iam service-accounts keys create terraform-gke-keyfile.json --iam-account=terraform-gke@somethingspecial-256820.iam.gserviceaccount.com
+
+```
+
+  * Create bucket to store Terraform files and enable versioning
+
+```
+gsutil mb -p somethingspecial-256820 -c regional -l us-west1 gs://somethingspecial-terraform/
+gsutil versioning set on gs://somethingspecial-terraform/
+```
+
+  * Give read/write permissions on this bucket to our service account
+
+```
+gsutil iam ch serviceAccount:terraform-gke@somethingspecial-256820.iam.gserviceaccount.com:legacyBucketWriter gs://somethingspecial-terraform/
+```
+
+* Create the terraform.tf and run terraform init command
+```
+#terraform.tf
+terraform {
+  backend "gcs" {
+    credentials = "./terraform-gke-keyfile.json"
+    bucket      = "somethingspecial-terraform"
+    prefix      = "terraform/state"
+  }
+}
+
+terraform init
+```
+
+* Set up terraform structure and files
+
+```
+.
+├── .terraform
+│   ├── modules
+│   │   ├── gke
+│   │   └── modules.json
+│   └── plugins
+│       └── ...
+├── main.tf
+├── providers.tf
+├── terraform-gke-keyfile.json
+├── terraform.tf
+├── variables.tf
+└── variables.auto.tfvars
+```
+
+* Run terraform
+
+```
+terraform plan
+terraform apply
+```
+
+* Check the status of clusters
+
+```
+gcloud container clusters list
+gcloud container clusters get-credentials gke-cluster
+```
+
+<<<<<<<<<<<<<<<<<<<<<<< DELETE ABOVE? >>>>>>>>>>>>>>>>>>>>>>>
+
 
 * =>>>>>>>Install the secret key into Kubernetes OR RBAC .yaml for service account
 
