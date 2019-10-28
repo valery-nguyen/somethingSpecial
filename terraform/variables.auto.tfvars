@@ -9,7 +9,7 @@ disk_size_gb       = 10
 initial_node_count = 1
 service_account    = "terraform-gke@somethingspecial-256820.iam.gserviceaccount.com"
 
-cluster_name       = "somethingspecial-cluster"
+cluster_name       = "somethingspecial-cluster-1"
 
 
 
