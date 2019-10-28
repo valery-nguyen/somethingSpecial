@@ -107,12 +107,14 @@ gcloud container clusters create "somethingspecial-cluster-1" --zone "us-west1-a
 ```
 kubectl create serviceaccount --namespace kube-system tiller
 kubectl create clusterrolebinding tiller-cluster-rule --clusterrole=cluster-admin --serviceaccount=kube-system:tiller
+kubectl patch deploy --namespace kube-system tiller-deploy -p '{"spec":{"template":{"spec":{"serviceAccount":"tiller"}}}}'
 helm init --service-account tiller --upgrade
 ```
 
 * Set up Helm charts files to be stored on Git repo
 
 ```
+# delete the old package and index prior to creating a new package file
 helm package .
 helm repo index .
 ```
@@ -134,9 +136,6 @@ helm search somethingspecial
 helm install ss-helm/ss-helm
 helm list
 ```
-
-<<<<<<<<<<<<<<<<<<< In PROGRESS BELOW? >>>>>>>>>>>>>>>>>>>
-
 
 * Set up Terraform-GKE environment:
   * Create a Service Account key in Credentials section of Google Cloud APIs & Services with necessary roles for the service account. Then, get the keyfile.
