@@ -3,13 +3,14 @@ kind: Ingress
 metadata:
   name: ss-ingress
   annotations:
+    nginx.ingress.kubernetes.io/use-regex: "true"
     kubernetes.io/ingress.global-static-ip-name: vtn-ss-reserved
 
 spec:
   rules:
   - http:
       paths:
-      - path: /
+      - path: /*
         backend:
           serviceName: somethingspecial-service
           servicePort: 3000
