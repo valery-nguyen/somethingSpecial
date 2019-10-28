@@ -44,7 +44,7 @@ module "gke" {
   ip_range_services          = ""
   http_load_balancing        = true
   horizontal_pod_autoscaling = false
-  kubernetes_dashboard       = false
+  kubernetes_dashboard       = true
   network_policy             = false
 
   node_pools = [

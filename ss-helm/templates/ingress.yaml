@@ -1,9 +1,10 @@
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
-  name: basic-ingress
+  name: ss-ingress
   annotations:
     nginx.ingress.kubernetes.io/use-regex: "true"
+    kubernetes.io/ingress.global-static-ip-name: vtn-ss-reserved-1
 
 spec:
   rules:
