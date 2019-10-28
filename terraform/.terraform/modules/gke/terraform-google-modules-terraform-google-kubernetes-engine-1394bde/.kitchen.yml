@@ -1,0 +1,127 @@
+# Copyright 2018 Google LLC
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+---
+driver:
+  name: "terraform"
+  command_timeout: 1800
+
+provisioner:
+  name: "terraform"
+
+verifier:
+  name: terraform
+  color: false
+  fail_fast: false
+
+platforms:
+  - name: local
+
+suites:
+  - name: "deploy_service"
+    driver:
+      root_module_directory: test/fixtures/deploy_service
+    verifier:
+      systems:
+        - name: deploy_service
+          backend: local
+  - name: "disable_client_cert"
+    driver:
+      root_module_directory: test/fixtures/disable_client_cert
+    verifier:
+      systems:
+        - name: disable_client_cert
+          backend: local
+  - name: "node_pool"
+    driver:
+      root_module_directory: test/fixtures/node_pool
+    verifier:
+      systems:
+        - name: node_pool
+          backend: local
+  - name: "shared_vpc"
+    driver:
+      root_module_directory: test/fixtures/shared_vpc
+    verifier:
+      systems:
+        - name: shared_vpc
+          backend: local
+  - name: "simple_regional"
+    driver:
+      root_module_directory: test/fixtures/simple_regional
+    verifier:
+      systems:
+        - name: simple_regional
+          backend: local
+  - name: "simple_regional_private"
+    driver:
+      root_module_directory: test/fixtures/simple_regional_private
+    verifier:
+      systems:
+        - name: simple_regional_private
+          backend: local
+  - name: "simple_zonal"
+    driver:
+      root_module_directory: test/fixtures/simple_zonal
+    verifier:
+      systems:
+        - name: gcloud
+          backend: local
+          controls:
+            - gcloud
+        - name: gcp
+          backend: gcp
+          controls:
+            - gcp
+  - name: "simple_zonal_private"
+    driver:
+      root_module_directory: test/fixtures/simple_zonal_private
+    verifier:
+      systems:
+        - name: simple_zonal_private
+          backend: local
+  - name: "stub_domains"
+    driver:
+      root_module_directory: test/fixtures/stub_domains
+    verifier:
+      systems:
+        - name: stub_domains
+          backend: local
+  - name: stub_domains_private
+    driver:
+      root_module_directory: test/fixtures/stub_domains_private
+      systems:
+        - name: stub_domains_private
+          backend: local
+  - name: "upstream_nameservers"
+    driver:
+      root_module_directory: test/fixtures/upstream_nameservers
+    verifier:
+        systems:
+          - name: upstream_nameservers
+            backend: local
+  - name: "stub_domains_upstream_nameservers"
+    driver:
+      root_module_directory: test/fixtures/stub_domains_upstream_nameservers
+    verifier:
+        systems:
+          - name: stub_domains_upstream_nameservers
+            backend: local
+  - name: "workload_metadata_config"
+    driver:
+      root_module_directory: test/fixtures/workload_metadata_config
+    verifier:
+      systems:
+        - name: workload_metadata_config
+          backend: local

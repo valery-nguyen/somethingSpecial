@@ -135,46 +135,56 @@ helm install ss-helm/ss-helm
 helm list
 ```
 
-<<<<<<<<<<<<<<<<<<< DELETE BELOW? >>>>>>>>>>>>>>>>>>>
+<<<<<<<<<<<<<<<<<<< In PROGRESS BELOW? >>>>>>>>>>>>>>>>>>>
+
+
 * Set up Terraform-GKE environment:
   * Create a Service Account key in Credentials section of Google Cloud APIs & Services with necessary roles for the service account. Then, get the keyfile.
 
-```
-gcloud iam service-accounts create terraform-gke
-gcloud projects add-iam-policy-binding somethingspecial-256820 --member serviceAccount:terraform-gke@somethingspecial-256820.iam.gserviceaccount.com --role roles/container.admin
-gcloud projects add-iam-policy-binding somethingspecial-256820 --member serviceAccount:terraform-gke@somethingspecial-256820.iam.gserviceaccount.com --role roles/compute.admin
-gcloud projects add-iam-policy-binding somethingspecial-256820 --member serviceAccount:terraform-gke@somethingspecial-256820.iam.gserviceaccount.com --role roles/iam.serviceAccountUser
-gcloud projects add-iam-policy-binding somethingspecial-256820 --member serviceAccount:terraform-gke@somethingspecial-256820.iam.gserviceaccount.com --role roles/resourcemanager.projectIamAdmin
-gcloud iam service-accounts keys create terraform-gke-keyfile.json --iam-account=terraform-gke@somethingspecial-256820.iam.gserviceaccount.com
+  ```
+  gcloud iam service-accounts create terraform-gke
 
-```
+  gcloud projects add-iam-policy-binding somethingspecial-256820 --member serviceAccount:terraform-gke@somethingspecial-256820.iam.gserviceaccount.com --role roles/container.admin
+  
+  gcloud projects add-iam-policy-binding somethingspecial-256820 --member serviceAccount:terraform-gke@somethingspecial-256820.iam.gserviceaccount.com --role roles/iam.serviceAccountUser
+
+  gcloud projects add-iam-policy-binding somethingspecial-256820 --member serviceAccount:terraform-gke@somethingspecial-256820.iam.gserviceaccount.com --role roles/iam.serviceAccountAdmin
+
+  gcloud projects add-iam-policy-binding somethingspecial-256820 --member serviceAccount:terraform-gke@somethingspecial-256820.iam.gserviceaccount.com --role roles/resourcemanager.projectIamAdmin
+
+  gcloud projects add-iam-policy-binding somethingspecial-256820 --member serviceAccount:terraform-gke@somethingspecial-256820.iam.gserviceaccount.com --role roles/compute.admin
+
+  gcloud projects add-iam-policy-binding somethingspecial-256820 --member serviceAccount:terraform-gke@somethingspecial-256820.iam.gserviceaccount.com --role roles/storage.admin
+
+  gcloud iam service-accounts keys create terraform-gke-keyfile.json --iam-account=terraform-gke@somethingspecial-256820.iam.gserviceaccount.com
+  ```
 
   * Create bucket to store Terraform files and enable versioning
 
-```
-gsutil mb -p somethingspecial-256820 -c regional -l us-west1 gs://somethingspecial-terraform/
-gsutil versioning set on gs://somethingspecial-terraform/
-```
+  ```
+  gsutil mb -p somethingspecial-256820 -c regional -l us-west1 gs://somethingspecial-terraform/
+  gsutil versioning set on gs://somethingspecial-terraform/
+  ```
 
   * Give read/write permissions on this bucket to our service account
 
-```
-gsutil iam ch serviceAccount:terraform-gke@somethingspecial-256820.iam.gserviceaccount.com:legacyBucketWriter gs://somethingspecial-terraform/
-```
+  ```
+  gsutil iam ch serviceAccount:terraform-gke@somethingspecial-256820.iam.gserviceaccount.com:legacyBucketWriter gs://somethingspecial-terraform/
+  ```
 
 * Create the terraform.tf and run terraform init command
-```
-#terraform.tf
-terraform {
-  backend "gcs" {
-    credentials = "./terraform-gke-keyfile.json"
-    bucket      = "somethingspecial-terraform"
-    prefix      = "terraform/state"
+  ```
+  #terraform.tf
+  terraform {
+    backend "gcs" {
+      credentials = "./terraform-gke-keyfile.json"
+      bucket      = "somethingspecial-terraform"
+      prefix      = "terraform/state"
+    }
   }
-}
 
-terraform init
-```
+  terraform init
+  ```
 
 * Set up terraform structure and files
 
@@ -187,9 +197,7 @@ terraform init
 │   └── plugins
 │       └── ...
 ├── main.tf
-├── providers.tf
 ├── terraform-gke-keyfile.json
-├── terraform.tf
 ├── variables.tf
 └── variables.auto.tfvars
 ```
@@ -197,8 +205,9 @@ terraform init
 * Run terraform
 
 ```
+terraform init
 terraform plan
-terraform apply
+terraform apply -auto-approve
 ```
 
 * Check the status of clusters
@@ -207,8 +216,6 @@ terraform apply
 gcloud container clusters list
 gcloud container clusters get-credentials gke-cluster
 ```
-
-<<<<<<<<<<<<<<<<<<<<<<< DELETE ABOVE? >>>>>>>>>>>>>>>>>>>>>>>
 
 ## Technical Implementation Details
 

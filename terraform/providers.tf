@@ -1,64 +1,55 @@
-provider "google" {
-  version = "~> 2.9.0"
-  credentials = "${file(var.credentials)}"
-  project = var.project
-  region  = var.region
+# # We use this data provider to expose an access token for communicating with the GKE cluster.
+# data "google_client_config" "client" {}
 
-  scopes = [
-    # Default scopes
-    "https://www.googleapis.com/auth/compute",
-    "https://www.googleapis.com/auth/cloud-platform",
-    "https://www.googleapis.com/auth/ndev.clouddns.readwrite",
-    "https://www.googleapis.com/auth/devstorage.full_control",
+# # Use this datasource to access the Terraform account's email for Kubernetes permissions.
+# data "google_client_openid_userinfo" "terraform_user" {}
 
-    # Required for google_client_openid_userinfo
-    "https://www.googleapis.com/auth/userinfo.email",
-  ]
-}
+# provider "kubernetes" {
+#   version = "~> 1.7.0"
 
-provider "google-beta" {
-  version = "~> 2.9.0"
-  credentials = "${file(var.credentials)}"
-  project = var.project
-  region  = var.region
+#   load_config_file       = false
+#   host                   = data.template_file.gke_host_endpoint.rendered
+#   token                  = data.template_file.access_token.rendered
+#   cluster_ca_certificate = data.template_file.cluster_ca_certificate.rendered
+# }
 
-  scopes = [
-    # Default scopes
-    "https://www.googleapis.com/auth/compute",
-    "https://www.googleapis.com/auth/cloud-platform",
-    "https://www.googleapis.com/auth/ndev.clouddns.readwrite",
-    "https://www.googleapis.com/auth/devstorage.full_control",
+# provider "helm" {
+#   # We don't install Tiller automatically, but instead use Kubergrunt as it sets up the TLS certificates much easier.
+#   install_tiller = false
 
-    # Required for google_client_openid_userinfo
-    "https://www.googleapis.com/auth/userinfo.email",
-  ]
-}
+#   # Enable TLS so Helm can communicate with Tiller securely.
+#   enable_tls = true
 
-# We use this data provider to expose an access token for communicating with the GKE cluster.
-data "google_client_config" "client" {}
+#   kubernetes {
+#     host                   = data.template_file.gke_host_endpoint.rendered
+#     token                  = data.template_file.access_token.rendered
+#     cluster_ca_certificate = data.template_file.cluster_ca_certificate.rendered
+#   }
+# }
 
-# Use this datasource to access the Terraform account's email for Kubernetes permissions.
-data "google_client_openid_userinfo" "terraform_user" {}
 
-provider "kubernetes" {
-  version = "~> 1.7.0"
 
-  load_config_file       = false
-  host                   = data.template_file.gke_host_endpoint.rendered
-  token                  = data.template_file.access_token.rendered
-  cluster_ca_certificate = data.template_file.cluster_ca_certificate.rendered
-}
+# resource "helm_release" "consul" {
+#   name      = var.name
+#   chart     = "${path.module}/consul-helm"
+#   namespace = var.namespace
 
-provider "helm" {
-  # We don't install Tiller automatically, but instead use Kubergrunt as it sets up the TLS certificates much easier.
-  install_tiller = false
+#   set {
+#     name  = "server.replicas"
+#     value = var.replicas
+#   }
 
-  # Enable TLS so Helm can communicate with Tiller securely.
-  enable_tls = true
+#   set {
+#     name  = "server.bootstrapExpect"
+#     value = var.replicas
+#   }
 
-  kubernetes {
-    host                   = data.template_file.gke_host_endpoint.rendered
-    token                  = data.template_file.access_token.rendered
-    cluster_ca_certificate = data.template_file.cluster_ca_certificate.rendered
-  }
-}
+#   set {
+#     name  = "server.connect"
+#     value = true
+#   }
+
+#   provisioner "local-exec" {
+#     command = "helm test ${var.name}"
+#   }
+# }
