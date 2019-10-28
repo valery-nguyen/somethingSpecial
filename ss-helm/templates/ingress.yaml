@@ -6,9 +6,6 @@ metadata:
     nginx.ingress.kubernetes.io/use-regex: "true"
 
 spec:
-  externalTrafficPolicy: Local
-  type: LoadBalancer
-  loadBalancerIP: 35.212.245.116
   rules:
   - http:
       paths:
