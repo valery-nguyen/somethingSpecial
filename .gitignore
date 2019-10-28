@@ -40,3 +40,4 @@ bundle.js.map
 npm-debug.log
 # Ignore master key for decrypting credentials and more.
 /config/master.key
+/terraform/terraform-gke-keyfile.json
