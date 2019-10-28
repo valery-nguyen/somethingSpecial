@@ -3,7 +3,7 @@ kind: Ingress
 metadata:
   name: ss-ingress
   annotations:
-    kubernetes.io/ingress.global-static-ip-name: vtn-ss-reserved-1
+    kubernetes.io/ingress.global-static-ip-name: vtn-ss-reserved
 
 spec:
   rules:
