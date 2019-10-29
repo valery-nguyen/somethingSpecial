@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: somethingspecial
-        image: docker pull gcr.io/somethingspecial-256820/somethingspecial:1.0
+        image: gcr.io/somethingspecial-256820/somethingspecial@sha256:4cf9ddc8c7b9701f4e0c3c2b13cd800e51de59c49881d59cd3d2e2c132cb60a9
         env:
         - name: GOOGLE_APPLICATION_CREDENTIALS
           value: /var/secrets/google/key.json
