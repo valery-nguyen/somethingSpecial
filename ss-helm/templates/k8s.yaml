@@ -37,6 +37,9 @@ spec:
       name: http
       port: 3000
       targetPort: 3000
-  type: NodePort
-  externalIPs:
-    - 34.82.175.102
+    - protocol: TCP
+      name: psql
+      port: 5432
+      targetPort: 5432
+  type: LoadBalancer
+  loadBalancerIP: "34.82.175.102"
