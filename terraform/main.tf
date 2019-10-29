@@ -109,6 +109,15 @@ module "gke" {
   }
 }
 
+resource "google_compute_instance" "instance_with_ip" {
+    network_interface {
+        network = "default"
+        access_config {
+            nat_ip = "34.82.175.102"
+        }
+    }
+}
+
 provider "kubernetes" {
   host = "${module.gke.endpoint}"
   cluster_ca_certificate  = "${base64decode(module.gke.ca_certificate)}"
