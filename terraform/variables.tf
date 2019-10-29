@@ -57,3 +57,8 @@ variable "cluster_name" {
   description = "The name of the Kubernetes cluster."
   type        = string
 }
+
+variable "ss_image" {
+  description = "The location of the web app docker file."
+  type        = string
+}

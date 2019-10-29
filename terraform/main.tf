@@ -89,7 +89,8 @@ module "gke" {
   name                       = var.cluster_name
   region                     = var.region
   zones                      = var.zones
-  network                    = ${google_compute_network.private_network.self_link}
+  # network                    = ${google_compute_network.private_network.self_link}
+  network                    = "default"
   subnetwork                 = "default"
   ip_range_pods              = ""
   ip_range_services          = ""
@@ -225,8 +226,18 @@ resource "helm_release" "ss-release" {
     "${file("values.yaml")}"
   ]
 
+  # set {
+  #   name  = "DATABASE_URL"
+  #   value = "postgresql://${google_sql_database_instance.instance.private_ip_address}:5432/"
+  # }
+
   set {
     name  = "DATABASE_URL"
-    value = "postgresql://${google_sql_database_instance.instance.private_ip_address}:5432/"
+    value = "postgresql://10.49.32.3:5432/"
+  }
+
+  set {
+    name  = "ss_image"
+    value = var.ss_image
   }
 }

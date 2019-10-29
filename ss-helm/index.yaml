@@ -2,7 +2,7 @@ apiVersion: v1
 entries:
   ss-helm:
   - apiVersion: v1
-    created: "2019-10-29T11:22:15.8684749-07:00"
+    created: "2019-10-29T11:49:11.6922371-07:00"
     description: somethingspecial with helm
     digest: e6c507bfa509c9b98b057360720d0a588e4910290c23b98a9533888d078d9f01
     maintainers:
@@ -12,4 +12,4 @@ entries:
     urls:
     - ss-helm-1.0.0.tgz
     version: 1.0.0
-generated: "2019-10-29T11:22:15.8655458-07:00"
+generated: "2019-10-29T11:49:11.6893058-07:00"
