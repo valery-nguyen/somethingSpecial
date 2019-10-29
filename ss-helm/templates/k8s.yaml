@@ -14,10 +14,12 @@ spec:
     spec:
       containers:
       - name: somethingspecial
-        image: gcr.io/somethingspecial-256820/somethingspecial@sha256:4cf9ddc8c7b9701f4e0c3c2b13cd800e51de59c49881d59cd3d2e2c132cb60a9
+        image: {{.Values.ss_image}}
         env:
         - name: GOOGLE_APPLICATION_CREDENTIALS
           value: /var/secrets/google/key.json
+        - name: DATABASE_URL
+          value: {{.Values.DATABASE_URL}}
         ports:
         - name: http
           containerPort: 80

@@ -2,9 +2,9 @@ apiVersion: v1
 entries:
   ss-helm:
   - apiVersion: v1
-    created: "2019-10-29T00:24:14.6709114-07:00"
+    created: "2019-10-29T10:58:56.8308209-07:00"
     description: somethingspecial with helm
-    digest: 4ade86ba3656737f84df340183a5368f08f444d0557e5e0e70327a909beb5fea
+    digest: 285ee3b416c5c05d43bb46c18727367a8af449db8a91477cdac0bab2264e6507
     maintainers:
     - email: valery.nguyen@ucla.edu
       name: Valery Nguyen
@@ -12,4 +12,4 @@ entries:
     urls:
     - ss-helm-1.0.0.tgz
     version: 1.0.0
-generated: "2019-10-29T00:24:14.6699365-07:00"
+generated: "2019-10-29T10:58:56.8288576-07:00"
