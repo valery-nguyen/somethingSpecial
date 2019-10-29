@@ -37,10 +37,6 @@ spec:
       name: http
       port: 3000
       targetPort: 3000
-    - protocol: TCP
-      name: http
-      port: 5432
-      targetPort: 5432  
   type: LoadBalancer
   loadBalancerIP: "34.82.175.102"
   externalTrafficPolicy: Local
