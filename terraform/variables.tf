@@ -53,12 +53,17 @@ variable "service_account" {
   type        = string
 }
 
-variable "cluster_name" {
-  description = "The name of the Kubernetes cluster."
+variable "ss_image" {
+  description = "The location of the web app docker file."
   type        = string
 }
 
-variable "ss_image" {
-  description = "The location of the web app docker file."
+variable "private_network_name" {
+  description = "The name of the private network used by Kubernetes cluster and SQL database."
+  type        = string
+}
+
+variable "cluster_name" {
+  description = "The name of the Kubernetes cluster."
   type        = string
 }

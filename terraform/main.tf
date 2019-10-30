@@ -1,7 +1,3 @@
-# ---------------------------------------------------------------------------------------------------------------------
-# DEPLOY A GKE PUBLIC CLUSTER IN GOOGLE CLOUD PLATFORM
-# ---------------------------------------------------------------------------------------------------------------------
-
 terraform {
   backend "gcs" {
     credentials = "./terraform-gke-keyfile.json"
@@ -11,60 +7,37 @@ terraform {
   required_version = ">= 0.12.7"
 }
 
-# ---------------------------------------------------------------------------------------------------------------------
-# PREPARE PROVIDERS
-# ---------------------------------------------------------------------------------------------------------------------
+data "google_compute_network" "private_network" {
+  provider = "google-beta"
 
-# resource "google_compute_network" "private_network" {
-#   provider = "google-beta"
+  name       = var.private_network_name
+}
 
-#   name       = "private-network"
-# }
-# resource "google_compute_global_address" "private_ip_address" {
-#   provider = "google-beta"
+resource "random_id" "db_name_suffix" {
+  byte_length = 4
+}
+resource "google_sql_database_instance" "instance" {
+  provider = "google-beta"
+  database_version = "POSTGRES_11"
 
-#   name          = "private-ip-address"
-#   purpose       = "VPC_PEERING"
-#   address_type = "INTERNAL"
-#   prefix_length = 16
-#   network       = "${google_compute_network.private_network.self_link}"
-# }
-# resource "google_service_networking_connection" "private_vpc_connection" {
-#   provider = "google-beta"
+  name = "private-instance-${random_id.db_name_suffix.hex}"
+  region = "us-west1"
 
-#   network       = "${google_compute_network.private_network.self_link}"
-#   service       = "servicenetworking.googleapis.com"
-#   reserved_peering_ranges = ["${google_compute_global_address.private_ip_address.name}"]
-# }
+  settings {
+    tier = "db-f1-micro"
+    ip_configuration {
+      ipv4_enabled = true
+      private_network = "${data.google_compute_network.private_network.self_link}"
+    }
+  }
+}
 
-# resource "random_id" "db_name_suffix" {
-#   byte_length = 4
-# }
-# resource "google_sql_database_instance" "instance" {
-#   provider = "google-beta"
-
-#   name = "private-instance-${random_id.db_name_suffix.hex}"
-#   region = "us-west1"
-
-#   depends_on = [
-#     "google_service_networking_connection.private_vpc_connection"
-#   ]
-
-#   settings {
-#     tier = "db-f1-micro"
-#     ip_configuration {
-#       ipv4_enabled = false
-#       private_network = "default"
-#     }
-#   }
-# }
-
-# resource "google_sql_user" "users" {
-#   name     = "somethingspecial"
-#   instance = "${google_sql_database_instance.instance.name}"
-#   host     = "somethingspecial"
-#   password = "valery"
-# }
+resource "google_sql_user" "users" {
+  name     = "somethingspecial"
+  instance = "${google_sql_database_instance.instance.name}"
+  host     = "somethingspecial"
+  password = "valery"
+}
 
 provider "google" {
   version = "~> 2.9.0"
@@ -89,9 +62,8 @@ module "gke" {
   name                       = var.cluster_name
   region                     = var.region
   zones                      = var.zones
-  # network                    = ${google_compute_network.private_network.self_link}
-  network                    = "default"
-  subnetwork                 = "default"
+  network                    = "${data.google_compute_network.private_network.name}"
+  subnetwork                 = "${data.google_compute_network.private_network.name}"
   ip_range_pods              = ""
   ip_range_services          = ""
   http_load_balancing        = true
@@ -218,22 +190,17 @@ data "helm_repository" "ss-helm" {
 }
 
 resource "helm_release" "ss-release" {
+  depends_on = [
+    "google_sql_database_instance.instance"
+  ]
+
   name       = "ss-release"
   repository = "${data.helm_repository.ss-helm.metadata[0].name}"
   chart      = "ss-helm"
 
-  values = [
-    "${file("values.yaml")}"
-  ]
-
-  # set {
-  #   name  = "DATABASE_URL"
-  #   value = "postgresql://${google_sql_database_instance.instance.private_ip_address}:5432/"
-  # }
-
   set {
     name  = "DATABASE_URL"
-    value = "postgresql://10.49.32.3:5432/"
+    value = "postgresql://${google_sql_database_instance.instance.private_ip_address}:5432/"
   }
 
   set {

@@ -209,6 +209,8 @@ terraform plan
 terraform apply -auto-approve
 ```
 
+* Create a database 'somethingspecial_development' and import to it the .dump file located in the Google SQL Bucket 
+
 * Check the status of clusters
 
 ```
