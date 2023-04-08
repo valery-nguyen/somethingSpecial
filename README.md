@@ -1,6 +1,6 @@
 # [somethingSpecial]
 
-somethingSpecial, an UncommonGoods.com clone, is an application providing a wide range of unique gifts ideas for the users to choose and order from.
+somethingSpecial, an UncommonGoods.com clone, is an application providing a wide range of unique gifts ideas for the users to choose and order from. 
 
 ![screenshot](https://user-images.githubusercontent.com/13773733/58668533-2f1dc280-8307-11e9-8cb6-c71abdb53804.jpg)
 
