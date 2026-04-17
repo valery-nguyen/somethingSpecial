@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { withRouter } from 'react-router';
-import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
+import { TransitionGroup, CSSTransition } from 'react-transition-group';
 
 class ProductSearch extends React.Component {
   constructor(props) {
@@ -52,15 +52,18 @@ class ProductSearch extends React.Component {
     if (this.props.products.length > 1) {
       results = this.matches().map(result => {
         let url = result.title.split(' ').join('-').toLowerCase();
-        
+
         return (
-          <li 
-          key={result.id} 
-          onClick={this.selectProduct}>
-            <Link to={`/product/${url}`}>
-              {result.title}
-            </Link>
-          </li>
+          <CSSTransition
+            key={result.id}
+            classNames="auto"
+            timeout={{ enter: 500, exit: 500 }}>
+            <li onClick={this.selectProduct}>
+              <Link to={`/product/${url}`}>
+                {result.title}
+              </Link>
+            </li>
+          </CSSTransition>
         );
       });
     }
@@ -78,12 +81,9 @@ class ProductSearch extends React.Component {
           <button><i className="icon-search"></i></button>
         </form>
         <ul className="title-search-results">
-          <ReactCSSTransitionGroup
-            transitionName='auto'
-            transitionEnterTimeout={500}
-            transitionLeaveTimeout={500}>
-          {results}
-          </ReactCSSTransitionGroup>
+          <TransitionGroup component={null}>
+            {results}
+          </TransitionGroup>
         </ul>
       </div>
     );

@@ -1,6 +1,10 @@
-FROM ruby:2.5
+FROM ruby:2.7.8
 
-RUN apt-get update -qq && apt-get install -y postgresql-client nodejs npm
+# Install Node 18 from NodeSource + Postgres client
+RUN curl -fsSL https://deb.nodesource.com/setup_18.x | bash - \
+  && apt-get update -qq \
+  && apt-get install -y --no-install-recommends postgresql-client nodejs \
+  && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
 
