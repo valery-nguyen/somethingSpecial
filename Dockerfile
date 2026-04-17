@@ -1,4 +1,4 @@
-FROM ruby:2.7.8
+FROM ruby:4.0.2
 
 # Install Node 18 from NodeSource + Postgres client
 RUN curl -fsSL https://deb.nodesource.com/setup_18.x | bash - \
