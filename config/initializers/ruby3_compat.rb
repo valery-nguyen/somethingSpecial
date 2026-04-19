@@ -388,3 +388,34 @@ end
 require 'active_record/connection_adapters/postgresql/schema_definitions'
 ActiveRecord::ConnectionAdapters::PostgreSQL::TableDefinition
   .prepend(PrimaryKeyRuby3Fix)
+
+# ── 14. AbstractAdapter#quoted_columns_for_index ─────────────────────────────
+# Section 6 patches add_index_options to splat the OUTER positional hash from
+# add_index. But the original add_index_options body itself contains:
+#   quoted_columns_for_index(columns, options)
+# which is an internal positional-Hash call to a method declared as:
+#   def quoted_columns_for_index(columns, **options)
+# Once Section 6 forwards properly to the original, this inner call still
+# fails with:
+#   ArgumentError: wrong number of arguments (given 2, expected 1)
+# Trace:
+#   abstract/schema_statements.rb:1215 quoted_columns_for_index
+#   abstract/schema_statements.rb:1162 add_index_options
+#   ruby3_compat.rb:138               (Section 6 super)
+#   postgresql/schema_statements.rb:465 add_index
+# Fix: same shape as Section 6 — accept a trailing positional Hash and splat.
+
+module QuotedColumnsForIndexRuby3Fix
+  def quoted_columns_for_index(columns, *args, **options)
+    if args.length == 1 && args.first.is_a?(Hash) && options.empty?
+      super(columns, **args.first)
+    elsif args.empty?
+      super(columns, **options)
+    else
+      super(columns, *args, **options)
+    end
+  end
+end
+
+ActiveRecord::ConnectionAdapters::AbstractAdapter
+  .prepend(QuotedColumnsForIndexRuby3Fix)
