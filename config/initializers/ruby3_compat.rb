@@ -543,3 +543,73 @@ ActiveSupport.on_load(:action_controller) do
   require 'action_view/view_paths'
   ActionView::ViewPaths.prepend(TemplateExistsRuby3Fix) unless ActionView::ViewPaths.include?(TemplateExistsRuby3Fix)
 end
+
+# ── 19. ActiveSupport::MessageEncryptor / MessageVerifier kwargs ─────────────
+# Rails 5.2 cookies.rb#commit calls:
+#   @encryptor.encrypt_and_sign(serialize(value), cookie_metadata(name, opts))
+# cookie_metadata(...) returns a Hash ({expires_at:, purpose:}). Under Ruby 2
+# the trailing Hash auto-converted to kwargs and matched the signature
+#   def encrypt_and_sign(value, expires_at: nil, expires_in: nil, purpose: nil)
+# Under Ruby 3 it's a 2nd positional, so we get
+#   ArgumentError (wrong number of arguments (given 2, expected 1))
+# on EVERY response that sets a session cookie — i.e. every request. The same
+# shape applies to decrypt_and_verify, MessageVerifier#generate, and #verify.
+# Fix: promote trailing Hash positional to kwargs at each entry point.
+
+module MessageEncryptorRuby3Fix
+  def encrypt_and_sign(value, *args, **kwargs)
+    if args.length == 1 && args.first.is_a?(Hash) && kwargs.empty?
+      super(value, **args.first)
+    elsif args.empty?
+      super(value, **kwargs)
+    else
+      super(value, *args, **kwargs)
+    end
+  end
+
+  def decrypt_and_verify(value, *args, **kwargs)
+    if args.length == 1 && args.first.is_a?(Hash) && kwargs.empty?
+      super(value, **args.first)
+    elsif args.empty?
+      super(value, **kwargs)
+    else
+      super(value, *args, **kwargs)
+    end
+  end
+end
+
+ActiveSupport::MessageEncryptor.prepend(MessageEncryptorRuby3Fix)
+
+module MessageVerifierRuby3Fix
+  def generate(value, *args, **kwargs)
+    if args.length == 1 && args.first.is_a?(Hash) && kwargs.empty?
+      super(value, **args.first)
+    elsif args.empty?
+      super(value, **kwargs)
+    else
+      super(value, *args, **kwargs)
+    end
+  end
+
+  def verify(value, *args, **kwargs)
+    if args.length == 1 && args.first.is_a?(Hash) && kwargs.empty?
+      super(value, **args.first)
+    elsif args.empty?
+      super(value, **kwargs)
+    else
+      super(value, *args, **kwargs)
+    end
+  end
+
+  def verified(value, *args, **kwargs)
+    if args.length == 1 && args.first.is_a?(Hash) && kwargs.empty?
+      super(value, **args.first)
+    elsif args.empty?
+      super(value, **kwargs)
+    else
+      super(value, *args, **kwargs)
+    end
+  end
+end
+
+ActiveSupport::MessageVerifier.prepend(MessageVerifierRuby3Fix)
