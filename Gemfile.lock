@@ -264,7 +264,7 @@ DEPENDENCIES
   webdrivers (~> 5.3)
 
 RUBY VERSION
-   ruby 2.7.8p225
+   ruby 3.2.0p0
 
 BUNDLED WITH
-   2.4.22
+   2.5.6
