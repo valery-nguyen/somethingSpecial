@@ -89,4 +89,4 @@ production:
   database: somethingspecial_production
   username: somethingspecial
   password: valery
-  url: <%= ENV['DATABASE_URL'] %>
+  url: <%= ENV['DATABASE_URL'].presence %>
