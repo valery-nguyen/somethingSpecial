@@ -57,3 +57,23 @@ module ActiveModelTypeValueRuby3Fix
 end
 
 ActiveModel::Type::Value.prepend(ActiveModelTypeValueRuby3Fix)
+
+# ── 4. PostgreSQL create_table_definition ────────────────────────────────────
+# The PostgreSQL adapter defines:
+#   def create_table_definition(*args)
+#     PostgreSQL::TableDefinition.new(native_database_types, *args)
+#   end
+# In Ruby 2.x a trailing `comment: nil` keyword would be captured inside *args
+# as a plain Hash and then auto-converted back to kwargs when passed to
+# TableDefinition#initialize. Ruby 3 no longer does that auto-conversion, so
+# the kwarg is either silently dropped or passed as an extra positional arg,
+# producing "wrong number of arguments (given 5, expected 1..4)".
+# Fix: use *args, **kwargs so keyword args flow separately all the way through.
+
+module PostgreSQLCreateTableDefinitionFix
+  def create_table_definition(*args, **kwargs)
+    PostgreSQL::TableDefinition.new(native_database_types, *args, **kwargs)
+  end
+end
+
+ActiveRecord::ConnectionAdapters::PostgreSQLAdapter.prepend(PostgreSQLCreateTableDefinitionFix)
