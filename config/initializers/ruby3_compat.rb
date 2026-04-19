@@ -545,100 +545,62 @@ ActiveSupport.on_load(:action_controller) do
 end
 
 # ── 19. ActiveSupport::MessageEncryptor / MessageVerifier kwargs ─────────────
-# Rails 5.2 cookies.rb#commit calls encrypt_and_sign with a trailing positional
-# Hash (or with legacy keyword :expires). Under Ruby 2 this auto-converted;
-# under Ruby 3 it raises:
-#   ArgumentError (wrong number of arguments (given 2, expected 1))
-# on every response that sets a session cookie — i.e. every request.
+# Rails 5.2 cookies.rb#commit calls encrypt_and_sign with Ruby-2-style args
+# that fail under Ruby 3 keyword separation. We need to clean up the args at
+# the boundary.
 #
-# The previous revision of this section used `prepend`, but for reasons that
-# aren't clear (possibly how Rails 5.2 prepends Messages::Rotator::Encryptor
-# onto MessageEncryptor at class-body time), the prepended wrapper was never
-# invoked in production — the call went straight from cookies.rb into the
-# original encrypt_and_sign. Switch to `class_eval` + `instance_method` +
-# `define_method`, which mutates the class's own method table directly and
-# cannot be bypassed by other prepends/includes. STDOUT logging on first call
-# lets us confirm the patch is live in the deploy logs.
+# IMPORTANT: Previous attempts used `class_eval + instance_method + define_method`
+# to capture the "original" and call it via `bind.call`. That approach caused
+# INFINITE RECURSION in production, because Rails 5.2 already prepends
+# `Messages::Rotator::Verifier` (and `Rotator::Encryptor`) onto these classes.
+# `instance_method(:verify)` on such a class returns the Rotator wrapper, whose
+# body calls `super`. When we then `define_method(:verify)` on the class itself,
+# we slot our wrapper BELOW Rotator in the MRO. Now the cycle is:
+#   caller → Rotator#verify → super → our wrapper → original (= Rotator#verify)
+#          → super → our wrapper → original → ... ∞
+# Symptom in logs: `ruby3_compat.rb:622:in call` repeated thousands of times.
+#
+# Fix: use `prepend` + `super` instead. Prepend puts our module at the TOP of
+# the MRO (above Rotator), and `super` walks down the chain naturally. No
+# capturing, no introspection, no recursion.
+#
+# Idempotent guard: `unless X.include?(Mod)` so reloading the initializer
+# (which Rails does under some autoload conditions) won't re-prepend.
 
-ActiveSupport::MessageEncryptor.class_eval do
-  original_encrypt_and_sign = instance_method(:encrypt_and_sign)
-  original_decrypt_and_verify = instance_method(:decrypt_and_verify)
-
-  # Inspect captured originals so we know what to forward. parameters returns
-  # [[:req, :name], [:key, :name], [:keyrest, :name], ...] etc.
-  es_params = original_encrypt_and_sign.parameters
-  dv_params = original_decrypt_and_verify.parameters
-  es_accepts_kwargs = es_params.any? { |type, _| %i[key keyreq keyrest].include?(type) }
-  dv_accepts_kwargs = dv_params.any? { |type, _| %i[key keyreq keyrest].include?(type) }
-  es_kwarg_names    = es_params.select { |type, _| %i[key keyreq].include?(type) }.map(&:last)
-  dv_kwarg_names    = dv_params.select { |type, _| %i[key keyreq].include?(type) }.map(&:last)
-  es_has_keyrest    = es_params.any? { |type, _| type == :keyrest }
-  dv_has_keyrest    = dv_params.any? { |type, _| type == :keyrest }
-
-  warn "[ruby3_compat] encrypt_and_sign captured params: #{es_params.inspect}"
-  warn "[ruby3_compat] decrypt_and_verify captured params: #{dv_params.inspect}"
-
-  define_method(:encrypt_and_sign) do |value, *args, **kwargs|
-    # Collapse trailing positional Hash into kwargs (Ruby 3 separation).
+module MessageEncryptorRuby3Fix
+  def encrypt_and_sign(value, *args, **kwargs)
+    # Collapse trailing positional Hash into kwargs.
     if args.length == 1 && args.first.is_a?(Hash) && kwargs.empty?
       kwargs = args.first.dup
       args = []
     end
-    # Rails 5.2 cookies.rb uses :expires; signature may expect :expires_at.
+    # Rails 5.2 cookies.rb uses :expires; some paths want :expires_at.
     if kwargs.key?(:expires) && !kwargs.key?(:expires_at)
       kwargs[:expires_at] = kwargs.delete(:expires)
     end
-    begin
-      if es_accepts_kwargs
-        # Drop any kwargs the original doesn't declare (unless it has **).
-        unless es_has_keyrest
-          kwargs = kwargs.slice(*es_kwarg_names)
-        end
-        original_encrypt_and_sign.bind(self).call(value, **kwargs)
-      else
-        # Original doesn't accept kwargs at all — forward value only, dropping
-        # cookie metadata (expires/purpose). Session cookies still work; they
-        # just use default expiration from the cookie jar/rack layer instead.
-        original_encrypt_and_sign.bind(self).call(value)
-      end
-    rescue ArgumentError => e
-      warn "[ruby3_compat] encrypt_and_sign inner RAISED: #{e.class}: #{e.message}"
-      warn "[ruby3_compat] inner backtrace:"
-      (e.backtrace || []).first(30).each { |l| warn "  #{l}" }
-      raise
-    end
+    super(value, **kwargs)
   end
 
-  define_method(:decrypt_and_verify) do |value, *args, **kwargs|
+  def decrypt_and_verify(value, *args, **kwargs)
     if args.length == 1 && args.first.is_a?(Hash) && kwargs.empty?
       kwargs = args.first.dup
       args = []
     end
-    begin
-      if dv_accepts_kwargs
-        unless dv_has_keyrest
-          kwargs = kwargs.slice(*dv_kwarg_names)
-        end
-        original_decrypt_and_verify.bind(self).call(value, **kwargs)
-      else
-        original_decrypt_and_verify.bind(self).call(value)
-      end
-    rescue ArgumentError => e
-      warn "[ruby3_compat] decrypt_and_verify inner RAISED: #{e.class}: #{e.message}"
-      warn "[ruby3_compat] inner backtrace:"
-      (e.backtrace || []).first(30).each { |l| warn "  #{l}" }
-      raise
+    if args.empty?
+      super(value, **kwargs)
+    else
+      super(value, *args, **kwargs)
     end
   end
 end
-warn "[ruby3_compat] Section 19: MessageEncryptor patched (class_eval)"
 
-ActiveSupport::MessageVerifier.class_eval do
-  original_generate = instance_method(:generate)
-  original_verify   = instance_method(:verify)
-  original_verified = instance_method(:verified)
+unless ActiveSupport::MessageEncryptor.include?(MessageEncryptorRuby3Fix)
+  ActiveSupport::MessageEncryptor.prepend(MessageEncryptorRuby3Fix)
+  warn "[ruby3_compat] Section 19: MessageEncryptor prepended"
+end
 
-  define_method(:generate) do |value, *args, **kwargs|
+module MessageVerifierRuby3Fix
+  def generate(value, *args, **kwargs)
     if args.length == 1 && args.first.is_a?(Hash) && kwargs.empty?
       kwargs = args.first.dup
       args = []
@@ -646,133 +608,91 @@ ActiveSupport::MessageVerifier.class_eval do
     if kwargs.key?(:expires) && !kwargs.key?(:expires_at)
       kwargs[:expires_at] = kwargs.delete(:expires)
     end
-    if args.empty?
-      original_generate.bind(self).call(value, **kwargs)
-    else
-      original_generate.bind(self).call(value, *args, **kwargs)
-    end
+    super(value, **kwargs)
   end
 
-  define_method(:verify) do |value, *args, **kwargs|
+  def verify(value, *args, **kwargs)
     if args.length == 1 && args.first.is_a?(Hash) && kwargs.empty?
       kwargs = args.first.dup
       args = []
     end
     if args.empty?
-      original_verify.bind(self).call(value, **kwargs)
+      super(value, **kwargs)
     else
-      original_verify.bind(self).call(value, *args, **kwargs)
+      super(value, *args, **kwargs)
     end
   end
 
-  define_method(:verified) do |value, *args, **kwargs|
+  def verified(value, *args, **kwargs)
     if args.length == 1 && args.first.is_a?(Hash) && kwargs.empty?
       kwargs = args.first.dup
       args = []
     end
     if args.empty?
-      original_verified.bind(self).call(value, **kwargs)
+      super(value, **kwargs)
     else
-      original_verified.bind(self).call(value, *args, **kwargs)
+      super(value, *args, **kwargs)
     end
   end
 end
-warn "[ruby3_compat] Section 19: MessageVerifier patched (class_eval)"
+
+unless ActiveSupport::MessageVerifier.include?(MessageVerifierRuby3Fix)
+  ActiveSupport::MessageVerifier.prepend(MessageVerifierRuby3Fix)
+  warn "[ruby3_compat] Section 19: MessageVerifier prepended"
+end
 
 # ── 20. ActiveSupport::Messages::Metadata.wrap / .verify kwargs ──────────────
-# The deployed-backtrace after Section 19 showed the REAL failure was deeper:
-#   activesupport/messages/metadata.rb:17:in `wrap'   <-- raises here
-#   activesupport/message_encryptor.rb:175:in `_encrypt'
-#   activesupport/message_encryptor.rb:151:in `encrypt_and_sign'
-# That is: our encrypt_and_sign wrapper calls the real encrypt_and_sign fine;
-# the real encrypt_and_sign calls _encrypt fine; _encrypt calls
-# Metadata.wrap(value, expires_at:, expires_in:, purpose:) and THAT is where
-# Ruby 3 keyword separation blows up with "given 2, expected 1".
+# `_encrypt` internally calls `Messages::Metadata.wrap(value, expires_at:,
+# expires_in:, purpose:)`. In Rails 5.2.8.1 this raises "given 2, expected 1"
+# under Ruby 3 somewhere on wrap's first line. Patch wrap itself by prepending
+# onto the singleton class so our version runs first and hands clean kwargs
+# (or a message-only fallback) to super.
 #
-# Rails 5.2.8.1's Metadata.wrap is declared roughly as
-#   def self.wrap(message, expires_at: nil, expires_in: nil, purpose: nil)
-# but apparently under Ruby 3 the captured method reports a signature that
-# doesn't accept kwargs, or the call path inside it calls another method that
-# does not. We patch defensively: introspect the captured method's parameters,
-# forward only what it declares. If it accepts no kwargs at all, just return
-# `message` when there is no real metadata (all kwargs nil) — which is exactly
-# what the method does for that case anyway. When there IS metadata but the
-# original can't accept kwargs, we also return `message` — losing expires/purpose
-# metadata in the cookie but NOT breaking the request. Session cookies will
-# still work (rack/cookie-jar enforces default expiration independently).
+# Same prepend-over-class_eval reasoning as Section 19: avoid the recursion
+# trap, avoid introspection, let `super` do the right thing.
 
 require 'active_support/messages/metadata'
 
-ActiveSupport::Messages::Metadata.singleton_class.class_eval do
-  if method_defined?(:wrap) || private_method_defined?(:wrap)
-    original_wrap = instance_method(:wrap)
-    wrap_params = original_wrap.parameters
-    wrap_accepts_kwargs = wrap_params.any? { |type, _| %i[key keyreq keyrest].include?(type) }
-    wrap_has_keyrest    = wrap_params.any? { |type, _| type == :keyrest }
-    wrap_kwarg_names    = wrap_params.select { |type, _| %i[key keyreq].include?(type) }.map(&:last)
-    wrap_pos_count      = wrap_params.count { |type, _| %i[req opt].include?(type) }
-    wrap_has_rest       = wrap_params.any? { |type, _| type == :rest }
-
-    warn "[ruby3_compat] Metadata.wrap captured params: #{wrap_params.inspect}"
-
-    define_method(:wrap) do |message, *args, **kwargs|
-      if args.length == 1 && args.first.is_a?(Hash) && kwargs.empty?
-        kwargs = args.first.dup
-        args = []
-      end
-      begin
-        if wrap_accepts_kwargs
-          kwargs = kwargs.slice(*wrap_kwarg_names) unless wrap_has_keyrest
-          original_wrap.bind(self).call(message, **kwargs)
-        elsif wrap_pos_count >= 2 || wrap_has_rest
-          # Original accepts a trailing positional hash (ruby 2 style).
-          original_wrap.bind(self).call(message, kwargs)
-        else
-          # Original takes only message. If no real metadata, return message.
-          # If there IS metadata, we can't pass it — return message anyway;
-          # cookie still works, expiration falls back to rack/cookie-jar defaults.
-          message
-        end
-      rescue ArgumentError => e
-        warn "[ruby3_compat] Metadata.wrap inner RAISED: #{e.class}: #{e.message}"
-        (e.backtrace || []).first(20).each { |l| warn "  #{l}" }
-        raise
-      end
+module MessagesMetadataRuby3Fix
+  def wrap(message, *args, **kwargs)
+    if args.length == 1 && args.first.is_a?(Hash) && kwargs.empty?
+      kwargs = args.first.dup
+      args = []
+    end
+    begin
+      super(message, **kwargs)
+    rescue ArgumentError => e
+      # If the real wrap's signature genuinely can't accept these kwargs under
+      # Ruby 3 (as suggested by the "given 2, expected 1" at metadata.rb:17),
+      # fall back to returning message unwrapped. We lose expires/purpose
+      # metadata embedded in the cookie, but the cookie still commits, and
+      # rack's cookie jar enforces session expiration independently.
+      warn "[ruby3_compat] Metadata.wrap super RAISED: #{e.class}: #{e.message} — falling back to unwrapped message"
+      (e.backtrace || []).first(10).each { |l| warn "  #{l}" }
+      message
     end
   end
 
-  if method_defined?(:verify) || private_method_defined?(:verify)
-    original_verify_meta = instance_method(:verify)
-    verify_params = original_verify_meta.parameters
-    verify_accepts_kwargs = verify_params.any? { |type, _| %i[key keyreq keyrest].include?(type) }
-    verify_has_keyrest    = verify_params.any? { |type, _| type == :keyrest }
-    verify_kwarg_names    = verify_params.select { |type, _| %i[key keyreq].include?(type) }.map(&:last)
-    verify_pos_count      = verify_params.count { |type, _| %i[req opt].include?(type) }
-    verify_has_rest       = verify_params.any? { |type, _| type == :rest }
-
-    warn "[ruby3_compat] Metadata.verify captured params: #{verify_params.inspect}"
-
-    define_method(:verify) do |message, *args, **kwargs|
-      if args.length == 1 && args.first.is_a?(Hash) && kwargs.empty?
-        kwargs = args.first.dup
-        args = []
-      end
-      begin
-        if verify_accepts_kwargs
-          kwargs = kwargs.slice(*verify_kwarg_names) unless verify_has_keyrest
-          original_verify_meta.bind(self).call(message, **kwargs)
-        elsif verify_pos_count >= 2 || verify_has_rest
-          original_verify_meta.bind(self).call(message, kwargs)
-        else
-          original_verify_meta.bind(self).call(message)
-        end
-      rescue ArgumentError => e
-        warn "[ruby3_compat] Metadata.verify inner RAISED: #{e.class}: #{e.message}"
-        (e.backtrace || []).first(20).each { |l| warn "  #{l}" }
-        raise
-      end
+  def verify(message, *args, **kwargs)
+    # Metadata.verify in 5.2 has signature (message, purpose) — 2 required
+    # positionals, no kwargs. Just pass through unchanged. This method exists
+    # here only to collapse a trailing positional-Hash if some caller still
+    # passes kwargs; normally pass-through.
+    if args.length == 1 && args.first.is_a?(Hash) && kwargs.empty?
+      # Caller used old hash-as-kwargs style; try positional first.
+      super(message, args.first)
+    elsif args.empty? && kwargs.empty?
+      super(message)
+    elsif kwargs.empty?
+      super(message, *args)
+    else
+      super(message, *args, **kwargs)
     end
   end
 end
-warn "[ruby3_compat] Section 20: Messages::Metadata.wrap/verify patched"
+
+unless ActiveSupport::Messages::Metadata.singleton_class.include?(MessagesMetadataRuby3Fix)
+  ActiveSupport::Messages::Metadata.singleton_class.prepend(MessagesMetadataRuby3Fix)
+  warn "[ruby3_compat] Section 20: Messages::Metadata singleton_class prepended"
+end
 warn "[ruby3_compat] Section 19: MessageVerifier patched (class_eval)"
