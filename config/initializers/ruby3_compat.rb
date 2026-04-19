@@ -588,17 +588,24 @@ ActiveSupport::MessageEncryptor.class_eval do
     if kwargs.key?(:expires) && !kwargs.key?(:expires_at)
       kwargs[:expires_at] = kwargs.delete(:expires)
     end
-    if es_accepts_kwargs
-      # Drop any kwargs the original doesn't declare (unless it has **).
-      unless es_has_keyrest
-        kwargs = kwargs.slice(*es_kwarg_names)
+    begin
+      if es_accepts_kwargs
+        # Drop any kwargs the original doesn't declare (unless it has **).
+        unless es_has_keyrest
+          kwargs = kwargs.slice(*es_kwarg_names)
+        end
+        original_encrypt_and_sign.bind(self).call(value, **kwargs)
+      else
+        # Original doesn't accept kwargs at all — forward value only, dropping
+        # cookie metadata (expires/purpose). Session cookies still work; they
+        # just use default expiration from the cookie jar/rack layer instead.
+        original_encrypt_and_sign.bind(self).call(value)
       end
-      original_encrypt_and_sign.bind(self).call(value, **kwargs)
-    else
-      # Original doesn't accept kwargs at all — forward value only, dropping
-      # cookie metadata (expires/purpose). Session cookies still work; they
-      # just use default expiration from the cookie jar/rack layer instead.
-      original_encrypt_and_sign.bind(self).call(value)
+    rescue ArgumentError => e
+      warn "[ruby3_compat] encrypt_and_sign inner RAISED: #{e.class}: #{e.message}"
+      warn "[ruby3_compat] inner backtrace:"
+      (e.backtrace || []).first(30).each { |l| warn "  #{l}" }
+      raise
     end
   end
 
@@ -607,13 +614,20 @@ ActiveSupport::MessageEncryptor.class_eval do
       kwargs = args.first.dup
       args = []
     end
-    if dv_accepts_kwargs
-      unless dv_has_keyrest
-        kwargs = kwargs.slice(*dv_kwarg_names)
+    begin
+      if dv_accepts_kwargs
+        unless dv_has_keyrest
+          kwargs = kwargs.slice(*dv_kwarg_names)
+        end
+        original_decrypt_and_verify.bind(self).call(value, **kwargs)
+      else
+        original_decrypt_and_verify.bind(self).call(value)
       end
-      original_decrypt_and_verify.bind(self).call(value, **kwargs)
-    else
-      original_decrypt_and_verify.bind(self).call(value)
+    rescue ArgumentError => e
+      warn "[ruby3_compat] decrypt_and_verify inner RAISED: #{e.class}: #{e.message}"
+      warn "[ruby3_compat] inner backtrace:"
+      (e.backtrace || []).first(30).each { |l| warn "  #{l}" }
+      raise
     end
   end
 end
