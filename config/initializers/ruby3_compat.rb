@@ -695,4 +695,3 @@ unless ActiveSupport::Messages::Metadata.singleton_class.include?(MessagesMetada
   ActiveSupport::Messages::Metadata.singleton_class.prepend(MessagesMetadataRuby3Fix)
   warn "[ruby3_compat] Section 20: Messages::Metadata singleton_class prepended"
 end
-warn "[ruby3_compat] Section 19: MessageVerifier patched (class_eval)"

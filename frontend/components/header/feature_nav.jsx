@@ -53,7 +53,6 @@ class FeatureNav extends React.Component {
           <div id="personal-links">
             <div>
               <a href="https://www.linkedin.com/in/valeryn/" target="_blank" className="personal-links"><i className="icon-linkedin"></i></a>
-              <a href="https://angel.co/valeryn" target="_blank" className="personal-links"><i className="icon-angel"></i></a>
               <a href="https://github.com/valery-nguyen/somethingSpecial" target="_blank" className="personal-links"><i className="icon-github"></i></a>
             </div>
             {/* <a href="https://www.uncommongoods.com/blog/" target="_blank" className="link-blog">Our Blog: <i>The Goods</i></a> */}
