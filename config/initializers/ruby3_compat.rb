@@ -1,16 +1,22 @@
 # Fix for Rails 5.2 compatibility with Ruby 3.x
-# Ruby 3.0 removed automatic conversion of trailing Hash to keyword arguments.
-# ActionDispatch::Static was built assuming that old behavior.
+#
+# Ruby 3.0 removed automatic conversion of a trailing Hash into keyword
+# arguments. The Rails 5.2 middleware stack builder calls:
+#
+#   klass.new(app, *args)
+#
+# where args may contain a Hash that was intended to be splatted as kwargs.
+# Patching the builder to detect and forward those hashes as ** fixes every
+# middleware (ActionDispatch::Static, ActionDispatch::SSL, etc.) in one place.
 
-module ActionDispatch
-  class Static
-    def initialize(app, path, deprecated_options = nil, index: 'index', headers: {})
-      if deprecated_options.is_a?(Hash)
-        index   = deprecated_options.fetch(:index, index)
-        headers = deprecated_options.fetch(:headers, headers)
-      end
-      @app = app
-      @file_handler = FileHandler.new(path, index: index, headers: headers)
+module MiddlewareStackRuby3Fix
+  def build(app)
+    if args.last.is_a?(Hash)
+      klass.new(app, *args[0..-2], **args.last, &block)
+    else
+      klass.new(app, *args, &block)
     end
   end
 end
+
+ActionDispatch::MiddlewareStack::Middleware.prepend(MiddlewareStackRuby3Fix)
