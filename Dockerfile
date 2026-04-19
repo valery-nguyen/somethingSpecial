@@ -20,6 +20,10 @@ COPY . .
 
 RUN npm install && npm run postinstall
 
+# Precompile Rails assets (CSS, images, fingerprinted JS via Sprockets)
+# SECRET_KEY_BASE is a dummy value — only needed to satisfy Rails during build
+RUN SECRET_KEY_BASE=dummyplaceholderforprecompile bundle exec rails assets:precompile
+
 EXPOSE 3000
 
 CMD ["rails", "server", "-b", "0.0.0.0"]
