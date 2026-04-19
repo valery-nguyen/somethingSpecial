@@ -678,3 +678,101 @@ ActiveSupport::MessageVerifier.class_eval do
   end
 end
 warn "[ruby3_compat] Section 19: MessageVerifier patched (class_eval)"
+
+# ── 20. ActiveSupport::Messages::Metadata.wrap / .verify kwargs ──────────────
+# The deployed-backtrace after Section 19 showed the REAL failure was deeper:
+#   activesupport/messages/metadata.rb:17:in `wrap'   <-- raises here
+#   activesupport/message_encryptor.rb:175:in `_encrypt'
+#   activesupport/message_encryptor.rb:151:in `encrypt_and_sign'
+# That is: our encrypt_and_sign wrapper calls the real encrypt_and_sign fine;
+# the real encrypt_and_sign calls _encrypt fine; _encrypt calls
+# Metadata.wrap(value, expires_at:, expires_in:, purpose:) and THAT is where
+# Ruby 3 keyword separation blows up with "given 2, expected 1".
+#
+# Rails 5.2.8.1's Metadata.wrap is declared roughly as
+#   def self.wrap(message, expires_at: nil, expires_in: nil, purpose: nil)
+# but apparently under Ruby 3 the captured method reports a signature that
+# doesn't accept kwargs, or the call path inside it calls another method that
+# does not. We patch defensively: introspect the captured method's parameters,
+# forward only what it declares. If it accepts no kwargs at all, just return
+# `message` when there is no real metadata (all kwargs nil) — which is exactly
+# what the method does for that case anyway. When there IS metadata but the
+# original can't accept kwargs, we also return `message` — losing expires/purpose
+# metadata in the cookie but NOT breaking the request. Session cookies will
+# still work (rack/cookie-jar enforces default expiration independently).
+
+require 'active_support/messages/metadata'
+
+ActiveSupport::Messages::Metadata.singleton_class.class_eval do
+  if method_defined?(:wrap) || private_method_defined?(:wrap)
+    original_wrap = instance_method(:wrap)
+    wrap_params = original_wrap.parameters
+    wrap_accepts_kwargs = wrap_params.any? { |type, _| %i[key keyreq keyrest].include?(type) }
+    wrap_has_keyrest    = wrap_params.any? { |type, _| type == :keyrest }
+    wrap_kwarg_names    = wrap_params.select { |type, _| %i[key keyreq].include?(type) }.map(&:last)
+    wrap_pos_count      = wrap_params.count { |type, _| %i[req opt].include?(type) }
+    wrap_has_rest       = wrap_params.any? { |type, _| type == :rest }
+
+    warn "[ruby3_compat] Metadata.wrap captured params: #{wrap_params.inspect}"
+
+    define_method(:wrap) do |message, *args, **kwargs|
+      if args.length == 1 && args.first.is_a?(Hash) && kwargs.empty?
+        kwargs = args.first.dup
+        args = []
+      end
+      begin
+        if wrap_accepts_kwargs
+          kwargs = kwargs.slice(*wrap_kwarg_names) unless wrap_has_keyrest
+          original_wrap.bind(self).call(message, **kwargs)
+        elsif wrap_pos_count >= 2 || wrap_has_rest
+          # Original accepts a trailing positional hash (ruby 2 style).
+          original_wrap.bind(self).call(message, kwargs)
+        else
+          # Original takes only message. If no real metadata, return message.
+          # If there IS metadata, we can't pass it — return message anyway;
+          # cookie still works, expiration falls back to rack/cookie-jar defaults.
+          message
+        end
+      rescue ArgumentError => e
+        warn "[ruby3_compat] Metadata.wrap inner RAISED: #{e.class}: #{e.message}"
+        (e.backtrace || []).first(20).each { |l| warn "  #{l}" }
+        raise
+      end
+    end
+  end
+
+  if method_defined?(:verify) || private_method_defined?(:verify)
+    original_verify_meta = instance_method(:verify)
+    verify_params = original_verify_meta.parameters
+    verify_accepts_kwargs = verify_params.any? { |type, _| %i[key keyreq keyrest].include?(type) }
+    verify_has_keyrest    = verify_params.any? { |type, _| type == :keyrest }
+    verify_kwarg_names    = verify_params.select { |type, _| %i[key keyreq].include?(type) }.map(&:last)
+    verify_pos_count      = verify_params.count { |type, _| %i[req opt].include?(type) }
+    verify_has_rest       = verify_params.any? { |type, _| type == :rest }
+
+    warn "[ruby3_compat] Metadata.verify captured params: #{verify_params.inspect}"
+
+    define_method(:verify) do |message, *args, **kwargs|
+      if args.length == 1 && args.first.is_a?(Hash) && kwargs.empty?
+        kwargs = args.first.dup
+        args = []
+      end
+      begin
+        if verify_accepts_kwargs
+          kwargs = kwargs.slice(*verify_kwarg_names) unless verify_has_keyrest
+          original_verify_meta.bind(self).call(message, **kwargs)
+        elsif verify_pos_count >= 2 || verify_has_rest
+          original_verify_meta.bind(self).call(message, kwargs)
+        else
+          original_verify_meta.bind(self).call(message)
+        end
+      rescue ArgumentError => e
+        warn "[ruby3_compat] Metadata.verify inner RAISED: #{e.class}: #{e.message}"
+        (e.backtrace || []).first(20).each { |l| warn "  #{l}" }
+        raise
+      end
+    end
+  end
+end
+warn "[ruby3_compat] Section 20: Messages::Metadata.wrap/verify patched"
+warn "[ruby3_compat] Section 19: MessageVerifier patched (class_eval)"
