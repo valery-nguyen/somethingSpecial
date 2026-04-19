@@ -382,7 +382,9 @@ module PrimaryKeyRuby3Fix
   end
 end
 
-if defined?(ActiveRecord::ConnectionAdapters::PostgreSQL::TableDefinition)
-  ActiveRecord::ConnectionAdapters::PostgreSQL::TableDefinition
-    .prepend(PrimaryKeyRuby3Fix)
-end
+# Force-load the PG schema_definitions file so PG::TableDefinition is defined
+# at initializer time. The previous `if defined?(...)` guard silently skipped
+# the prepend when the class wasn't yet autoloaded, leaving the patch inert.
+require 'active_record/connection_adapters/postgresql/schema_definitions'
+ActiveRecord::ConnectionAdapters::PostgreSQL::TableDefinition
+  .prepend(PrimaryKeyRuby3Fix)
