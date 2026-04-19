@@ -454,3 +454,30 @@ end
 # in the method-lookup chain before the original.
 ActiveRecord::ConnectionAdapters::PostgreSQL::SchemaStatements
   .prepend(AddOptionsForIndexColumnsRuby3Fix)
+
+# ── 16. PostgreSQL#add_index_opclass ─────────────────────────────────────────
+# Section 15 forwarded into the real add_options_for_index_columns. Its body
+# at postgresql/schema_statements.rb:734 calls:
+#   add_index_opclass(quoted_columns, options)
+# but add_index_opclass is declared:
+#   def add_index_opclass(quoted_columns, **options)
+# Ruby-3 kwargs trap, identical fix shape.
+# Trace:
+#   postgresql/schema_statements.rb:726 add_index_opclass
+#   postgresql/schema_statements.rb:734 add_options_for_index_columns
+#   ruby3_compat.rb (Section 15 super)
+
+module AddIndexOpclassRuby3Fix
+  def add_index_opclass(quoted_columns, *args, **options)
+    if args.length == 1 && args.first.is_a?(Hash) && options.empty?
+      super(quoted_columns, **args.first)
+    elsif args.empty?
+      super(quoted_columns, **options)
+    else
+      super(quoted_columns, *args, **options)
+    end
+  end
+end
+
+ActiveRecord::ConnectionAdapters::PostgreSQL::SchemaStatements
+  .prepend(AddIndexOpclassRuby3Fix)
