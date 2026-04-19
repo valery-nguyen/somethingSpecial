@@ -8,9 +8,14 @@ RUN curl -fsSL https://deb.nodesource.com/setup_18.x | bash - \
 
 WORKDIR /app
 
+# Copy dependency files first for better layer caching
+COPY Gemfile Gemfile.lock ./
+
+# Install only production gems (skips dev/test gems like selenium, webdrivers)
+RUN bundle config set --local without 'development test' && bundle install
+
 COPY . .
 
-RUN bundle install
 RUN npm install && npm run postinstall
 
 EXPOSE 3000
