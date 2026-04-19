@@ -82,8 +82,14 @@ module PostgreSQLCreateTableDefinitionFix
   # Fix: explicitly declare the signature and only forward what initialize accepts.
   # NOTE: Rails 5.2 TableDefinition does NOT take `types` as first arg.
   def create_table_definition(name, temporary = false, options = nil, as = nil, comment = nil)
+    # TableDefinition#initialize in Rails 5.2:
+    #   def initialize(name, temporary = false, options = nil, as = nil, comment: nil)
+    # `as` is positional, `comment` is a keyword. The earlier version of this
+    # patch dropped `as` and put `comment` into its slot — producing SQL like
+    #   CREATE TABLE ... AS {:comment=>nil}
+    # Pass `as` positionally and `comment` as a kwarg.
     ActiveRecord::ConnectionAdapters::PostgreSQL::TableDefinition.new(
-      name, temporary, options, comment
+      name, temporary, options, as, comment: comment
     )
   end
 end
@@ -294,3 +300,59 @@ module I18nRuby3Fix
 end
 
 I18n.singleton_class.prepend(I18nRuby3Fix)
+
+# ── 12. ColumnMethods helpers (t.string, t.integer, …) ───────────────────────
+# Rails 5.2 generates column-type helpers via a metaprogram that produces:
+#   def string(*args, **options)
+#     args.each { |name| column(name, :string, options) }
+#   end
+# Rails' own internal code — including SchemaMigration.create_table — calls
+# these helpers with a trailing positional Hash:
+#   t.string :version, version_options          # version_options is a Hash
+# In Ruby 2 the trailing Hash would auto-convert into `**options`. In Ruby 3
+# it stays in `args`, and the iterator then creates a column literally named
+# "{:primary_key=>true}" — which surfaces on Render as a PG::SyntaxError
+# during db:migrate when the schema_migrations table is first built.
+# Fix: redefine each generated helper to pop a trailing Hash from args into
+# options before iterating.
+
+require 'active_record/connection_adapters/abstract/schema_definitions'
+begin
+  require 'active_record/connection_adapters/postgresql/schema_definitions'
+rescue LoadError
+  # Not on PG — no PG-specific types to patch.
+end
+
+module ColumnMethodsRuby3Fix
+  # Redefines the named type helpers on `mod` so they tolerate a trailing
+  # positional Hash (Ruby-2-style options).
+  def self.patch!(mod, types)
+    types.each do |type|
+      next unless mod.instance_methods(false).include?(type)
+      mod.module_eval do
+        define_method(type) do |*args, **options|
+          options = args.pop if args.last.is_a?(Hash) && options.empty?
+          args.each { |name| column(name, type, options) }
+        end
+      end
+    end
+  end
+end
+
+# Abstract adapter: the core SQL types.
+ColumnMethodsRuby3Fix.patch!(
+  ActiveRecord::ConnectionAdapters::ColumnMethods,
+  %i[bigint binary boolean date datetime decimal float integer
+     json numeric primary_key string text time timestamp virtual]
+)
+
+# PostgreSQL adapter: the expanded set of PG-specific types.
+if defined?(ActiveRecord::ConnectionAdapters::PostgreSQL::ColumnMethods)
+  ColumnMethodsRuby3Fix.patch!(
+    ActiveRecord::ConnectionAdapters::PostgreSQL::ColumnMethods,
+    %i[bigserial bit bit_varying box cidr circle citext daterange hstore
+       inet int4range int8range interval jsonb line lseg ltree macaddr
+       money numrange oid path point polygon serial tsrange tstzrange
+       tsvector uuid xml]
+  )
+end
