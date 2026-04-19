@@ -6,6 +6,8 @@ RUN curl -fsSL https://deb.nodesource.com/setup_18.x | bash - \
   && apt-get install -y --no-install-recommends postgresql-client nodejs \
   && rm -rf /var/lib/apt/lists/*
 
+ENV RAILS_ENV=production
+
 WORKDIR /app
 
 # Copy dependency files first for better layer caching
