@@ -502,21 +502,18 @@ end
 ActiveRecord::ConnectionAdapters::AbstractAdapter
   .prepend(AddIndexSortOrderRuby3Fix)
 
-# ── 18. AbstractController#template_exists? ──────────────────────────────────
+# ── 18. ActionView::ViewPaths#template_exists? ───────────────────────────────
 # Rails 5.2 implicit_render.rb calls:
 #   template_exists?(action_name.to_s, _prefixes, variants: request.variants)
-# template_exists? is defined as:
-#   def template_exists?(*args)
-#     lookup_context.exists?(*args)
-#   end
-# In Ruby 2 the trailing `variants:` kwarg was auto-converted all the way to
-# lookup_context.exists?(name, prefixes, partial, keys, **options). In Ruby 3
-# the Hash is captured inside *args as a positional and splatted into the
-# `partial` slot — making `partial = {variants: []}` (truthy). The resolver
-# then looks for a PARTIAL named `root`, doesn't find one, returns false, and
-# Rails raises ActionController::UnknownFormat. Result: EVERY HTML request in
-# production returns 406, including the React SPA's root page. Fix: collect
-# kwargs separately and forward them as kwargs.
+# In Rails 5.2 this method lives in ActionView::ViewPaths (NOT
+# AbstractController::ViewPaths — that constant is Rails 6+). The method in
+# 5.2 is declared with a trailing `options = {}` positional Hash, which under
+# Ruby 3 keyword separation causes the `variants:` kwarg to land in the wrong
+# slot when forwarded to lookup_context.exists? — specifically it ends up as
+# `partial = {variants: []}` (truthy), so Rails looks for a PARTIAL instead
+# of a template, doesn't find it, and raises ActionController::UnknownFormat.
+# Result: EVERY HTML request in production returns 406, including the React
+# SPA's root page. Fix: collect kwargs separately and forward as true kwargs.
 
 module TemplateExistsRuby3Fix
   def template_exists?(*args, **kwargs)
@@ -527,7 +524,7 @@ module TemplateExistsRuby3Fix
     end
   end
 
-  # Same issue for any_templates? which uses the same splat pattern.
+  # Same pattern for any_templates?.
   def any_templates?(*args, **kwargs)
     if kwargs.empty?
       lookup_context.any?(*args)
@@ -537,11 +534,12 @@ module TemplateExistsRuby3Fix
   end
 end
 
-# AbstractController::ViewPaths isn't directly requirable in Rails 5.2 — the
-# file sits under actionpack's lib but bootsnap can't find it via a bare
-# require. Use the on_load hook, which fires when ActionController::Base
-# loads. ActionController::Base includes AbstractController::ViewPaths, so
-# the constant is guaranteed to be defined when the block runs.
+# ActionView::ViewPaths is pulled in via AbstractController::Rendering when
+# ActionController::Base loads. Use the on_load hook so the constant is
+# guaranteed defined by the time we prepend. (Action Storage's own
+# ActiveStorage::BaseController triggers this load path during eager_load in
+# production.)
 ActiveSupport.on_load(:action_controller) do
-  AbstractController::ViewPaths.prepend(TemplateExistsRuby3Fix) unless AbstractController::ViewPaths.include?(TemplateExistsRuby3Fix)
+  require 'action_view/view_paths'
+  ActionView::ViewPaths.prepend(TemplateExistsRuby3Fix) unless ActionView::ViewPaths.include?(TemplateExistsRuby3Fix)
 end
