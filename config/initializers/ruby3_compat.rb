@@ -501,3 +501,40 @@ end
 
 ActiveRecord::ConnectionAdapters::AbstractAdapter
   .prepend(AddIndexSortOrderRuby3Fix)
+
+# ── 18. AbstractController#template_exists? ──────────────────────────────────
+# Rails 5.2 implicit_render.rb calls:
+#   template_exists?(action_name.to_s, _prefixes, variants: request.variants)
+# template_exists? is defined as:
+#   def template_exists?(*args)
+#     lookup_context.exists?(*args)
+#   end
+# In Ruby 2 the trailing `variants:` kwarg was auto-converted all the way to
+# lookup_context.exists?(name, prefixes, partial, keys, **options). In Ruby 3
+# the Hash is captured inside *args as a positional and splatted into the
+# `partial` slot — making `partial = {variants: []}` (truthy). The resolver
+# then looks for a PARTIAL named `root`, doesn't find one, returns false, and
+# Rails raises ActionController::UnknownFormat. Result: EVERY HTML request in
+# production returns 406, including the React SPA's root page. Fix: collect
+# kwargs separately and forward them as kwargs.
+
+module TemplateExistsRuby3Fix
+  def template_exists?(*args, **kwargs)
+    if kwargs.empty?
+      lookup_context.exists?(*args)
+    else
+      lookup_context.exists?(*args, **kwargs)
+    end
+  end
+
+  # Same issue for any_templates? which uses the same splat pattern.
+  def any_templates?(*args, **kwargs)
+    if kwargs.empty?
+      lookup_context.any?(*args)
+    else
+      lookup_context.any?(*args, **kwargs)
+    end
+  end
+end
+
+AbstractController::ViewPaths.prepend(TemplateExistsRuby3Fix)
