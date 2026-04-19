@@ -24,14 +24,12 @@ ActionDispatch::MiddlewareStack::Middleware.prepend(MiddlewareStackRuby3Fix)
 # postgresql_adapter.rb calls:
 #   ActiveRecord::Type.add_modifier({ array: true }, OID::Array, adapter: :postgresql)
 # In Ruby 2.x the trailing hash was auto-converted to kwargs; not in Ruby 3.x.
-
-require 'active_record/type/adapter_specific_registry'
+# active_record is already loaded by this point so we can prepend directly
+# without requiring the file (which would trigger a circular dependency).
 
 module AdapterSpecificRegistryRuby3Fix
   def add_modifier(options, klass, deprecated_args = nil, **args)
-    if deprecated_args.is_a?(Hash)
-      args = deprecated_args.merge(args)
-    end
+    args = deprecated_args.merge(args) if deprecated_args.is_a?(Hash)
     super(options, klass, **args)
   end
 end
