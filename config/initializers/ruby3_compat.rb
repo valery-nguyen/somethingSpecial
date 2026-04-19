@@ -560,10 +560,23 @@ end
 # cannot be bypassed by other prepends/includes. STDOUT logging on first call
 # lets us confirm the patch is live in the deploy logs.
 
-_me_patched = false
 ActiveSupport::MessageEncryptor.class_eval do
   original_encrypt_and_sign = instance_method(:encrypt_and_sign)
   original_decrypt_and_verify = instance_method(:decrypt_and_verify)
+
+  # Inspect captured originals so we know what to forward. parameters returns
+  # [[:req, :name], [:key, :name], [:keyrest, :name], ...] etc.
+  es_params = original_encrypt_and_sign.parameters
+  dv_params = original_decrypt_and_verify.parameters
+  es_accepts_kwargs = es_params.any? { |type, _| %i[key keyreq keyrest].include?(type) }
+  dv_accepts_kwargs = dv_params.any? { |type, _| %i[key keyreq keyrest].include?(type) }
+  es_kwarg_names    = es_params.select { |type, _| %i[key keyreq].include?(type) }.map(&:last)
+  dv_kwarg_names    = dv_params.select { |type, _| %i[key keyreq].include?(type) }.map(&:last)
+  es_has_keyrest    = es_params.any? { |type, _| type == :keyrest }
+  dv_has_keyrest    = dv_params.any? { |type, _| type == :keyrest }
+
+  warn "[ruby3_compat] encrypt_and_sign captured params: #{es_params.inspect}"
+  warn "[ruby3_compat] decrypt_and_verify captured params: #{dv_params.inspect}"
 
   define_method(:encrypt_and_sign) do |value, *args, **kwargs|
     # Collapse trailing positional Hash into kwargs (Ruby 3 separation).
@@ -571,18 +584,21 @@ ActiveSupport::MessageEncryptor.class_eval do
       kwargs = args.first.dup
       args = []
     end
-    # Rails 5.2 cookies.rb uses :expires; method signature expects :expires_at.
+    # Rails 5.2 cookies.rb uses :expires; signature may expect :expires_at.
     if kwargs.key?(:expires) && !kwargs.key?(:expires_at)
       kwargs[:expires_at] = kwargs.delete(:expires)
     end
-    unless Thread.current[:_ruby3_me_logged]
-      Thread.current[:_ruby3_me_logged] = true
-      warn "[ruby3_compat] MessageEncryptor#encrypt_and_sign patch ACTIVE (args=#{args.inspect} kwargs=#{kwargs.keys.inspect})"
-    end
-    if args.empty?
+    if es_accepts_kwargs
+      # Drop any kwargs the original doesn't declare (unless it has **).
+      unless es_has_keyrest
+        kwargs = kwargs.slice(*es_kwarg_names)
+      end
       original_encrypt_and_sign.bind(self).call(value, **kwargs)
     else
-      original_encrypt_and_sign.bind(self).call(value, *args, **kwargs)
+      # Original doesn't accept kwargs at all — forward value only, dropping
+      # cookie metadata (expires/purpose). Session cookies still work; they
+      # just use default expiration from the cookie jar/rack layer instead.
+      original_encrypt_and_sign.bind(self).call(value)
     end
   end
 
@@ -591,10 +607,13 @@ ActiveSupport::MessageEncryptor.class_eval do
       kwargs = args.first.dup
       args = []
     end
-    if args.empty?
+    if dv_accepts_kwargs
+      unless dv_has_keyrest
+        kwargs = kwargs.slice(*dv_kwarg_names)
+      end
       original_decrypt_and_verify.bind(self).call(value, **kwargs)
     else
-      original_decrypt_and_verify.bind(self).call(value, *args, **kwargs)
+      original_decrypt_and_verify.bind(self).call(value)
     end
   end
 end
