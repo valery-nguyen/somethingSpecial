@@ -35,3 +35,25 @@ module AdapterSpecificRegistryRuby3Fix
 end
 
 ActiveRecord::Type::AdapterSpecificRegistry.prepend(AdapterSpecificRegistryRuby3Fix)
+
+# ── 3. ActiveModel::Type::Value (PostgreSQL type map) ────────────────────────
+# Rails 5.2's PostgreSQL adapter sometimes passes type options as a plain Hash
+# positional argument (e.g. Integer.new({limit: 2})). In Ruby 2.x that hash
+# was silently converted to keyword args; in Ruby 3.x it is NOT, causing:
+#   ArgumentError: wrong number of arguments (given 1, expected 0)
+# Patching Value#initialize to detect and splat such a hash fixes the whole
+# type hierarchy (Integer, Float, Decimal, String, etc.) in one place.
+
+module ActiveModelTypeValueRuby3Fix
+  def initialize(*args, **kwargs)
+    if args.length == 1 && args.first.is_a?(Hash) && kwargs.empty?
+      super(**args.first)
+    elsif args.empty?
+      super(**kwargs)
+    else
+      super(*args, **kwargs)
+    end
+  end
+end
+
+ActiveModel::Type::Value.prepend(ActiveModelTypeValueRuby3Fix)
