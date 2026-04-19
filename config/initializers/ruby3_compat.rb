@@ -153,3 +153,144 @@ module SchemaCreationTypeToSqlRuby3Fix
 end
 
 ActiveRecord::ConnectionAdapters::AbstractAdapter::SchemaCreation.prepend(SchemaCreationTypeToSqlRuby3Fix)
+
+# ── 8. AbstractAdapter#transaction ───────────────────────────────────────────
+# ActiveRecord::Transactions::ClassMethods#transaction calls:
+#   connection.transaction(options_hash, &block)
+# but AbstractAdapter#transaction declares only keyword args:
+#   def transaction(requires_new: nil, isolation: nil, joinable: true)
+# In Ruby 3 the plain Hash positional arg causes:
+#   ArgumentError: wrong number of arguments (given 1, expected 0)
+# This surfaces at the end of db:migrate in the record_environment step.
+# Fix: accept an optional positional hash and merge it into kwargs.
+
+# Fix at the CALLER side: ActiveRecord::Transactions::ClassMethods#transaction
+# calls connection.transaction(options_hash, &block) — options is a plain Hash.
+# By splatting it here, the adapter's transaction() receives proper kwargs
+# regardless of its exact keyword signature.
+
+module ActiveRecordClassTransactionRuby3Fix
+  def transaction(options = {}, &block)
+    connection.transaction(**options, &block)
+  end
+end
+
+ActiveRecord::Base.singleton_class.prepend(ActiveRecordClassTransactionRuby3Fix)
+
+# ── 9. Transaction base-class #initialize ────────────────────────────────────
+# begin_transaction eventually reaches:
+#   Transaction#initialize(connection, options, run_commit_callbacks: false)
+# where `run_commit_callbacks` is a KEYWORD argument. The subclasses
+# (RealTransaction, SavepointTransaction) were written in Rails 5.2 under the
+# assumption that Ruby 2 would auto-convert a trailing Hash to kwargs when
+# `super` forwards its args. In Ruby 3 that conversion is gone:
+#   RealTransaction#initialize(connection, options, run_commit_callbacks = false)
+#     -> calls implicit `super` which forwards all 3 positional args
+#     -> base Transaction#initialize receives 3 positional args
+#     -> ArgumentError: wrong number of arguments (given 3, expected 2)
+#
+# Patching at the subclass level does not work: no matter how we call super
+# from a prepended module, the original subclass `initialize` is still in the
+# chain and its implicit `super` re-forwards positionally, re-triggering the
+# error at the base.
+#
+# Fix: patch the BASE class itself to tolerate a 3rd positional argument and
+# convert it back to the `run_commit_callbacks:` keyword. This normalizes the
+# call regardless of whether the subclass forwarded it positionally (Ruby 2
+# behavior that 5.2 assumes) or kwarg-wrapped.
+module TransactionBaseRuby3Fix
+  def initialize(connection, options, *extras)
+    if extras.length == 1
+      extra = extras.first
+      # Ruby 3 sometimes packs an unmatched kwarg into a positional Hash;
+      # splat it back out so it lands on the right keyword.
+      if extra.is_a?(Hash) && extra.key?(:run_commit_callbacks)
+        super(connection, options, **extra)
+      else
+        super(connection, options, run_commit_callbacks: extra)
+      end
+    elsif extras.empty?
+      super(connection, options)
+    else
+      # Unexpected shape — pass through untouched and let Ruby raise.
+      super(connection, options, *extras)
+    end
+  end
+end
+
+# The base `Transaction` class isn't autoloaded at initializer time, so we
+# require the file explicitly. We also reach the class via RealTransaction's
+# superclass to be defensive against any class renaming across Rails patches.
+require 'active_record/connection_adapters/abstract/transaction'
+ActiveRecord::ConnectionAdapters::RealTransaction.superclass
+  .prepend(TransactionBaseRuby3Fix)
+
+# ── 10. ActiveRecord::Relation#initialize ────────────────────────────────────
+# Rails 5.2 defines:
+#   def initialize(klass, table: klass.arel_table,
+#                         predicate_builder: klass.predicate_builder,
+#                         values: {})
+# `klass` is positional, everything else is keyword. But several callers —
+# most notably `Relation::ClassSpecificRelation.create(klass, *args)` from
+# relation/delegation.rb and `relation_with(values)` from spawn_methods.rb —
+# call `Relation.new(klass, values_hash)`, expecting Ruby 2's implicit
+# Hash→kwargs conversion. In Ruby 3 this fails with:
+#   ArgumentError: wrong number of arguments (given 2, expected 1)
+# Surfaces during validations (UniquenessValidator → exists? → except →
+# relation_with → Relation.create → Relation.new).
+# Fix: intercept #initialize; if the extra positional arg is a Hash, splat it.
+
+module RelationInitializeRuby3Fix
+  def initialize(klass, *args, **kwargs)
+    if args.length == 1 && args.first.is_a?(Hash) && kwargs.empty?
+      super(klass, **args.first)
+    else
+      super(klass, *args, **kwargs)
+    end
+  end
+end
+
+ActiveRecord::Relation.prepend(RelationInitializeRuby3Fix)
+
+# ── 11. I18n.translate positional options hash ───────────────────────────────
+# i18n 1.14+ declares `translate(key = nil, **options)` — kwargs only. Rails
+# 5.2 still calls it the old way, e.g. ActiveModel::Name#human does:
+#   I18n.translate(defaults.shift, options.merge!(default: defaults, count: 1))
+# which is 2 positional args. Under i18n 1.14 + Ruby 3 this raises:
+#   ArgumentError: wrong number of arguments (given 2, expected 0..1)
+# Triggered in practice by ActiveModel::Errors#generate_message during
+# validation error formatting.
+# Fix: prepend on I18n's singleton class so a trailing Hash positional is
+# splatted into kwargs before forwarding.
+
+module I18nRuby3Fix
+  def translate(*args, **kwargs)
+    if args.length >= 2 && args.last.is_a?(Hash) && kwargs.empty?
+      *positional, opts = args
+      super(*positional, **opts)
+    else
+      super(*args, **kwargs)
+    end
+  end
+
+  # `t` is a separately-defined alias in I18n; patch both so either form works.
+  def t(*args, **kwargs)
+    translate(*args, **kwargs)
+  end
+
+  # Same pattern for localize / l, which share the positional-hash convention.
+  def localize(*args, **kwargs)
+    if args.length >= 2 && args.last.is_a?(Hash) && kwargs.empty?
+      *positional, opts = args
+      super(*positional, **opts)
+    else
+      super(*args, **kwargs)
+    end
+  end
+
+  def l(*args, **kwargs)
+    localize(*args, **kwargs)
+  end
+end
+
+I18n.singleton_class.prepend(I18nRuby3Fix)
