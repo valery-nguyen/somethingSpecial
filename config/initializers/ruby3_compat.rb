@@ -72,7 +72,7 @@ ActiveModel::Type::Value.prepend(ActiveModelTypeValueRuby3Fix)
 
 module PostgreSQLCreateTableDefinitionFix
   def create_table_definition(*args, **kwargs)
-    PostgreSQL::TableDefinition.new(native_database_types, *args, **kwargs)
+    ActiveRecord::ConnectionAdapters::PostgreSQL::TableDefinition.new(native_database_types, *args, **kwargs)
   end
 end
 
