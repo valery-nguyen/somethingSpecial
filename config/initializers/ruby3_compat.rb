@@ -537,5 +537,11 @@ module TemplateExistsRuby3Fix
   end
 end
 
-require 'abstract_controller/view_paths'
-AbstractController::ViewPaths.prepend(TemplateExistsRuby3Fix)
+# AbstractController::ViewPaths isn't directly requirable in Rails 5.2 — the
+# file sits under actionpack's lib but bootsnap can't find it via a bare
+# require. Use the on_load hook, which fires when ActionController::Base
+# loads. ActionController::Base includes AbstractController::ViewPaths, so
+# the constant is guaranteed to be defined when the block runs.
+ActiveSupport.on_load(:action_controller) do
+  AbstractController::ViewPaths.prepend(TemplateExistsRuby3Fix) unless AbstractController::ViewPaths.include?(TemplateExistsRuby3Fix)
+end
