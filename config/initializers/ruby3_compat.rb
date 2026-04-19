@@ -76,4 +76,6 @@ module PostgreSQLCreateTableDefinitionFix
   end
 end
 
-ActiveRecord::ConnectionAdapters::PostgreSQLAdapter.prepend(PostgreSQLCreateTableDefinitionFix)
+if defined?(ActiveRecord::ConnectionAdapters::PostgreSQLAdapter)
+  ActiveRecord::ConnectionAdapters::PostgreSQLAdapter.prepend(PostgreSQLCreateTableDefinitionFix)
+end
