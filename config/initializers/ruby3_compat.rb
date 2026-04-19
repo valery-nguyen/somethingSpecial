@@ -537,4 +537,5 @@ module TemplateExistsRuby3Fix
   end
 end
 
+require 'abstract_controller/view_paths'
 AbstractController::ViewPaths.prepend(TemplateExistsRuby3Fix)
