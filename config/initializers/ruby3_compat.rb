@@ -481,3 +481,23 @@ end
 
 ActiveRecord::ConnectionAdapters::PostgreSQL::SchemaStatements
   .prepend(AddIndexOpclassRuby3Fix)
+
+# ── 17. AbstractAdapter#add_index_sort_order ─────────────────────────────────
+# Abstract add_options_for_index_columns (reached via PG's override's super)
+# calls add_index_sort_order(quoted_columns, options) at line 1209.
+# Declared: def add_index_sort_order(quoted_columns, **options). Same trap.
+
+module AddIndexSortOrderRuby3Fix
+  def add_index_sort_order(quoted_columns, *args, **options)
+    if args.length == 1 && args.first.is_a?(Hash) && options.empty?
+      super(quoted_columns, **args.first)
+    elsif args.empty?
+      super(quoted_columns, **options)
+    else
+      super(quoted_columns, *args, **options)
+    end
+  end
+end
+
+ActiveRecord::ConnectionAdapters::AbstractAdapter
+  .prepend(AddIndexSortOrderRuby3Fix)
