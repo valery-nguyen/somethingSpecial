@@ -76,6 +76,14 @@ module PostgreSQLCreateTableDefinitionFix
   end
 end
 
+# Force-load the adapter so the constant exists when we try to patch it.
+# A plain `require` only loads Ruby code — it does NOT open a DB connection.
+begin
+  require 'active_record/connection_adapters/postgresql_adapter'
+rescue LoadError
+  # Not using PostgreSQL — skip.
+end
+
 if defined?(ActiveRecord::ConnectionAdapters::PostgreSQLAdapter)
   ActiveRecord::ConnectionAdapters::PostgreSQLAdapter.prepend(PostgreSQLCreateTableDefinitionFix)
 end
