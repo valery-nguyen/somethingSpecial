@@ -419,3 +419,38 @@ end
 
 ActiveRecord::ConnectionAdapters::AbstractAdapter
   .prepend(QuotedColumnsForIndexRuby3Fix)
+
+# ── 15. PostgreSQL#add_options_for_index_columns ─────────────────────────────
+# Section 14 unblocked the outer quoted_columns_for_index call. Its body then
+# reaches the PG-adapter helper:
+#   add_options_for_index_columns(quoted_columns, options)
+# at postgresql/schema_statements.rb:733, where the method is declared:
+#   def add_options_for_index_columns(quoted_columns, **options)
+# Same Ruby-3 kwargs trap, same fix shape.
+# Trace:
+#   postgresql/schema_statements.rb:733  add_options_for_index_columns
+#   abstract/schema_statements.rb:1219   quoted_columns_for_index
+#   ruby3_compat.rb:411                  (Section 14 super)
+#   abstract/schema_statements.rb:1162   add_index_options
+#   ruby3_compat.rb:138                  (Section 6 super)
+#   postgresql/schema_statements.rb:465  add_index
+
+require 'active_record/connection_adapters/postgresql/schema_statements'
+
+module AddOptionsForIndexColumnsRuby3Fix
+  def add_options_for_index_columns(quoted_columns, *args, **options)
+    if args.length == 1 && args.first.is_a?(Hash) && options.empty?
+      super(quoted_columns, **args.first)
+    elsif args.empty?
+      super(quoted_columns, **options)
+    else
+      super(quoted_columns, *args, **options)
+    end
+  end
+end
+
+# add_options_for_index_columns lives in the PG SchemaStatements module
+# (mixed into PostgreSQLAdapter). Prepend onto the module so the patch is
+# in the method-lookup chain before the original.
+ActiveRecord::ConnectionAdapters::PostgreSQL::SchemaStatements
+  .prepend(AddOptionsForIndexColumnsRuby3Fix)
