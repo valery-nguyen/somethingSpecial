@@ -342,8 +342,10 @@ end
 # Abstract adapter: the core SQL types.
 ColumnMethodsRuby3Fix.patch!(
   ActiveRecord::ConnectionAdapters::ColumnMethods,
+  # NOTE: primary_key is deliberately omitted — it has a different signature
+  # (name, type = :primary_key, **options) and is patched separately below.
   %i[bigint binary boolean date datetime decimal float integer
-     json numeric primary_key string text time timestamp virtual]
+     json numeric string text time timestamp virtual]
 )
 
 # PostgreSQL adapter: the expanded set of PG-specific types.
@@ -355,4 +357,32 @@ if defined?(ActiveRecord::ConnectionAdapters::PostgreSQL::ColumnMethods)
        money numrange oid path point polygon serial tsrange tstzrange
        tsvector uuid xml]
   )
+end
+
+# ── 13. TableDefinition#primary_key ──────────────────────────────────────────
+# abstract/schema_statements.rb#create_table calls:
+#   td.primary_key pk, options[:id] || :primary_key, options
+# which is 3 positional args. PG's primary_key is declared:
+#   def primary_key(name, type = :primary_key, **options)
+# Ruby 2 auto-converted the trailing Hash to kwargs. Ruby 3 keeps it
+# positional, yielding:
+#   ArgumentError: wrong number of arguments (given 3, expected 1..2)
+# Hits the first real user migration (CreateProducts etc.). Fix: prepend on
+# PG::TableDefinition so the 3rd positional Hash is splatted into kwargs.
+
+module PrimaryKeyRuby3Fix
+  def primary_key(name, type = :primary_key, *args, **options)
+    if args.length == 1 && args.first.is_a?(Hash) && options.empty?
+      super(name, type, **args.first)
+    elsif args.empty?
+      super(name, type, **options)
+    else
+      super(name, type, *args, **options)
+    end
+  end
+end
+
+if defined?(ActiveRecord::ConnectionAdapters::PostgreSQL::TableDefinition)
+  ActiveRecord::ConnectionAdapters::PostgreSQL::TableDefinition
+    .prepend(PrimaryKeyRuby3Fix)
 end
