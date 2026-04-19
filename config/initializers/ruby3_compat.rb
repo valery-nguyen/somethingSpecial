@@ -115,3 +115,38 @@ module NewColumnDefinitionRuby3Fix
 end
 
 ActiveRecord::ConnectionAdapters::TableDefinition.prepend(NewColumnDefinitionRuby3Fix)
+
+# ── 6. AbstractAdapter#add_index_options ─────────────────────────────────────
+# `add_index` calls:
+#   add_index_options(table_name, column_name, options_hash)
+# but add_index_options declares `(table_name, column_name, comment: nil, **options)`.
+# In Ruby 3 the plain Hash doesn't auto-convert to kwargs, causing:
+#   ArgumentError: wrong number of arguments (given 3, expected 2)
+
+module AddIndexOptionsRuby3Fix
+  def add_index_options(table_name, column_name, *args, **options)
+    if args.length == 1 && args.first.is_a?(Hash)
+      super(table_name, column_name, **args.first)
+    else
+      super(table_name, column_name, **options)
+    end
+  end
+end
+
+ActiveRecord::ConnectionAdapters::AbstractAdapter.prepend(AddIndexOptionsRuby3Fix)
+
+# ── 7. SchemaCreation#type_to_sql ────────────────────────────────────────────
+# schema_creation.rb calls:
+#   @conn.type_to_sql(type, options)   # options is a plain Hash
+# but the PostgreSQL adapter declares:
+#   def type_to_sql(type, limit: nil, precision: nil, scale: nil, array: nil, **)
+# Ruby 3: Hash positional ≠ kwargs → "wrong number of arguments (given 2, expected 1)"
+# Fix: patch SchemaCreation#type_to_sql to splat the options hash.
+
+module SchemaCreationTypeToSqlRuby3Fix
+  def type_to_sql(type, options = {})
+    @conn.type_to_sql(type, **options)
+  end
+end
+
+ActiveRecord::ConnectionAdapters::AbstractAdapter::SchemaCreation.prepend(SchemaCreationTypeToSqlRuby3Fix)
