@@ -71,16 +71,19 @@ ActiveModel::Type::Value.prepend(ActiveModelTypeValueRuby3Fix)
 # Fix: use *args, **kwargs so keyword args flow separately all the way through.
 
 module PostgreSQLCreateTableDefinitionFix
-  # The abstract create_table calls:
-  #   create_table_definition(name, temporary, options, as, comment: comment)
-  # In Ruby 2 the trailing keyword was auto-packed into *args as a Hash; in
-  # Ruby 3 it isn't. Also, abstract TableDefinition#initialize only accepts
-  # (types, name, temporary, options, comment:) — there is no 5th positional
-  # `as` arg. Explicitly declare the signature so we can forward only what
-  # the initializer actually accepts.
-  def create_table_definition(name, temporary = false, options = nil, as = nil, comment: nil)
+  # The original PostgreSQL create_table_definition is:
+  #   def create_table_definition(*args)
+  #     PostgreSQL::TableDefinition.new(*args)
+  #   end
+  # In Ruby 2, create_table passes 5 positional args (name, temporary, options,
+  # as, comment) and *args captures them all. In Ruby 3, *args still captures
+  # all 5 positional args — but that causes "given 5, expected 1..4" at
+  # TableDefinition#initialize because abstract only accepts 4 positional args.
+  # Fix: explicitly declare the signature and only forward what initialize accepts.
+  # NOTE: Rails 5.2 TableDefinition does NOT take `types` as first arg.
+  def create_table_definition(name, temporary = false, options = nil, as = nil, comment = nil)
     ActiveRecord::ConnectionAdapters::PostgreSQL::TableDefinition.new(
-      native_database_types, name, temporary, options, comment: comment
+      name, temporary, options, comment
     )
   end
 end
