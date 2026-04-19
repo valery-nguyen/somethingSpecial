@@ -545,71 +545,103 @@ ActiveSupport.on_load(:action_controller) do
 end
 
 # ── 19. ActiveSupport::MessageEncryptor / MessageVerifier kwargs ─────────────
-# Rails 5.2 cookies.rb#commit calls:
-#   @encryptor.encrypt_and_sign(serialize(value), cookie_metadata(name, opts))
-# cookie_metadata(...) returns a Hash ({expires_at:, purpose:}). Under Ruby 2
-# the trailing Hash auto-converted to kwargs and matched the signature
-#   def encrypt_and_sign(value, expires_at: nil, expires_in: nil, purpose: nil)
-# Under Ruby 3 it's a 2nd positional, so we get
+# Rails 5.2 cookies.rb#commit calls encrypt_and_sign with a trailing positional
+# Hash (or with legacy keyword :expires). Under Ruby 2 this auto-converted;
+# under Ruby 3 it raises:
 #   ArgumentError (wrong number of arguments (given 2, expected 1))
-# on EVERY response that sets a session cookie — i.e. every request. The same
-# shape applies to decrypt_and_verify, MessageVerifier#generate, and #verify.
-# Fix: promote trailing Hash positional to kwargs at each entry point.
+# on every response that sets a session cookie — i.e. every request.
+#
+# The previous revision of this section used `prepend`, but for reasons that
+# aren't clear (possibly how Rails 5.2 prepends Messages::Rotator::Encryptor
+# onto MessageEncryptor at class-body time), the prepended wrapper was never
+# invoked in production — the call went straight from cookies.rb into the
+# original encrypt_and_sign. Switch to `class_eval` + `instance_method` +
+# `define_method`, which mutates the class's own method table directly and
+# cannot be bypassed by other prepends/includes. STDOUT logging on first call
+# lets us confirm the patch is live in the deploy logs.
 
-module MessageEncryptorRuby3Fix
-  def encrypt_and_sign(value, *args, **kwargs)
+_me_patched = false
+ActiveSupport::MessageEncryptor.class_eval do
+  original_encrypt_and_sign = instance_method(:encrypt_and_sign)
+  original_decrypt_and_verify = instance_method(:decrypt_and_verify)
+
+  define_method(:encrypt_and_sign) do |value, *args, **kwargs|
+    # Collapse trailing positional Hash into kwargs (Ruby 3 separation).
     if args.length == 1 && args.first.is_a?(Hash) && kwargs.empty?
-      super(value, **args.first)
-    elsif args.empty?
-      super(value, **kwargs)
+      kwargs = args.first.dup
+      args = []
+    end
+    # Rails 5.2 cookies.rb uses :expires; method signature expects :expires_at.
+    if kwargs.key?(:expires) && !kwargs.key?(:expires_at)
+      kwargs[:expires_at] = kwargs.delete(:expires)
+    end
+    unless Thread.current[:_ruby3_me_logged]
+      Thread.current[:_ruby3_me_logged] = true
+      warn "[ruby3_compat] MessageEncryptor#encrypt_and_sign patch ACTIVE (args=#{args.inspect} kwargs=#{kwargs.keys.inspect})"
+    end
+    if args.empty?
+      original_encrypt_and_sign.bind(self).call(value, **kwargs)
     else
-      super(value, *args, **kwargs)
+      original_encrypt_and_sign.bind(self).call(value, *args, **kwargs)
     end
   end
 
-  def decrypt_and_verify(value, *args, **kwargs)
+  define_method(:decrypt_and_verify) do |value, *args, **kwargs|
     if args.length == 1 && args.first.is_a?(Hash) && kwargs.empty?
-      super(value, **args.first)
-    elsif args.empty?
-      super(value, **kwargs)
-    else
-      super(value, *args, **kwargs)
+      kwargs = args.first.dup
+      args = []
     end
-  end
-end
-
-ActiveSupport::MessageEncryptor.prepend(MessageEncryptorRuby3Fix)
-
-module MessageVerifierRuby3Fix
-  def generate(value, *args, **kwargs)
-    if args.length == 1 && args.first.is_a?(Hash) && kwargs.empty?
-      super(value, **args.first)
-    elsif args.empty?
-      super(value, **kwargs)
+    if args.empty?
+      original_decrypt_and_verify.bind(self).call(value, **kwargs)
     else
-      super(value, *args, **kwargs)
-    end
-  end
-
-  def verify(value, *args, **kwargs)
-    if args.length == 1 && args.first.is_a?(Hash) && kwargs.empty?
-      super(value, **args.first)
-    elsif args.empty?
-      super(value, **kwargs)
-    else
-      super(value, *args, **kwargs)
-    end
-  end
-
-  def verified(value, *args, **kwargs)
-    if args.length == 1 && args.first.is_a?(Hash) && kwargs.empty?
-      super(value, **args.first)
-    elsif args.empty?
-      super(value, **kwargs)
-    else
-      super(value, *args, **kwargs)
+      original_decrypt_and_verify.bind(self).call(value, *args, **kwargs)
     end
   end
 end
+warn "[ruby3_compat] Section 19: MessageEncryptor patched (class_eval)"
 
-ActiveSupport::MessageVerifier.prepend(MessageVerifierRuby3Fix)
+ActiveSupport::MessageVerifier.class_eval do
+  original_generate = instance_method(:generate)
+  original_verify   = instance_method(:verify)
+  original_verified = instance_method(:verified)
+
+  define_method(:generate) do |value, *args, **kwargs|
+    if args.length == 1 && args.first.is_a?(Hash) && kwargs.empty?
+      kwargs = args.first.dup
+      args = []
+    end
+    if kwargs.key?(:expires) && !kwargs.key?(:expires_at)
+      kwargs[:expires_at] = kwargs.delete(:expires)
+    end
+    if args.empty?
+      original_generate.bind(self).call(value, **kwargs)
+    else
+      original_generate.bind(self).call(value, *args, **kwargs)
+    end
+  end
+
+  define_method(:verify) do |value, *args, **kwargs|
+    if args.length == 1 && args.first.is_a?(Hash) && kwargs.empty?
+      kwargs = args.first.dup
+      args = []
+    end
+    if args.empty?
+      original_verify.bind(self).call(value, **kwargs)
+    else
+      original_verify.bind(self).call(value, *args, **kwargs)
+    end
+  end
+
+  define_method(:verified) do |value, *args, **kwargs|
+    if args.length == 1 && args.first.is_a?(Hash) && kwargs.empty?
+      kwargs = args.first.dup
+      args = []
+    end
+    if args.empty?
+      original_verified.bind(self).call(value, **kwargs)
+    else
+      original_verified.bind(self).call(value, *args, **kwargs)
+    end
+  end
+end
+warn "[ruby3_compat] Section 19: MessageVerifier patched (class_eval)"
