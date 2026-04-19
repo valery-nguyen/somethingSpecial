@@ -96,3 +96,22 @@ end
 if defined?(ActiveRecord::ConnectionAdapters::PostgreSQLAdapter)
   ActiveRecord::ConnectionAdapters::PostgreSQLAdapter.prepend(PostgreSQLCreateTableDefinitionFix)
 end
+
+# ── 5. TableDefinition#new_column_definition ─────────────────────────────────
+# `column` calls `new_column_definition(name, type, options_hash)` passing the
+# options as a plain Hash positional argument. In Ruby 3, new_column_definition
+# declares `**options` (keyword args), so receiving a Hash positional produces:
+#   ArgumentError: wrong number of arguments (given 3, expected 2)
+# Fix: intercept at new_column_definition and splat the hash into kwargs.
+
+module NewColumnDefinitionRuby3Fix
+  def new_column_definition(name, type, *args, **options)
+    if args.length == 1 && args.first.is_a?(Hash)
+      super(name, type, **args.first)
+    else
+      super(name, type, **options)
+    end
+  end
+end
+
+ActiveRecord::ConnectionAdapters::TableDefinition.prepend(NewColumnDefinitionRuby3Fix)
