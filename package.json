@@ -2,22 +2,22 @@
   "name": "somethingSpecial",
   "private": true,
   "dependencies": {
-    "@babel/core": "^7.4.3",
+    "@babel/core": "^7.29.0",
     "@babel/preset-env": "^7.4.3",
     "@babel/preset-react": "^7.0.0",
     "babel-loader": "^8.0.5",
     "lodash": "^4.17.11",
     "query-string": "^6.4.2",
     "react": "^16.8.6",
-    "react-addons-css-transition-group": "^15.6.2",
     "react-dom": "^16.8.6",
     "react-redux": "^6.0.1",
     "react-router-dom": "^5.0.0",
+    "react-transition-group": "^4.4.5",
     "redux": "^4.0.1",
     "redux-logger": "^3.0.6",
     "redux-thunk": "^2.3.0",
-    "webpack": "^4.29.6",
-    "webpack-cli": "^3.3.0"
+    "webpack": "^5.106.2",
+    "webpack-cli": "^7.0.2"
   },
   "description": "This README would normally document whatever steps are necessary to get the application up and running.",
   "version": "1.0.0",
@@ -27,13 +27,13 @@
     "test": "test"
   },
   "engines": {
-    "node": "8.9.4",
-    "npm": "6.9.0"
+    "node": ">=18.0.0 <21.0.0",
+    "npm": ">=9.0.0"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "postinstall": "webpack --mode=production",
-    "start": "webpack --watch --mode=development"
+    "postinstall": "NODE_OPTIONS=--openssl-legacy-provider webpack --mode=production",
+    "start": "NODE_OPTIONS=--openssl-legacy-provider webpack --watch --mode=development"
   },
   "keywords": [],
   "author": "",
